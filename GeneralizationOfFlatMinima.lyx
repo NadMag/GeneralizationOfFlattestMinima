@@ -1,0 +1,1093 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{amsmath}
+\usepackage{amsthm}
+% Necessary Commands:
+\usepackage{autobreak}
+\usepackage{relsize}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+%referencing layouts
+\newref{prop}{refcmd={\emph{Proposition\,\ref{#1}}}}
+\newref{thm}{refcmd={\emph{Theorem\,\ref{#1}}}}
+%\providecommand{\propautorefname}{Proposition}
+
+\providecommand\phantomsection{}
+
+%Double struck 0, 1
+\usepackage{bbold}
+\end_preamble
+\use_default_options true
+\begin_modules
+todonotes
+pdfform
+theorems-ams-bytype
+theorems-ams-extended-bytype
+enumitem
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation 0bp
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "MacrosEnglish.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+date{}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+author{Nadav Magar, Artion Makhlin, Noam Razin}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+On the Generalization of Flat Minima in Linear Neural Networks
+\end_layout
+
+\begin_layout Section*
+Problem Setting
+\end_layout
+
+\begin_layout Standard
+Consider the case of linear regression: given a sample 
+\begin_inset Formula $S=\left(x^{(i)},y^{(i)}\right)_{i=1}^{N}\subseteq\left(\mathbb{R}^{d_{x}}\times\mathbb{R}^{d_{y}}\right),S\stackrel{i.i.d}{\sim}{\scriptstyle D^{N}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Denote 
+\begin_inset Formula $X=\begin{pmatrix}\vert & \vert &  & \vert\\
+\left[x^{(1)}\right] & \left[x^{(2)}\right] & ... & [x^{(N)}]\\
+\vert & \vert &  & \vert
+\end{pmatrix}\in\mathbb{R}^{d_{x}\times N},Y=\begin{pmatrix}\vert & \vert &  & \vert\\
+\left[y^{(1)}\right] & \left[y^{(2)}\right] & ... & [y^{(N)}]\\
+\vert & \vert &  & \vert
+\end{pmatrix}\in\mathbb{R}^{d_{y}\times N}$
+\end_inset
+
+, our objective is to learn a linear transformation 
+\begin_inset Formula $f:\mathbb{R}^{d_{x}}\rightarrow\mathbb{R}^{d_{y}}$
+\end_inset
+
+ corresponding to a matrix 
+\begin_inset Formula $W\in\mathbb{R}^{d_{y}\times d_{x}}$
+\end_inset
+
+, that minimizes the empirical (quadratic) loss: 
+\begin_inset Formula $L(W)=\left\Vert WX-Y\right\Vert ^{2}$
+\end_inset
+
+.
+ We study the overparameterized regime, in which 
+\begin_inset Formula $W$
+\end_inset
+
+ is decomposed as a product of matrices (Linear Neural Network): 
+\begin_inset Formula $W_{i}\in\mathbb{R}^{d_{i}\times d_{i-1}},i\in\left[m\right]$
+\end_inset
+
+ where 
+\begin_inset Formula $d_{0}:=d_{x},d_{N}:=d_{y}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Denote 
+\begin_inset Formula $W_{1:m}:=\prod_{i=1}^{m}W_{i}$
+\end_inset
+
+ ,the overparameterized objective is defined by: 
+\begin_inset Formula 
+\begin{equation}
+\phi(W_{1},W_{2},...,W_{m})=L(W_{1:m})\label{eq:overparamloss}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We restrict our attention to the Realizable case, i.e.
+ we there exists a matrix 
+\begin_inset Formula $W^{\ast}\in\mathbb{R}^{d_{y}\times d_{x}}$
+\end_inset
+
+ such that 
+\begin_inset Formula $L(W^{\ast})=0$
+\end_inset
+
+.
+ Thus the set of global minima of 
+\begin_inset Formula $\phi$
+\end_inset
+
+ is given by:
+\begin_inset Formula 
+\begin{equation}
+\Omega=\left\{ (W_{1},W_{2},...,W_{m})\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\ \Bigm\vert\ L(W_{1:m})=0\right\} 
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Mulayoff and Michaeli (2020) characterized the sharpness of a solution by
+ its Hessian's maximal eigenvalue.
+ 
+\end_layout
+
+\begin_layout Definition
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Minima Flatness
+\end_layout
+
+\end_inset
+
+Denote the vectorization of the network's parameters 
+\begin_inset Formula $(W_{1},W_{2},...,W_{m})$
+\end_inset
+
+ by 
+\begin_inset Formula $w$
+\end_inset
+
+, and the Hessian of 
+\begin_inset Formula $\phi$
+\end_inset
+
+ at the corresponding point by 
+\begin_inset Formula $H_{w}$
+\end_inset
+
+, then the set of 
+\emph on
+flattest 
+\emph default
+global minima is defined to be:
+\begin_inset Formula 
+\begin{equation}
+\Omega_{0}=\argmin_{w\in\Omega}\lambda_{\mathrm{\max}}\left(H_{w}\right)\label{eq:flattestmin}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+Where in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:flattestmin"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we have used a slight abuse of notation by identifying 
+\begin_inset Formula $(W_{1},W_{2},...,W_{m})$
+\end_inset
+
+ with 
+\begin_inset Formula $w$
+\end_inset
+
+ for brevity.
+\end_layout
+
+\begin_layout Standard
+Mulayoff et al.
+ (2020) studied the case where a single end-to-end solution exists:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+label=
+\backslash
+bfseries{A3}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "assumption:nonsingular"
+
+\end_inset
+
+ The number of training samples 
+\begin_inset Formula $N$
+\end_inset
+
+ is bigger then the data's ambient dimension 
+\begin_inset Formula $d_{x}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this case the unique solution can be written as 
+\begin_inset Formula $f^{\ast}(x)=Tx$
+\end_inset
+
+ where: 
+\begin_inset Formula 
+\begin{equation}
+T=\hat{\Sigma}_{yx}\hat{\Sigma}_{x}^{-1}:=YX^{T}\left(XX^{T}\right)^{-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We will deonte the the SVD of 
+\begin_inset Formula $T$
+\end_inset
+
+ by:
+\begin_inset Formula 
+\begin{equation}
+T=USV^{T}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Balancedness of Flattest Solutions
+\end_layout
+
+\begin_layout Standard
+Theoretical study of optimization in deep learning is a highly active research
+ area.
+ A recent approach who has seen significant results, studies the trajectories
+ of specific optimizers emanating from specific initializations.
+ Arrora et al.
+ (2018) derived closed term expressions for the dynamics induced by gradient-flo
+w on LNN as defined in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:overparamloss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Using their analysis Arrora et al.
+ (2019) have showed a convergence result for both GF and GD.
+ The authors propose the following definition:
+\end_layout
+
+\begin_layout Definition
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Balancedness
+\end_layout
+
+\end_inset
+
+For 
+\begin_inset Formula $\delta\ge0$
+\end_inset
+
+ we say that the weight matrices 
+\begin_inset Formula $\kaliseries W,m$
+\end_inset
+
+ are 
+\begin_inset Formula $\delta-$
+\end_inset
+
+balanced if:
+\begin_inset Formula 
+\begin{equation}
+\left\Vert W_{j+1}^{T}W_{j+1}-W_{j}W_{j}^{T}\right\Vert _{F}\le\delta\quad,\forall j\in[m-1]
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+If 
+\begin_inset Formula $\kaliseries W,N$
+\end_inset
+
+ are 0-balanced we simply say that they are balanced.
+ Let us denote the set of balanced weight matrices by:
+\begin_inset Formula 
+\begin{equation}
+\mathcal{B}=\left\{ (W_{1},W_{2},...,W_{m})\in\prod_{j=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\ \Bigm\vert\ W_{j+1}^{T}W_{j+1}=W_{j}W_{j}^{T}\quad,\forall j\in[m-1]\right\} 
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proposition
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Arrora et al.
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "prop:balancedness"
+
+\end_inset
+
+Assume the weight matrices 
+\begin_inset Formula $\kaliseries W,N$
+\end_inset
+
+ are initialized to be 
+\begin_inset Formula $\delta-\mathrm{balanced}$
+\end_inset
+
+: 
+\begin_inset Formula 
+\[
+\left\Vert W_{j+1}^{T}(0)W_{j+1}(0)-W_{j}(0)W_{j}^{T}(0)\right\Vert _{F}\le\delta,\quad\forall j\in[m-1]
+\]
+
+\end_inset
+
+ this property is conserved throughout optimization:
+\begin_inset Formula 
+\[
+\left\Vert W_{j+1}^{T}(t)W_{j+1}(t)-W_{j}(t)W_{j}^{T}(t),\quad j\right\Vert _{F}\le\delta\quad,\kaliForall j\in[m-1],\ t\ge0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Mulayoff et al.
+ (2020) have showed that under the assumptions:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+label=
+\backslash
+bfseries{A
+\backslash
+arabic{enumi}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "assumption:capacity"
+
+\end_inset
+
+The network has the capacity to implement any linear function from 
+\begin_inset Formula $\mathbb{R}^{d_{x}}$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathbb{R}^{d_{y}}$
+\end_inset
+
+: 
+\begin_inset Formula $\min_{i\in\left[m\right]}\{d_{i}\}\ge\min\{d_{x},d_{y}\}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "assumption:white"
+
+\end_inset
+
+The data is white, namely 
+\begin_inset Formula $\hat{\Sigma}_{x}=I_{d_{x}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The following sufficient condition for minima flatness holds:
+\end_layout
+
+\begin_layout Theorem
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Sufficient Condition, Mulayoff et al.
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:sufficient"
+
+\end_inset
+
+Assume 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:capacity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+,
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:white"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+,
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:nonsingular"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ If a solution 
+\begin_inset Formula $w\in\Omega$
+\end_inset
+
+ satisfies 
+\begin_inset Formula $\sigma_{\max}(W_{k})=\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+ for all 
+\begin_inset Formula $k\in[m]$
+\end_inset
+
+, then necessarily 
+\begin_inset Formula $w\in\Omega_{0}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using this fact it can be shown that GF starting from a balanced initialization
+ can only converge to flattest solutions.
+ By 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "prop:balancedness"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we can see that any balanced solution 
+\begin_inset Formula $w\in\Omega\cap\mathcal{B}$
+\end_inset
+
+ is in fact a flattest minima:
+\begin_inset Formula 
+\begin{equation}
+\Omega\cap\mathcal{B}\subseteq\Omega_{0}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+One may wonder if the reverse implication holds, i.e.
+ are all 
+\begin_inset Formula $w\in\Omega_{0}$
+\end_inset
+
+ balanced? The following proposition shows that this is not the case:
+\end_layout
+
+\begin_layout Proposition
+Assume 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:capacity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+,
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:white"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+,
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:nonsingular"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset Formula $2\le\min\{d_{x},d_{y}\},m$
+\end_inset
+
+ and that 
+\begin_inset Formula $\sigma_{\max}\left(T\right)\neq0$
+\end_inset
+
+, then there exists an unbalanced flattest solution, namely: 
+\begin_inset Formula $\Omega_{0}\nsubseteq\Omega\cap\mathcal{B}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+First, notice that the set 
+\begin_inset Formula $\Omega_{0}\cap\mathcal{B}$
+\end_inset
+
+ is non-empty.
+ Mulayoff et al.
+ (2020) proposed the canonical flattest solution:
+\begin_inset Formula 
+\begin{equation}
+W_{m}^{\ast}=US_{m}^{\frac{1}{m}},\quad W_{j}^{\ast}=S_{j}^{\frac{1}{m}},\quad W_{1}^{\ast}=S_{1}^{\frac{1}{m}}V^{T}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Where 
+\begin_inset Formula $S_{j}^{\frac{1}{m}}$
+\end_inset
+
+ is used to denote the 
+\begin_inset Formula $d_{j}\times d_{j-1}$
+\end_inset
+
+ matrix whose 
+\begin_inset Formula $k$
+\end_inset
+
+th diagonal entry is 
+\begin_inset Formula $\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\sigma_{k}\left(T\right)$
+\end_inset
+
+ is the 
+\begin_inset Formula $k$
+\end_inset
+
+th largest singular value of 
+\begin_inset Formula $T$
+\end_inset
+
+.
+ By 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:sufficient"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ this is indeed a flattest solution, and one can readily see that it is
+ also balanced.
+\end_layout
+
+\begin_layout Proof
+Now let 
+\begin_inset Formula $\left(\kaliseries W,m\right)\in\Omega_{0}\cap\mathcal{B}$
+\end_inset
+
+ be a flattest balanced solution which satisfies the sufficient condition
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:sufficient"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $k\in\left[m-1\right]$
+\end_inset
+
+ and denote the SVD decomposition of 
+\begin_inset Formula $W_{k},\;W_{k+1}$
+\end_inset
+
+ by: 
+\begin_inset Formula 
+\[
+W_{k}=U_{k}S_{k}V_{k}^{T},\;W_{k+1}=U_{k+1}S_{k+1}V_{k+1}^{T}
+\]
+
+\end_inset
+
+Because 
+\begin_inset Formula $w$
+\end_inset
+
+ is balanced we know that 
+\begin_inset Formula $V_{k+1}S_{k+1}^{2}V_{k+1}^{T}=U_{k}S_{k}^{2}U_{k}^{T}$
+\end_inset
+
+ which implies:
+\begin_inset Formula 
+\begin{equation}
+U_{k}=V_{k+1},\quad S_{k}=S_{k+1}\label{eq:SvdChain}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Without loss of generality, assume that 
+\begin_inset Formula $S_{k}$
+\end_inset
+
+ is of the form 
+\begin_inset Formula $S_{k}=\begin{pmatrix}diag_{r}\left(\sigma_{1}^{(k)},\sigma_{2}^{(k)},\dots,\sigma_{r}^{(k)}\right)\\
+\mathbb{0}_{\left(d_{k}-r\right)\times d_{k-1}}
+\end{pmatrix}$
+\end_inset
+
+ where
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset Formula $\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}=\sigma_{1}^{(k)}\ge\sigma_{2}^{(k)}\ge...\ge\sigma_{r}^{(k)}$
+\end_inset
+
+.
+ We create a flattest unbalanced solution by 
+\begin_inset Quotes eld
+\end_inset
+
+perturbing
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset Formula $w$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Proof
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\bar under
+If
+\backslash
+,
+\begin_inset Formula $\exists l\in[r].0<\sigma_{l}^{(k)}<\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+:
+\bar default
+ Let 
+\begin_inset Formula $\varepsilon>0$
+\end_inset
+
+ such that 
+\begin_inset Formula $\left(1+\epsilon\right)\sigma_{l}^{(k)}\le\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+, define 
+\begin_inset Formula $\bar{S}_{k+1}\in\mathbb{R}^{d_{k+1}\times d_{k}},\bar{S}_{k}\in\mathbb{R}^{d_{k}\times d_{k-1}}$
+\end_inset
+
+ by:
+\begin_inset Formula 
+\[
+\left(\bar{S}_{k}\right)_{i,j}=\begin{cases}
+\left(S_{k}\right)_{i,j} & (i,j)\neq(l,l)\\
+\frac{\sigma_{l}^{(k)}}{1+\varepsilon} & (i,j)=(l,l)
+\end{cases}\;,\left(\bar{S}_{k+1}\right)=\begin{cases}
+\left(S_{k+1}\right)_{i,j} & (i,j)\neq(l,l)\\
+\left(1+\varepsilon\right)\sigma_{2}^{(k)} & (i,j)=(l,l)
+\end{cases}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\bar{W}_{k}=U_{k}\bar{S}_{k}V_{k}^{T},\;\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}V_{k+1}^{T}
+\]
+
+\end_inset
+
+ We define 
+\begin_inset Formula $\bar{W}_{j}=W_{j}$
+\end_inset
+
+ for 
+\begin_inset Formula $j\in\left[m\right]\backslash\left\{ k,k+1\right\} $
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{w}=vec\left(\kaliseries{\bar{W}},m\right)$
+\end_inset
+
+, by 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:SvdChain"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we have:
+\begin_inset Formula 
+\begin{align*}
+\bar{W}_{1:m} & =\prod_{j=k+2}^{m}W_{j}U_{k+1}\bar{S}_{k+1}{\color{gray}\underset{=I_{d_{k}}}{\underbrace{{\normalcolor V_{k+1}^{T}U_{k}}}}}\bar{S}_{k}V_{k}^{T}\prod_{j=1}^{k-1}W_{j}\\
+ & =\prod_{j=k+2}^{m}W_{j}{\color{gray}\underset{\overset{\eqref{eq:SvdChain}}{=}W_{k+1}W_{k}}{\underbrace{{\normalcolor U_{k+1}\left(S_{k}^{2}\right)V_{k}^{T}}}}}W_{k+1}\prod_{j=1}^{k-1}W_{j}\\
+ & =W_{1:m}=T\\
+ & \Rightarrow\bar{W}_{1:m}\in\Omega
+\end{align*}
+
+\end_inset
+
+ It remains to notice that by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:sufficient"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\begin_inset Formula $\bar{w}\in\Omega_{0}$
+\end_inset
+
+ and by the contra-positive of 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:SvdChain"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\begin_inset Formula $\bar{w}$
+\end_inset
+
+ is not balanced.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\bar under
+If
+\backslash
+,
+\begin_inset Formula $\sigma_{2}^{(k)}=\sigma_{3}^{(k)}=\dotsc=\sigma_{r}^{(k)}=0$
+\end_inset
+
+:
+\bar default
+ We define a flattest unbalanced solution in a similar fashion:
+\begin_inset Formula 
+\[
+\left(\bar{S}_{k+1}\right)=\begin{cases}
+\left(S_{k+1}\right)_{i,j} & (i,j)\neq(2,2)\\
+\frac{\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}}{2} & (i,j)=(2,2)
+\end{cases}\;,\quad\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}V_{k+1}^{T}
+\]
+
+\end_inset
+
+The results follows using the same arguments as for the case of 
+\begin_inset Formula $\sigma_{2}^{(k)}>0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\bar under
+If
+\backslash
+,
+\begin_inset Formula $\sigma_{1}^{(k)}=\sigma_{2}^{(k)}=\dotsc=\sigma_{r}^{(k)}=\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+:
+\bar default
+ Define 
+\begin_inset Formula $\bar{S}_{k+1}\in\mathbb{R}^{\left(d_{k}+1\right)\times d_{k}+1},\bar{S}_{k}\in\mathbb{R}^{\left(d_{k}+1\right)\times d_{k-1}}$
+\end_inset
+
+as follows:
+\begin_inset Formula 
+\[
+sf
+\]
+
+\end_inset
+
+ dsdf
+\end_layout
+
+\end_deeper
+\end_body
+\end_document
