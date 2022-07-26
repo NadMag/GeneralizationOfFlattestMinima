@@ -56,7 +56,7 @@ enumitem
 \index_command default
 \paperfontsize default
 \spacing single
-\use_hyperref true
+\use_hyperref false
 \pdf_bookmarks true
 \pdf_bookmarksnumbered false
 \pdf_bookmarksopen false
@@ -909,73 +909,59 @@ perturbing
 \begin_inset Formula $w$
 \end_inset
 
-:
+.
+ 
 \end_layout
 
 \begin_layout Proof
-\begin_inset VSpace medskip
+Define 
+\begin_inset Formula $\bar{S}_{k+1}\in\mathbb{R}^{d_{k+1}\times\left(d_{k}+1\right)},\bar{S}_{k}\in\mathbb{R}^{\left(d_{k}+1\right)\times d_{k-1}}$
 \end_inset
 
-
-\end_layout
-
-\begin_deeper
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-
-\bar under
-If
-\backslash
-,
-\begin_inset Formula $\exists l\in[r].0<\sigma_{l}^{(k)}<\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
-\end_inset
-
-:
-\bar default
- Let 
-\begin_inset Formula $\varepsilon>0$
-\end_inset
-
- such that 
-\begin_inset Formula $\left(1+\epsilon\right)\sigma_{l}^{(k)}\le\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
-\end_inset
-
-, define 
-\begin_inset Formula $\bar{S}_{k+1}\in\mathbb{R}^{d_{k+1}\times d_{k}},\bar{S}_{k}\in\mathbb{R}^{d_{k}\times d_{k-1}}$
+, 
+\begin_inset Formula $\bar{V}_{k+1},\bar{U}_{k}\in\mathbb{R}^{\left(d_{k}+1\right)\times\left(d_{k}+1\right)}$
 \end_inset
 
  by:
 \begin_inset Formula 
 \[
-\left(\bar{S}_{k}\right)_{i,j}=\begin{cases}
-\left(S_{k}\right)_{i,j} & (i,j)\neq(l,l)\\
-\frac{\sigma_{l}^{(k)}}{1+\varepsilon} & (i,j)=(l,l)
-\end{cases}\;,\left(\bar{S}_{k+1}\right)=\begin{cases}
-\left(S_{k+1}\right)_{i,j} & (i,j)\neq(l,l)\\
-\left(1+\varepsilon\right)\sigma_{2}^{(k)} & (i,j)=(l,l)
-\end{cases}
+\bar{S}_{k+1}=\begin{pmatrix}S_{k+1} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & 0
+\end{pmatrix},\ \bar{S}_{k}=\begin{pmatrix}S_{k} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & \left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}
+\end{pmatrix},\ \bar{V}_{k+1}=\begin{pmatrix}V_{k+1} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & 1
+\end{pmatrix}=\bar{U}_{k}
 \]
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Proof
+And 
+\begin_inset Formula $\bar{W}_{k+1}\in\mathbb{R}^{d_{k+1}\times\left(d_{k}+1\right)},\bar{W}_{k}\in\mathbb{R}^{\left(d_{k}+1\right)\times d_{k-1}}$
+\end_inset
+
+ appropriately:
 \begin_inset Formula 
 \[
-\bar{W}_{k}=U_{k}\bar{S}_{k}V_{k}^{T},\;\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}V_{k+1}^{T}
+\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}\bar{V}_{k+1}^{T},\ \bar{W}_{k}=U_{k}\bar{S}_{k}V_{k}^{T}
 \]
 
 \end_inset
 
- We define 
-\begin_inset Formula $\bar{W}_{j}=W_{j}$
-\end_inset
 
- for 
+\end_layout
+
+\begin_layout Proof
+For 
 \begin_inset Formula $j\in\left[m\right]\backslash\left\{ k,k+1\right\} $
 \end_inset
 
- and 
-\begin_inset Formula $\bar{w}=vec\left(\kaliseries{\bar{W}},m\right)$
+set 
+\begin_inset Formula $\bar{W}_{j}=W_{j}$
 \end_inset
 
 , by 
@@ -989,17 +975,32 @@ noprefix "false"
 \end_inset
 
  we have:
+\end_layout
+
+\begin_layout Proof
 \begin_inset Formula 
 \begin{align*}
-\bar{W}_{1:m} & =\prod_{j=k+2}^{m}W_{j}U_{k+1}\bar{S}_{k+1}{\color{gray}\underset{=I_{d_{k}}}{\underbrace{{\normalcolor V_{k+1}^{T}U_{k}}}}}\bar{S}_{k}V_{k}^{T}\prod_{j=1}^{k-1}W_{j}\\
- & =\prod_{j=k+2}^{m}W_{j}{\color{gray}\underset{\overset{\eqref{eq:SvdChain}}{=}W_{k+1}W_{k}}{\underbrace{{\normalcolor U_{k+1}\left(S_{k}^{2}\right)V_{k}^{T}}}}}W_{k+1}\prod_{j=1}^{k-1}W_{j}\\
+\bar{W}_{1:m} & =\prod_{j=k+2}^{m}W_{j}U_{k+1}\bar{S}_{k+1}{\color{gray}\underset{=I_{d_{k}}}{\underbrace{{\normalcolor \begin{pmatrix}V_{k+1}^{T} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & 1
+\end{pmatrix}\begin{pmatrix}V_{k+1} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & 1
+\end{pmatrix}}}}}\bar{S}_{k}V_{k}^{T}\prod_{j=1}^{k-1}W_{j}\\
+ & =\prod_{j=k+2}^{m}W_{j}{\color{gray}\underset{\overset{(\ref{eq:SvdChain})}{=}W_{k+1}W_{k}}{\underbrace{{\normalcolor U_{k+1}\begin{pmatrix}S_{k+1} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & 0
+\end{pmatrix}\begin{pmatrix}S_{k} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & \left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}
+\end{pmatrix}V_{k}^{T}}}}}W_{k+1}\prod_{j=1}^{k-1}W_{j}\\
  & =W_{1:m}=T\\
  & \Rightarrow\bar{W}_{1:m}\in\Omega
 \end{align*}
 
 \end_inset
 
- It remains to notice that by 
+
+\end_layout
+
+\begin_layout Proof
+It remains to notice that by 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "thm:sufficient"
@@ -1010,7 +1011,7 @@ noprefix "false"
 \end_inset
 
  
-\begin_inset Formula $\bar{w}\in\Omega_{0}$
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\Omega_{0}$
 \end_inset
 
  and by the contra-positive of 
@@ -1027,67 +1028,12 @@ noprefix "false"
 \begin_inset Formula $\bar{w}$
 \end_inset
 
- is not balanced.
-\end_layout
 
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-
-\bar under
-If
-\backslash
-,
-\begin_inset Formula $\sigma_{2}^{(k)}=\sigma_{3}^{(k)}=\dotsc=\sigma_{r}^{(k)}=0$
-\end_inset
-
-:
-\bar default
- We define a flattest unbalanced solution in a similar fashion:
-\begin_inset Formula 
-\[
-\left(\bar{S}_{k+1}\right)=\begin{cases}
-\left(S_{k+1}\right)_{i,j} & (i,j)\neq(2,2)\\
-\frac{\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}}{2} & (i,j)=(2,2)
-\end{cases}\;,\quad\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}V_{k+1}^{T}
-\]
-
-\end_inset
-
-The results follows using the same arguments as for the case of 
-\begin_inset Formula $\sigma_{2}^{(k)}>0$
+\begin_inset Formula $\notin\mathcal{B}$
 \end_inset
 
 .
- 
 \end_layout
 
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-
-\bar under
-If
-\backslash
-,
-\begin_inset Formula $\sigma_{1}^{(k)}=\sigma_{2}^{(k)}=\dotsc=\sigma_{r}^{(k)}=\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
-\end_inset
-
-:
-\bar default
- Define 
-\begin_inset Formula $\bar{S}_{k+1}\in\mathbb{R}^{\left(d_{k}+1\right)\times d_{k}+1},\bar{S}_{k}\in\mathbb{R}^{\left(d_{k}+1\right)\times d_{k-1}}$
-\end_inset
-
-as follows:
-\begin_inset Formula 
-\[
-sf
-\]
-
-\end_inset
-
- dsdf
-\end_layout
-
-\end_deeper
 \end_body
 \end_document
