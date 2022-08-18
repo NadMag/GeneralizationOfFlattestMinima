@@ -56,7 +56,7 @@ enumitem
 \index_command default
 \paperfontsize default
 \spacing single
-\use_hyperref false
+\use_hyperref true
 \pdf_bookmarks true
 \pdf_bookmarksnumbered false
 \pdf_bookmarksopen false
@@ -795,7 +795,7 @@ noprefix "false"
 \end_inset
 
  and that 
-\begin_inset Formula $\sigma_{\max}\left(T\right)\neq0$
+\begin_inset Formula $\sigma_{\min}\left(T\right)<\sigma_{\max}\left(T\right)$
 \end_inset
 
 , then there exists an unbalanced flattest solution, namely: 
@@ -811,18 +811,11 @@ First, notice that the set
 \end_inset
 
  is non-empty.
- 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Mulayoff2020Unique"
-literal "false"
-
-\end_inset
-
- proposed the canonical flattest solution:
+ Mulayoff et al.
+ (2020) proposed the canonical flattest solution:
 \begin_inset Formula 
 \begin{equation}
-W_{m}^{\ast}=US_{m}^{\frac{1}{m}},\quad W_{j}^{\ast}=S_{j}^{\frac{1}{m}}\quad j\in\left\{ 2,3,...,m-1\right\} ,\quad W_{1}^{\ast}=S_{1}^{\frac{1}{m}}V^{T}\label{eq:canon-nonsingular}
+W_{m}^{\ast}=US_{m}^{\frac{1}{m}},\quad W_{j}^{\ast}=S_{j}^{\frac{1}{m}},\quad W_{1}^{\ast}=S_{1}^{\frac{1}{m}}V^{T}
 \end{equation}
 
 \end_inset
@@ -890,8 +883,11 @@ noprefix "false"
 
 \end_inset
 
-.
- Let 
+, we transform it into an unbalanced flattest solution.
+\end_layout
+
+\begin_layout Proof
+Let 
 \begin_inset Formula $k\in\left[m-1\right]$
 \end_inset
 
@@ -958,59 +954,73 @@ perturbing
 \begin_inset Formula $w$
 \end_inset
 
-.
- 
+:
 \end_layout
 
 \begin_layout Proof
-Define 
-\begin_inset Formula $\bar{S}_{k+1}\in\mathbb{R}^{d_{k+1}\times\left(d_{k}+1\right)},\bar{S}_{k}\in\mathbb{R}^{\left(d_{k}+1\right)\times d_{k-1}}$
+\begin_inset VSpace medskip
 \end_inset
 
-, 
-\begin_inset Formula $\bar{V}_{k+1},\bar{U}_{k}\in\mathbb{R}^{\left(d_{k}+1\right)\times\left(d_{k}+1\right)}$
+
+\end_layout
+
+\begin_deeper
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\bar under
+If
+\backslash
+,
+\begin_inset Formula $\exists l\in[r].0<\sigma_{l}^{(k)}<\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+:
+\bar default
+ Let 
+\begin_inset Formula $\varepsilon>0$
+\end_inset
+
+ such that 
+\begin_inset Formula $\left(1+\epsilon\right)\sigma_{l}^{(k)}\le\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+, define 
+\begin_inset Formula $\bar{S}_{k+1}\in\mathbb{R}^{d_{k+1}\times d_{k}},\bar{S}_{k}\in\mathbb{R}^{d_{k}\times d_{k-1}}$
 \end_inset
 
  by:
 \begin_inset Formula 
 \[
-\bar{S}_{k+1}=\begin{pmatrix}S_{k+1} & \mathbb{0}_{d_{k}\times1}\\
-\mathbb{0}_{1\times d_{k}} & 0
-\end{pmatrix},\ \bar{S}_{k}=\begin{pmatrix}S_{k} & \mathbb{0}_{d_{k}\times1}\\
-\mathbb{0}_{1\times d_{k}} & \left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}
-\end{pmatrix},\ \bar{V}_{k+1}=\begin{pmatrix}V_{k+1} & \mathbb{0}_{d_{k}\times1}\\
-\mathbb{0}_{1\times d_{k}} & 1
-\end{pmatrix}=\bar{U}_{k}
+\left(\bar{S}_{k}\right)_{i,j}=\begin{cases}
+\left(S_{k}\right)_{i,j} & (i,j)\neq(l,l)\\
+\frac{\sigma_{l}^{(k)}}{1+\varepsilon} & (i,j)=(l,l)
+\end{cases}\;,\left(\bar{S}_{k+1}\right)=\begin{cases}
+\left(S_{k+1}\right)_{i,j} & (i,j)\neq(l,l)\\
+\left(1+\varepsilon\right)\sigma_{2}^{(k)} & (i,j)=(l,l)
+\end{cases}
 \]
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Proof
-And 
-\begin_inset Formula $\bar{W}_{k+1}\in\mathbb{R}^{d_{k+1}\times\left(d_{k}+1\right)},\bar{W}_{k}\in\mathbb{R}^{\left(d_{k}+1\right)\times d_{k-1}}$
-\end_inset
-
- appropriately:
 \begin_inset Formula 
 \[
-\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}\bar{V}_{k+1}^{T},\ \bar{W}_{k}=U_{k}\bar{S}_{k}V_{k}^{T}
+\bar{W}_{k}=U_{k}\bar{S}_{k}V_{k}^{T},\;\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}V_{k+1}^{T}
 \]
 
 \end_inset
 
+ We define 
+\begin_inset Formula $\bar{W}_{j}=W_{j}$
+\end_inset
 
-\end_layout
-
-\begin_layout Proof
-For 
+ for 
 \begin_inset Formula $j\in\left[m\right]\backslash\left\{ k,k+1\right\} $
 \end_inset
 
-set 
-\begin_inset Formula $\bar{W}_{j}=W_{j}$
+ and 
+\begin_inset Formula $\bar{w}=vec\left(\kaliseries{\bar{W}},m\right)$
 \end_inset
 
 , by 
@@ -1024,32 +1034,17 @@ noprefix "false"
 \end_inset
 
  we have:
-\end_layout
-
-\begin_layout Proof
 \begin_inset Formula 
 \begin{align*}
-\bar{W}_{1:m} & =\prod_{j=k+2}^{m}W_{j}U_{k+1}\bar{S}_{k+1}{\color{gray}\underset{=I_{d_{k}}}{\underbrace{{\normalcolor \begin{pmatrix}V_{k+1}^{T} & \mathbb{0}_{d_{k}\times1}\\
-\mathbb{0}_{1\times d_{k}} & 1
-\end{pmatrix}\begin{pmatrix}V_{k+1} & \mathbb{0}_{d_{k}\times1}\\
-\mathbb{0}_{1\times d_{k}} & 1
-\end{pmatrix}}}}}\bar{S}_{k}V_{k}^{T}\prod_{j=1}^{k-1}W_{j}\\
- & =\prod_{j=k+2}^{m}W_{j}{\color{gray}\underset{\overset{(\ref{eq:SvdChain})}{=}W_{k+1}W_{k}}{\underbrace{{\normalcolor U_{k+1}\begin{pmatrix}S_{k+1} & \mathbb{0}_{d_{k}\times1}\\
-\mathbb{0}_{1\times d_{k}} & 0
-\end{pmatrix}\begin{pmatrix}S_{k} & \mathbb{0}_{d_{k}\times1}\\
-\mathbb{0}_{1\times d_{k}} & \left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}
-\end{pmatrix}V_{k}^{T}}}}}W_{k+1}\prod_{j=1}^{k-1}W_{j}\\
+\bar{W}_{1:m} & =\prod_{j=k+2}^{m}W_{j}U_{k+1}\bar{S}_{k+1}{\color{gray}\underset{=I_{d_{k}}}{\underbrace{{\normalcolor V_{k+1}^{T}U_{k}}}}}\bar{S}_{k}V_{k}^{T}\prod_{j=1}^{k-1}W_{j}\\
+ & =\prod_{j=k+2}^{m}W_{j}{\color{gray}\underset{\overset{\eqref{eq:SvdChain}}{=}W_{k+1}W_{k}}{\underbrace{{\normalcolor U_{k+1}\left(S_{k}^{2}\right)V_{k}^{T}}}}}W_{k+1}\prod_{j=1}^{k-1}W_{j}\\
  & =W_{1:m}=T\\
  & \Rightarrow\bar{W}_{1:m}\in\Omega
 \end{align*}
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Proof
-It remains to notice that by 
+ It remains to notice that by 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "thm:sufficient"
@@ -1060,10 +1055,10 @@ noprefix "false"
 \end_inset
 
  
-\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\Omega_{0}$
+\begin_inset Formula $\bar{w}\in\Omega_{0}$
 \end_inset
 
-, and that the contra-positive of implication 
+ and by the contra-positive of 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "eq:SvdChain"
@@ -1073,17 +1068,45 @@ noprefix "false"
 
 \end_inset
 
- yields 
+ 
 \begin_inset Formula $\bar{w}$
 \end_inset
 
-
-\begin_inset Formula $\notin\mathcal{B}$
-\end_inset
-
-.as
+ is not balanced.
 \end_layout
 
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\bar under
+If
+\backslash
+,
+\begin_inset Formula $\sigma_{2}^{(k)}=\sigma_{3}^{(k)}=\dotsc=\sigma_{r}^{(k)}=0$
+\end_inset
+
+:
+\bar default
+ We define a flattest unbalanced solution in a similar fashion:
+\begin_inset Formula 
+\[
+\left(\bar{S}_{k+1}\right)=\begin{cases}
+\left(S_{k+1}\right)_{i,j} & (i,j)\neq(2,2)\\
+\frac{\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}}{2} & (i,j)=(2,2)
+\end{cases}\;,\quad\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}V_{k+1}^{T}
+\]
+
+\end_inset
+
+The results follows using the same arguments as for the case of 
+\begin_inset Formula $\sigma_{2}^{(k)}>0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_deeper
 \begin_layout Standard
 \begin_inset Newpage newpage
 \end_inset
@@ -1339,41 +1362,54 @@ noprefix "false"
 
 \begin_layout Standard
 For any matrix 
-\begin_inset Formula $X\in\mathbb{R}^{d_{y}\times d_{x}}$
+\begin_inset Formula $X\in\mathbb{R}^{d_{x}\times N}$
 \end_inset
 
  admitting SVD 
 \begin_inset Formula $X=\mathcal{USV}^{T}$
 \end_inset
 
- this could be achieved by applying the following sequence of rotations
- and scaling: 
+ , w.l.o.g 
+\begin_inset Formula $S$
+\end_inset
+
+ has decreasing eigenvalues along its main diagonal.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:gram-white"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+,
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:gram-white"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ could be achieved by applying the following sequence of rotations and scaling:
+ 
 \begin_inset Formula 
 \[
-\hat{X}=\mathcal{\tilde{S}}\left(\mathcal{U}P_{L}\right)^{T}X\mathcal{V}P_{R}
+\hat{X}=D\mathcal{U}^{T}X\mathcal{V}
 \]
 
 \end_inset
 
  Where 
-\begin_inset Formula $\tilde{S}=\left(\left(\left(P_{L}^{T}SP_{R}\right)^{+}\right)_{i,j}\right)_{i=1,j=1}^{d_{y}\ ,\ d_{y}}\in\mathbb{R}^{d_{y}\times d_{y}}$
+\begin_inset Formula $D=\left(diag\left(\sigma_{1}\left(X\right),\sigma_{2}\left(X\right),...,\sigma_{\text{N}}\left(X\right),0,...,0\right)\right)^{+}\in\mathbb{R}^{d_{x}\times d_{x}}$
 \end_inset
 
- and 
-\begin_inset Formula $P_{L}\in\mathbb{R}^{d_{y}\times d_{y}},P_{R}\in\mathbb{R}^{d_{x}\times d_{x}}$
-\end_inset
-
- are permutation matrices s.t.: 
-\begin_inset Formula 
-\[
-\mathcal{U}P_{L}\mathcal{SS}^{T}P_{R}^{T}\mathcal{U}^{T}=\begin{pmatrix}I_{n} & \mathbb{0}_{n\times\left(d_{x}-n\right)}\\
-\mathbb{0}_{\left(d_{x}-n\right)\times n} & \mathbb{0}_{d_{x}-n}
-\end{pmatrix}.
-\]
-
-\end_inset
-
-
+.
 \end_layout
 
 \begin_layout Standard
@@ -1596,7 +1632,7 @@ Then the following holds:
 \begin_deeper
 \begin_layout Enumerate
 \begin_inset Argument 1
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1766,7 +1802,7 @@ We now show that this bound is achieved with equality:
 
 \begin_layout Proof
 Denote the SVD of 
-\begin_inset Formula $Y\left(X^{T}X\right)^{-1}X^{T}$
+\begin_inset Formula $YX^{T}$
 \end_inset
 
 by 
@@ -2318,9 +2354,19 @@ We begin by showing that if a point at the overparameterized space satisfies
 \end_layout
 
 \begin_layout Proposition
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Invariant Directions
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset label
 LatexCommand label
-name "prop:dead-directions"
+name "prop:invariant-directions"
 
 \end_inset
 
@@ -2338,11 +2384,16 @@ noprefix "false"
 \begin_inset Formula $T_{1},T_{2}\in\mathbb{R}^{d_{y}\times d_{x}}$
 \end_inset
 
- with 
+ such that 
+\begin_inset Formula $\left(T_{2}-T_{1}\right)X=0$
+\end_inset
+
+.
+ Assume 
 \begin_inset Formula $T_{1}$
 \end_inset
 
- admitting an overparameterization 
+ admits an overparameterization 
 \family roman
 \series medium
 \shape up
@@ -2356,18 +2407,18 @@ noprefix "false"
 \noun off
 \color none
 
-\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\varTheta(T_{1})$
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\varTheta(T_{1})$
 \end_inset
 
  such that either 
-\begin_inset Formula $rank\left(W_{2:m}\right)=d_{y}\le d_{x}$
+\begin_inset Formula $rank\left(\bar{W}_{2:m}\right)=d_{y}$
 \end_inset
 
  or 
-\begin_inset Formula $rank\left(W_{1:m-1}\right)=d_{x}\le d_{y}$
+\begin_inset Formula $rank\left(\bar{W}_{1:m-1}\right)=d_{x}$
 \end_inset
 
- then
+ (full rank), then
 \family default
 \series default
 \shape default
@@ -2381,38 +2432,73 @@ noprefix "false"
 \noun default
 \color inherit
  there exists a direction 
-\begin_inset Formula $(\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m})\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}$
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}$
 \end_inset
 
- such that 
-\begin_inset Formula $T_{2}=\left(W_{i}+\bar{W_{i}}\right)_{1:m}$
+ such that: 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+label=
+\backslash
+alph{enumi}
+\end_layout
+
 \end_inset
 
- in which the loss does not change: 
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $T_{2}=\left(\bar{W}_{i}+\Delta_{i}\right)_{1:m}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+The overparameterized loss is constant along 
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right),$
+\end_inset
+
+ namely: 
 \begin_inset Formula 
 \[
-\phi\left((W_{1},W_{2},...,W_{m})+t(\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m})\right)=\phi\left((W_{1},W_{2},...,W_{m})\right)\ ,\ \forall t\in\mathbb{R}
+\phi\left(\left(\kaliseries{\bar{W}},m\right)+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right)=\phi\left(\kaliseries{\bar{W}},m\right)\ ,\ \forall t\in\mathbb{R}
 \]
 
 \end_inset
 
-.
+
 \end_layout
 
+\end_deeper
 \begin_layout Proof
 Assume 
 \begin_inset Formula $d_{y}\le d_{x}$
 \end_inset
 
 , define 
-\begin_inset Formula $(\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m})\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}$
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}$
 \end_inset
 
  by:
 \begin_inset Formula 
-\[
-\bar{W}_{1}=\left(W_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\ ,\quad\bar{W_{i}}=\mathbb{0}_{d_{i}\times d_{i-1}},i\in\left\{ 2,3,...,m\right\} 
-\]
+\begin{equation}
+\Delta_{1}=\left(W_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\ ,\quad\Delta_{i}=\mathbb{0}_{d_{i}\times d_{i-1}},i\in\left\{ 2,3,...,m\right\} \label{def:dead-direction-delta}
+\end{equation}
 
 \end_inset
 
@@ -2421,11 +2507,11 @@ Assume
 
 \begin_layout Proof
 Notice that by construction 
-\begin_inset Formula $(\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m})$
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)$
 \end_inset
 
  shifts 
-\begin_inset Formula $(W_{1},W_{2},...,W_{m})$
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)$
 \end_inset
 
  to 
@@ -2435,7 +2521,7 @@ Notice that by construction
 i.e.:
 \begin_inset Formula 
 \[
-\left(W_{i}+\bar{W}_{i}\right)_{1:m}=W_{2:m}\left(W_{1}+\left(W_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right)=T_{2}
+\left(\bar{W}_{i}+\Delta_{i}\right)_{1:m}=\bar{W}_{2:m}\left(\bar{W}_{1}+\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right)=T_{2}
 \]
 
 \end_inset
@@ -2445,11 +2531,11 @@ i.e.:
 
 \begin_layout Proof
 Where the last equality holds because by assumption 
-\begin_inset Formula $W_{2:m}$
+\begin_inset Formula $\bar{W}_{2:m}$
 \end_inset
 
  has linearly-independent rows, so 
-\begin_inset Formula $\left(W_{2:m}\right)^{+}$
+\begin_inset Formula $\left(\bar{W}_{2:m}\right)^{+}$
 \end_inset
 
  is a right inverse.
@@ -2457,20 +2543,30 @@ Where the last equality holds because by assumption
 
 \begin_layout Proof
 Next we show that the loss is constant along 
-\begin_inset Formula $(\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m})$
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)$
 \end_inset
 
 :
 \begin_inset Formula 
 \begin{align*}
-\phi\left((W_{1},W_{2},...,W_{m})+t(\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m})\right) & = & \left\Vert \left(W_{i}+\bar{tW}_{i}\right)_{1:m}X-Y\right\Vert _{F}^{2}\\
- & = & \left\Vert W_{1:m}X+t{\color{gray}\underset{=\mathbb{0}_{d_{y}\times d_{x}}}{\underbrace{{\normalcolor \bar{W}_{1:m}}}}}X-Y\right\Vert _{F}^{2}\\
- & = & \phi\left((W_{1},W_{2},...,W_{m})\right)
+\phi\left(\left(\kaliseries{\bar{W}},m\right)+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right) & = & \left\Vert \left(\bar{W}_{i}+t\Delta_{i}\right)_{1:m}X-Y\right\Vert _{F}^{2}\\
+ & = & \left\Vert \bar{W}_{2:m}\left(\bar{W}_{1}+t\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right)X-Y\right\Vert _{F}^{2}\\
+ & = & \left\Vert \left[\bar{W}_{2:m}\bar{W}_{1}+t\bar{W}_{2:m}\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right]X-Y\right\Vert _{F}^{2}\\
+ & = & \left\Vert \bar{W}_{1:m}X-Y\right\Vert _{F}^{2}\\
+ & = & \phi\left(\kaliseries{\bar{W}},m\right)
 \end{align*}
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Proof
+Where in the third equality we used the assumption 
+\begin_inset Formula $\left(T_{2}-T_{1}\right)X=0$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Proof
@@ -2481,7 +2577,7 @@ For the case where
  we can similarly define:
 \begin_inset Formula 
 \[
-\bar{W}_{m}=\left(W_{1:m-1}\right)^{+}\left(T_{2}-T_{1}\right)\ ,\quad\bar{W_{i}}=\mathbb{0}_{d_{i}\times d_{i-1}},i\in\left[m-1\right]
+\Delta_{m}=\left(\bar{W}_{1:m-1}\right)^{+}\left(T_{2}-T_{1}\right)\ ,\quad\Delta_{i}=\mathbb{0}_{d_{i}\times d_{i-1}},i\in\left[m-1\right]
 \]
 
 \end_inset
@@ -2499,6 +2595,156 @@ In this case
 \end_inset
 
  is a left inverse, the proof is analogous.
+\end_layout
+
+\begin_layout Corollary
+\begin_inset CommandInset label
+LatexCommand label
+name "cor:dead-direction-local"
+
+\end_inset
+
+Under the assumptions and notations of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "prop:invariant-directions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, there exists a direction 
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}$
+\end_inset
+
+ along which the overparameterized loss 
+\begin_inset Formula $\phi$
+\end_inset
+
+ is locally constant.
+ Formally define the translation function:
+\begin_inset Formula 
+\[
+s:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}},\quad s(W_{1},W_{2},...,W_{m})=(W_{1}+\Delta_{1},W_{2}+\Delta_{2},...,W_{m}+\Delta_{m})
+\]
+
+\end_inset
+
+then there exist 
+\begin_inset Formula $\varepsilon>0$
+\end_inset
+
+ such that:
+\begin_inset Formula 
+\[
+\forall t\in\mathbb{R}.\ \phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}\equiv\phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m})+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right),\varepsilon\right)}\circ s
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Consider at the function 
+\begin_inset Formula $f:$
+\end_inset
+
+
+\begin_inset Formula $\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
+\end_inset
+
+ defined by 
+\begin_inset Formula $f(W_{1},W_{2},...,W_{m})=det\left(W_{1:m}\right)$
+\end_inset
+
+, notice that is continuous in the overparameterized space so:
+\begin_inset Formula 
+\[
+\exists\varepsilon>0.\forall(W_{1},W_{2},...,W_{m})\in B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right).\ f(W_{1},W_{2},...,W_{m})\neq0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\Rightarrow\exists\varepsilon>0.\forall(W_{1},W_{2},...,W_{m})\in B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right).\ rank\left(W_{2:m}\right)=d_{y}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+We prove for the case of 
+\begin_inset Formula $d_{y}\le d_{x}$
+\end_inset
+
+, the case where 
+\begin_inset Formula $d_{x}\le d_{y}$
+\end_inset
+
+ is analogous.
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $t\in\mathbb{R}$
+\end_inset
+
+, for-each point 
+\begin_inset Formula $(W_{1},W_{2},...,W_{m})$
+\end_inset
+
+ at this neighborhood apply 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "prop:invariant-directions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, with 
+\begin_inset Formula $t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}$
+\end_inset
+
+ is defined as in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "def:dead-direction-delta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ This yields: 
+\begin_inset Formula 
+\[
+\exists\varepsilon>0.\forall(W_{1},W_{2},...,W_{m})\in B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right).\phi(W_{1},W_{2},...,W_{m})=\phi((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m})+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right))
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\exists\varepsilon>0.\ \phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}\equiv\phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m})+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right),\varepsilon\right)}\circ s\label{eq:equvilent-neig-1}
+\end{equation}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2717,7 +2963,16 @@ Proof of Theorem 4
 \end_layout
 
 \begin_layout Proof
-By 
+Assume 
+\begin_inset Formula $d_{y}\le d_{x}$
+\end_inset
+
+, the case where 
+\begin_inset Formula $d_{x}<d_{y}$
+\end_inset
+
+ is analogous.
+ By 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "lem:existence-of-fr"
@@ -2748,8 +3003,8 @@ noprefix "false"
 \begin_inset Formula $(U_{1},U_{2},...,U_{m})\in\varTheta(T_{0})$
 \end_inset
 
- such that w.l.o.g 
-\begin_inset Formula $rank\left(W_{2:m}\right)=d_{y}\le d_{x}$
+ such that 
+\begin_inset Formula $rank\left(W_{2:m}\right)=d_{y}$
 \end_inset
 
 .
@@ -2767,7 +3022,7 @@ Let
  an overparameterization of it, by 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "prop:dead-directions"
+reference "cor:dead-direction-local"
 plural "false"
 caps "false"
 noprefix "false"
@@ -2785,7 +3040,7 @@ noprefix "false"
 it holds that:
 \begin_inset Formula 
 \[
-\phi\left((U_{1},U_{2},...,U_{m})+(\Delta_{1},\Delta_{2},...,\Delta_{m})\right)=\phi\left((W'_{1},W'_{2},...,W'_{m})\right)
+\exists\varepsilon>0.\ \phi|_{B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right)}\equiv\phi|_{B\left((U_{1},U_{2},...,U_{m})+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right),\varepsilon\right)}\circ s
 \]
 
 \end_inset
@@ -2802,115 +3057,19 @@ it holds that:
 \end_layout
 
 \begin_layout Proof
-Now consider at the function 
-\begin_inset Formula $f:$
-\end_inset
-
-
-\begin_inset Formula $\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
-\end_inset
-
- defined by 
-\begin_inset Formula $f(W_{1},W_{2},...,W_{m})=det\left(W_{1:m}\right).$
-\end_inset
-
- Notice that is continuous in the overparameterized space so:
-\begin_inset Formula 
-\[
-\exists\varepsilon>0.\forall(W_{1},W_{2},...,W_{m})\in B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right).\ f(W_{1},W_{2},...,W_{m})\neq0
-\]
-
-\end_inset
-
-
-\begin_inset Formula 
-\[
-\Rightarrow\exists\varepsilon>0.\forall(W_{1},W_{2},...,W_{m})\in B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right).\ rank\left(W_{2:m}\right)=d_{y}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-For-each point 
-\begin_inset Formula $(W_{1},W_{2},...,W_{m})$
-\end_inset
-
- at this neighborhood we can apply 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "prop:dead-directions"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- with 
-\begin_inset Formula $(\Delta_{1},\Delta_{2},...,\Delta_{m})$
-\end_inset
-
-, yielding:
-\begin_inset Formula 
-\[
-\exists\varepsilon>0.\forall(W_{1},W_{2},...,W_{m})\in B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right).\phi(W_{1},W_{2},...,W_{m})=\phi(W_{1}+\Delta_{1},W_{2}+\Delta_{2},...,W_{m}+\Delta_{m})
-\]
-
-\end_inset
-
-
-\begin_inset Formula 
-\begin{equation}
-\exists\varepsilon>0.\ \phi|_{B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right)}\equiv\phi|_{B\left((U_{1}+\Delta_{1},U_{2}+\Delta_{2},...,U_{m}+\Delta_{m}),\varepsilon\right)}\circ s\label{eq:equvilent-neig}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-Where 
-\begin_inset Formula $s:B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right)\rightarrow B\left((U_{1}+\Delta_{1},U_{2}+\Delta_{2},...,U_{m}+\Delta_{m}),\varepsilon\right)$
-\end_inset
-
- is the translation: 
-\begin_inset Formula 
-\[
-s(W_{1},W_{2},...,W_{m})=(W_{1}+\Delta_{1},W_{2}+\Delta_{2},...,W_{m}+\Delta_{m})
-\]
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Proof
-In 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:equvilent-neig"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- we showed that 
+Because 
 \begin_inset Formula $\phi$
 \end_inset
 
- is locally identical around 
+ is locally identical in a neighborhood of 
 \begin_inset Formula $(U_{1},U_{2},...,U_{m})$
 \end_inset
 
- and 
+ and of 
 \begin_inset Formula $(U_{1}+\Delta_{1},U_{2}+\Delta_{2},...,U_{m}+\Delta_{m})$
 \end_inset
 
- hence: 
+, it particularly holds that: 
 \begin_inset Formula 
 \begin{equation}
 H_{\phi}(U_{1},U_{2},...,U_{m})=H_{\phi}(U_{1}+\Delta_{1},U_{2}+\Delta_{2},...,U_{m}+\Delta_{m})
@@ -2922,10 +3081,10 @@ H_{\phi}(U_{1},U_{2},...,U_{m})=H_{\phi}(U_{1}+\Delta_{1},U_{2}+\Delta_{2},...,U
 \end_layout
 
 \begin_layout Proof
-And specifically:
+and specifically:Not
 \begin_inset Formula 
 \[
-H_{\phi}(U_{1}+\Delta_{1},U_{2}+\Delta_{2},...,U_{m}+\Delta_{m})=\lambda_{\mathrm{\max}}\left(H_{\phi}(U_{1},U_{2},...,U_{m})\right)=2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}
+\rho\left(T'\right)\stackrel{\ref{eq:petubation-between-e2e}}{\le}\lambda_{\max}\left(H_{\phi}(U_{1}+\Delta_{1},U_{2}+\Delta_{2},...,U_{m}+\Delta_{m})\right)=\lambda_{\mathrm{\max}}\left(H_{\phi}(U_{1},U_{2},...,U_{m})\right)=2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}
 \]
 
 \end_inset
@@ -2934,17 +3093,7 @@ H_{\phi}(U_{1}+\Delta_{1},U_{2}+\Delta_{2},...,U_{m}+\Delta_{m})=\lambda_{\mathr
 \end_layout
 
 \begin_layout Proof
-Recall 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:petubation-between-e2e"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, by 
+Now by 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "thm:sufficient-singular"
@@ -2954,25 +3103,22 @@ noprefix "false"
 
 \end_inset
 
- we get that 
-\begin_inset Formula $T'\in\Psi_{0}$
+: 
+\begin_inset Formula $2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}\le\rho\left(T'\right)$
 \end_inset
 
-.
+, hence:
+\begin_inset Formula 
+\[
+T'\in\Psi_{0}
+\]
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Remark*
-Note that the proof of the theorem shows that if an analogous version 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:existence-of-fr"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- holds for some definition of flatness, then so must 
+\begin_layout Standard
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "thm:indifference"
@@ -2982,7 +3128,275 @@ noprefix "false"
 
 \end_inset
 
+ implies that for the setting of overparameterized linear-regression, generaliza
+tion and flatness defined by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "def:e2e-flatness"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ are not correlated.
+ Note that 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "def:e2e-flatness"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ captures the essence of flatness only in 
+\begin_inset Quotes eld
+\end_inset
+
+worst-case
+\begin_inset Quotes erd
+\end_inset
+
+ sense, i.e.
+ by the maximal Hessian eigenvalue.
+ Let us denote the vector field induced by 
+\begin_inset Formula $v_{max}\left(H_{\phi}\left(w\right)\right)$
+\end_inset
+
+ (where the sign of the eigenvector chosen uniformly).
+ Note that if 
+\begin_inset Formula $\lambda_{\max}\left(\Theta_{0}\left(\Psi\right)\right)$
+\end_inset
+
+ is constant and 
+\begin_inset Formula $\forall w\in\Theta_{0}\left(\Psi\right).\  \left\langle v_{max}\left(H_{\phi}\left(w\right)\right),w\right\rangle $
+\end_inset
+
+ i.e.
+ 
+\begin_inset Formula $v_{max}\left(H_{\phi}\left(\Theta_{0}\left(\Psi\right)\right)\right)\subseteq\left(\Theta_{0}\left(\Psi\right)\right)^{\perp}$
+\end_inset
+
+, meaning that any two flattest overparameterizations (of any end-to-end
+ solution in 
+\begin_inset Formula $\Psi)$
+\end_inset
+
+ lie in a subspace of 
+\begin_inset Formula $v_{max}\left(H_{\phi}\left(\Theta_{0}\left(\Psi\right)\right)\right)$
+\end_inset
+
+ then 
+\begin_inset Formula $\Psi=\Psi_{0}$
+\end_inset
+
 .
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+One may wonder if there is a different measure of flatness that correlates
+ with generalization in our setting.
+ The following corollary (make this a theorem??) of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:dead-direction-local"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows that under the assumption that 
+\begin_inset Formula $d_{y}\le n\le d_{x}$
+\end_inset
+
+ and that 
+\begin_inset Formula $rank(Y)=d_{y}$
+\end_inset
+
+ (as is usually the case in deep learning), any sharpness measure 
+\begin_inset Formula $\rho:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
+\end_inset
+
+ that depends only on a local neighborhood of 
+\begin_inset Formula $\phi$
+\end_inset
+
+ does not correlate with generalization.
+\end_layout
+
+\begin_layout Theorem
+Assume 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:capacity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:realizability"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset Formula $d_{y}\le n\le d_{x}$
+\end_inset
+
+ and that Y.
+ Let 
+\begin_inset Formula $\omega:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
+\end_inset
+
+ be a sharpness measure such that:
+\begin_inset Formula 
+\[
+\forall w,u\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}.\left(\exists\varepsilon>0.\ \phi\left[B\left(w,\varepsilon\right)\right]=\phi\left[B\left(u,\varepsilon\right)\right]\right)\rightarrow\omega(w)=\omega(u)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Theorem
+then any end-to-end solution is a flattest solution in the sense of 
+\begin_inset Formula $\rho$
+\end_inset
+
+, namely: 
+\begin_inset Formula $\Psi=\Psi_{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+By our assumption for any solution 
+\begin_inset Formula $T\in\Psi$
+\end_inset
+
+ it holds that 
+\begin_inset Formula $rank\left(T\right)\ge rank\left(TX\right)\stackrel{\ref{assumption:realizability}}{=}rank\left(Y\right)=d_{y}$
+\end_inset
+
+.
+ Specifically this shows the existence of a flattest solution 
+\begin_inset Formula $T_{0}\in\Psi_{0}$
+\end_inset
+
+ of rank 
+\begin_inset Formula $d_{y}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\left(\kaliseries W,m\right)\in\varTheta\left(T_{0}\right)$
+\end_inset
+
+ be any overparameterization, it holds that 
+\begin_inset Formula $rank\left(W_{2:m}\right)\ge rank\left(T_{0}\right)=d_{y}$
+\end_inset
+
+, specifically this holds for any flattest overparameterization 
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $T'\in\Psi$
+\end_inset
+
+ be a solution, by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:dead-direction-local"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we know that there exists 
+\begin_inset Formula $\left(\kaliseries{W'},m\right)\in\varTheta\left(T'\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\varepsilon>0$
+\end_inset
+
+ such that:
+\begin_inset Formula 
+\[
+\phi\left[B\left(\left(\kaliseries{\bar{W}},m\right),\varepsilon\right)\right]=\phi\left[B\left(\left(\kaliseries{W'},m\right),\varepsilon\right)\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+therefore by our assumption on 
+\begin_inset Formula $\omega$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\min_{T\in\Psi}\rho\left(T\right)=\rho\left(T_{0}\right)=\omega\left(\kaliseries{\bar{W}},m\right)=\omega\left(\kaliseries{W'},m\right)\ge\rho\left(T'\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+and we conclude that 
+\begin_inset Formula $T'\in\Psi_{0}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Remark*
+Assumption 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:realizability"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ can be dropped, then the theorem states that any two end-to-end transformations
+ 
+\begin_inset Formula $T_{1},T_{2}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\left(T_{2}-T_{1}\right)X=0$
+\end_inset
+
+ have the same flatness.
+ 
 \end_layout
 
 \begin_layout Standard
