@@ -553,6 +553,102 @@ Assume the weight matrices
 \end_layout
 
 \begin_layout Standard
+We will use the following sufficient condition to balancedness:
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Balancedness Sufficient Condition
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:-balancedness-suff"
+
+\end_inset
+
+ Let 
+\begin_inset Formula $\left(\kaliseries W,m\right)\in\prod_{j=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}$
+\end_inset
+
+ be a series of matrices.
+ if 
+\begin_inset Formula $\forall k,l\in[m].\forall i\in\left[rank(W_{k})\right],j\in\left[rank(W_{l})\right].\sigma_{i}^{(k)}=\sigma_{j}^{(l)}$
+\end_inset
+
+ then 
+\begin_inset Formula $\left(\kaliseries W,m\right)$
+\end_inset
+
+ are balanced.
+\end_layout
+
+\begin_layout Proof
+Denote 
+\begin_inset Formula $W_{k}'s$
+\end_inset
+
+ SVD by 
+\begin_inset Formula $W_{k}=U_{k}S_{k}V_{k}^{T}$
+\end_inset
+
+, where by our assumption: 
+\begin_inset Formula $S_{k}=\begin{pmatrix}\sigma I_{r_{k}} & \mathbb{0}_{r_{k}}\\
+\mathbb{0}_{\left(d_{k}-r_{k}\right)\times r_{k}} & \mathbb{0}_{\left(d_{k}-r_{k}\right)\times\left(d_{k-1}-r_{k}\right)}
+\end{pmatrix}$
+\end_inset
+
+.
+ It holds that:
+\begin_inset Formula 
+\[
+W_{k}^{T}W_{k}=VS_{k}^{T}S_{k}V^{T}=V\begin{pmatrix}\sigma^{2}I_{r_{k}} & \mathbb{0}_{r_{k}}\\
+\mathbb{0}_{\left(d_{k-1}-r_{k}\right)\times r_{k}} & \mathbb{0}_{\left(d_{k-1}-r_{k}\right)}
+\end{pmatrix}V^{T}=\begin{pmatrix}\vert & \vert &  & \vert\\
+\left[v_{1}^{(k)}\right] & \left[v_{2}^{(k)}\right] & ... & [v_{d_{k-1}}^{(k)}]\\
+\vert & \vert &  & \vert
+\end{pmatrix}\begin{pmatrix}\sigma^{2}\left[v_{1}^{(k)}\right]^{T}\\
+\vdots\\
+\sigma^{2}\left[v_{r_{k}}^{(k)}\right]^{T}\\
+\mathbb{0}_{\left(d_{k-1}-r_{k}\right)}
+\end{pmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+=\sigma^{2}\begin{pmatrix}I_{r_{k}} & \mathbb{0}_{r_{k}}\\
+\mathbb{0}_{\left(d_{k-1}-r_{k}\right)\times r_{k}} & \mathbb{0}_{\left(d_{k-1}-r_{k}\right)}
+\end{pmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Similarly one shows that 
+\begin_inset Formula $W_{k}W_{k}^{T}=\sigma^{2}\begin{pmatrix}I_{r_{k}} & \mathbb{0}_{r_{k}}\\
+\mathbb{0}_{\left(d_{k}-r_{k}\right)\times r_{k}} & \mathbb{0}_{\left(d_{k}-r_{k}\right)}
+\end{pmatrix}$
+\end_inset
+
+, concluding the proof.
+\end_layout
+
+\begin_layout Standard
 \begin_inset VSpace bigskip
 \end_inset
 
@@ -750,7 +846,11 @@ One may wonder if the reverse implication holds, i.e.
 \begin_inset Formula $w\in\Omega_{0}$
 \end_inset
 
- balanced? The following proposition shows that this is not the case:
+ balanced? 
+\end_layout
+
+\begin_layout Standard
+The following proposition shows that this is not the case:
 \end_layout
 
 \begin_layout Proposition
@@ -790,15 +890,20 @@ noprefix "false"
 
 \end_inset
 
-, 
+ and that 
 \begin_inset Formula $2\le\min\{d_{x},d_{y}\},m$
 \end_inset
 
- and that 
-\begin_inset Formula $\sigma_{\min}\left(T\right)<\sigma_{\max}\left(T\right)$
+.
+ Unless the following condition holds:
+\begin_inset Formula 
+\[
+\forall\left(\kaliseries W,m\right)\in\Omega_{0}.\forall k\in[m].\sigma_{1}^{(k)}=\sigma_{2}^{(k)}=\dotsc=\sigma_{r_{k}}^{(k)}=\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}
+\]
+
 \end_inset
 
-, then there exists an unbalanced flattest solution, namely: 
+ then there exists an unbalanced flattest solution, namely: 
 \begin_inset Formula $\Omega_{0}\nsubseteq\Omega\cap\mathcal{B}$
 \end_inset
 
@@ -970,9 +1075,11 @@ perturbing
 
 \bar under
 If
-\backslash
-,
-\begin_inset Formula $\exists l\in[r].0<\sigma_{l}^{(k)}<\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset Formula $\exists l\in[r].0<\sigma_{l}^{(k)}<\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
 \end_inset
 
 :
@@ -982,11 +1089,11 @@ If
 \end_inset
 
  such that 
-\begin_inset Formula $\left(1+\epsilon\right)\sigma_{l}^{(k)}\le\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\begin_inset Formula $\left(1+\epsilon\right)\sigma_{l}^{(k)}\le\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
 \end_inset
 
 , define 
-\begin_inset Formula $\bar{S}_{k+1}\in\mathbb{R}^{d_{k+1}\times d_{k}},\bar{S}_{k}\in\mathbb{R}^{d_{k}\times d_{k-1}}$
+\begin_inset Formula $\bar{S}_{k+1},\bar{S}_{k}$
 \end_inset
 
  by:
@@ -1080,8 +1187,10 @@ noprefix "false"
 
 \bar under
 If
-\backslash
-,
+\begin_inset space \space{}
+\end_inset
+
+
 \begin_inset Formula $\sigma_{2}^{(k)}=\sigma_{3}^{(k)}=\dotsc=\sigma_{r}^{(k)}=0$
 \end_inset
 
@@ -1103,7 +1212,258 @@ The results follows using the same arguments as for the case of
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\bar under
+If
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset Formula $\forall\left(\kaliseries W,m\right)\in\left(\Omega_{0}\cap\mathcal{B}\right).$
+\end_inset
+
+
+\begin_inset Formula $\forall k\in[m].\sigma_{1}^{(k)}\ge\sigma_{2}^{(k)}\ge\dotsc\ge\sigma_{r}^{(k)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}:$
+\end_inset
+
+
+\bar default
  
+\end_layout
+
+\begin_deeper
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+If
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset Formula $\exists\left(\kaliseries W,m\right)\in\left(\Omega_{0}\cap\mathcal{B}\right).$
+\end_inset
+
+
+\begin_inset Formula $\exists k\in[m].\sigma_{1}^{(k)}>\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+If
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset Formula $\forall k\in[m],l\in[rank\left(W_{k}\right)].\ \sigma_{l}^{(k)}>\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}\rightarrow u_{l}^{(k)}\in Ker\left(W_{k+1:m}\right)$
+\end_inset
+
+: We can decrease all such singular values to 
+\begin_inset Formula $\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+ (and even 0), without changing the end-to-end solution: 
+\begin_inset Formula $W_{1:m}$
+\end_inset
+
+.
+ Denote the perturbed solution by 
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)$
+\end_inset
+
+ we show by induction on 
+\begin_inset Formula $k\in[m]$
+\end_inset
+
+ that 
+\begin_inset Formula $\bar{W}_{1:m}x=\bar{W}_{k+1:m}W_{1:k}x$
+\end_inset
+
+ for 
+\begin_inset Formula $x\in Im(X).$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Induction
+\begin_inset space \space{}
+\end_inset
+
+Base
+\begin_inset space \space{}
+\end_inset
+
+(k=1): W.L.O.G we assume that only 
+\begin_inset Formula $\sigma_{l}^{(1)}>\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{alignat*}{1}
+\bar{W}_{1:m}x & =\bar{W}_{2:m}\left(\sigma_{l}^{(1)}\left\langle x,v_{l}^{(1)}\right\rangle u_{l}^{(1)}+\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)\\
+ & \stackrel{}{=}\bar{W}_{2:m}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)\\
+ & =\bar{W}_{2:m}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)=\bar{W}_{2:m}W_{1}x
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Induction
+\begin_inset space \space{}
+\end_inset
+
+step: Assume that the claim holds for all 
+\begin_inset Formula $a\in[k]$
+\end_inset
+
+, again w.l.o.g assume that only 
+\begin_inset Formula $\sigma_{l}^{(k+1)}>\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{alignat*}{1}
+\bar{W}_{1:m}x & =\bar{W}_{k+1:m}\left(\sigma_{i}^{(k)}\left\langle \bar{W}_{1:k-1}x,v_{l}^{(k)}\right\rangle u_{l}^{(k)}+\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(k)}\left\langle \bar{W}_{1:k-1}x,v_{i}^{(k)}\right\rangle u_{i}^{(k)}\right)\\
+ & \stackrel{i.h.}{=}\bar{W}_{k+1:m}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(k)}\left\langle W_{1:k-1}x,v_{i}^{(k)}\right\rangle u_{i}^{(k)}\right)=\bar{W}_{k+2:m}W_{1:k+1}x
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus 
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\left(\Omega\cap\mathcal{B}^{C}\right),$
+\end_inset
+
+and by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:sufficient"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\Omega_{0}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Assume by contradiction that 
+\begin_inset Formula $\exists k\in[m],l\in[r_{k}].\ \sigma_{l}^{(k)}>\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}\wedge u_{l}^{(k)}\notin Ker\left(W_{k+1:m}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $u_{l}^{(k)}\notin W_{1:k-1}X$
+\end_inset
+
+ we can set 
+\begin_inset Formula $\sigma_{l}^{(k)}=\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+ and using a similar induction we show that the perturbed end-to-end matrix
+ is a solution.
+\end_layout
+
+\begin_layout Standard
+Otherwise, we know that 
+\begin_inset Formula $\exists x\in Im\left(X\right).W_{1:k-1}x=u_{l}^{(k)}$
+\end_inset
+
+.
+ Notice that: 
+\begin_inset Formula 
+\[
+\sigma_{\min}\left(W_{k+1:m}\right)\ge\prod_{j=k+1}^{m}\sigma_{\min}^{(j)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{m-k+1}{m}},\quad\sigma_{\min}\left(W_{1:k-1}\right)\ge\prod_{j=1}^{k-1}\sigma_{\min}^{(j)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{k-1}{m}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\Rightarrow\sigma_{\max}\left(T\right)\left\Vert x\right\Vert _{2} & \ge\left\Vert W_{1:m}x\right\Vert \\
+ & \ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{k-1}{m}}\sigma_{l}^{(k)}\left\Vert W_{k+1:m}u_{l}^{(k)}\right\Vert _{2}\left\Vert x\right\Vert _{2}\\
+ & \ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{m-1}{m}}\sigma_{l}^{(k)}\left\Vert x\right\Vert _{2}\\
+ & >\sigma_{\max}\left(T\right)\left\Vert x\right\Vert _{2}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where the first inequality is true because the 
+\begin_inset Formula $l_{2}$
+\end_inset
+
+ operator norm is induced.
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\bar under
+If
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset Formula $\forall\left(\kaliseries W,m\right)\in\Omega_{0}.$
+\end_inset
+
+
+\begin_inset Formula $\forall k\in[m].\sigma_{1}^{(k)}=\sigma_{2}^{(k)}=\dotsc=\sigma_{r}^{(k)}=\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+
+\bar default
+: By 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:-balancedness-suff"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\begin_inset Formula $\Omega_{0}\subseteq\mathcal{B}$
+\end_inset
+
+.
 \end_layout
 
 \end_deeper
@@ -1256,7 +1616,8 @@ We denote the set of flattest solutions by:
 \end_layout
 
 \begin_layout Standard
-In the singular case, we use the following assumptions to simplify our analysis:
+We begin by examining a simplified version of the singular case, where the
+ following assumptions are made:
 \end_layout
 
 \begin_layout Enumerate
@@ -1405,7 +1766,7 @@ noprefix "false"
 
 \end_inset
 
- Where 
+ where 
 \begin_inset Formula $D=\left(diag\left(\sigma_{1}\left(X\right),\sigma_{2}\left(X\right),...,\sigma_{\text{N}}\left(X\right),0,...,0\right)\right)^{+}\in\mathbb{R}^{d_{x}\times d_{x}}$
 \end_inset
 
@@ -1443,6 +1804,136 @@ noprefix "false"
 \end_inset
 
 .
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that these assumptions are not reasonable for the purpose of studying
+ the generalization of solutions in our setting.
+ As commonly known in practice? literature? whitening can impede the generalizat
+ion of trained models, mainly due to re-scaling of feature variances.
+ Specifically this was implied for our case in recent results:
+\end_layout
+
+\begin_layout Theorem*
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "https://doi.org/10.48550/arxiv.2008.07545"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Consider a model f with a fully-connected first layer W, denote its activations
+ on the training set by 
+\begin_inset Formula $Z=WX$
+\end_inset
+
+.
+ Denote the networks other parameter by 
+\begin_inset Formula $\theta$
+\end_inset
+
+, such that 
+\begin_inset Formula $f(X)=g_{\theta}(Z)$
+\end_inset
+
+.
+ Let W be initialized from an isotropic distribution.
+ Further, let f(X) be trained via gradient descent on 
+\begin_inset Formula $\left(X,Y\right)$
+\end_inset
+
+.
+ The learned weights 
+\begin_inset Formula $\theta^{t}$
+\end_inset
+
+ and first layer activations 
+\begin_inset Formula $Z^{t}$
+\end_inset
+
+ are independent of X conditioned on 
+\begin_inset Formula $\hat{\Sigma}_{x}$
+\end_inset
+
+ and 
+\begin_inset Formula $Y$
+\end_inset
+
+.
+ In terms of mutual information 
+\begin_inset Formula $\mathcal{I}$
+\end_inset
+
+, we have:
+\begin_inset Formula 
+\[
+\mathcal{I}\left(Z^{t},\theta^{t};X\ \vert\ ,X^{T}X,Y\right)=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that for data whitened w.r.t instances 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:gram-white"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ the theorem implies that: 
+\begin_inset Formula $\mathcal{I}\left(\theta^{t};X\ \vert\ Y\right)=0$
+\end_inset
+
+.
+ In our case the trained weights 
+\begin_inset Formula $\left(W_{2},...,W_{m}\right)$
+\end_inset
+
+ and the whitened data 
+\begin_inset Formula $X$
+\end_inset
+
+ are independent given 
+\begin_inset Formula $Y$
+\end_inset
+
+.
+ Because the test predictions of the model 
+\begin_inset Formula $Y_{test}$
+\end_inset
+
+ are entirely determined by the first layer activations 
+\begin_inset Formula $Z_{test}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left(W_{2},...,W_{m}\right)$
+\end_inset
+
+, the model is able to generalize only through its first layer 
+\begin_inset Formula $W_{1}.$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3170,7 +3661,7 @@ worst-case
 \end_inset
 
  is constant and 
-\begin_inset Formula $\forall w\in\Theta_{0}\left(\Psi\right).\  \left\langle v_{max}\left(H_{\phi}\left(w\right)\right),w\right\rangle $
+\begin_inset Formula $\forall w\in\Theta_{0}\left(\Psi\right).\ \left\langle v_{max}\left(H_{\phi}\left(w\right)\right),w\right\rangle $
 \end_inset
 
  i.e.
@@ -3201,7 +3692,7 @@ worst-case
 \begin_layout Standard
 One may wonder if there is a different measure of flatness that correlates
  with generalization in our setting.
- The following corollary (make this a theorem??) of 
+ The following corollary of 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "cor:dead-direction-local"
@@ -3399,7 +3890,14 @@ noprefix "false"
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Remark*
+We note that although flatness is degenerate in our setting, different end-to-en
+d solutions generalize differently.
+ Furthermore SGD is known to exhibit implicit bias towards minimal norm
+ solutions.
+ [Add citation to rethinking generalization, add citation to LNN case implicit
+ bias].
+ 
 \begin_inset Newpage newpage
 \end_inset
 
