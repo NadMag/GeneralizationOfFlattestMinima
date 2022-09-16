@@ -1,0 +1,570 @@
+@article{razin2022implicit,
+	title={Implicit Regularization in Hierarchical Tensor Factorization and Deep Convolutional Neural Networks},
+	author={Razin, Noam and Maman, Asaf and Cohen, Nadav},
+	journal={International Conference on Machine Learning (ICML)},
+	year={2022}
+}
+
+@article{razin2021implicit,
+	title={Implicit Regularization in Tensor Factorization},
+	author={Razin, Noam and Maman, Asaf and Cohen, Nadav},
+	journal={International Conference on Machine Learning (ICML)},
+	year={2021}
+}
+
+@inproceedings{razin2020implicit,
+	title={Implicit Regularization in Deep Learning May Not Be Explainable by Norms},
+	author={Razin, Noam and Cohen, Nadav},
+	booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+	year={2020}
+}
+
+@inproceedings{arora2019implicit,
+	title = {Implicit Regularization in Deep Matrix Factorization},
+	author = {Arora, Sanjeev and Cohen, Nadav and Hu, Wei and Luo, Yuping},
+	booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+	pages = {7413--7424},
+	year = {2019},
+}
+
+@article{kawaguchi2016deep,
+  title={Deep learning without poor local minima},
+  author={Kawaguchi, Kenji},
+  journal={Advances in neural information processing systems},
+  volume={29},
+  year={2016}
+}
+
+@misc{izmailov2018averaging,
+    title={Averaging Weights Leads to Wider Optima and Better Generalization},
+    author={Pavel Izmailov and Dmitrii Podoprikhin and Timur Garipov and Dmitry Vetrov and Andrew Gordon Wilson},
+    year={2018},
+    eprint={1803.05407},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+
+@article{ding2022flat,
+  title={Flat minima generalize for low-rank matrix recovery},
+  author={Ding, Lijun and Drusvyatskiy, Dmitriy and Fazel, Maryam},
+  journal={arXiv preprint arXiv:2203.03756},
+  year={2022}
+}
+
+@inproceedings{
+yun2021a,
+title={A unifying view on implicit bias in training linear neural networks},
+author={Chulhee Yun and Shankar Krishnan and Hossein Mobahi},
+booktitle={International Conference on Learning Representations},
+year={2021},
+url={https://openreview.net/forum?id=ZsZM-4iMQkH}
+}
+
+@article{dziugaite2017nonvacuosPACBayes,
+  title={Computing nonvacuous generalization bounds for deep (stochastic) neural networks with many more parameters than training data},
+  author={Dziugaite, Gintare Karolina and Roy, Daniel M},
+  journal={arXiv preprint arXiv:1703.11008},
+  year={2017}
+}
+
+@inproceedings{
+	valle-perez2018deep,
+	title={Deep learning generalizes because the parameter-function map is biased towards simple functions},
+	author={Guillermo Valle-Perez and Chico Q. Camargo and Ard A. Louis},
+	booktitle={International Conference on Learning Representations},
+	year={2019},
+	url={https://openreview.net/forum?id=rye4g3AqFm},
+}
+
+@inproceedings{petzka2021relativeFlatness,
+	title={Relative Flatness and Generalization},
+	author={Henning Petzka and Michael Kamp and Linara Adilova and Cristian Sminchisescu and Mario Boley},
+	booktitle={Advances in Neural Information Processing Systems},
+	editor={A. Beygelzimer and Y. Dauphin and P. Liang and J. Wortman Vaughan},
+	year={2021},
+	url={https://openreview.net/forum?id=sygvo7ctb_}
+}
+
+@article{Hochreiter97Flat,
+    author = {Hochreiter, Sepp and Schmidhuber, Jürgen},
+    title = "{Flat Minima}",
+    journal = {Neural Computation},
+    volume = {9},
+    number = {1},
+    pages = {1-42},
+    year = {1997},
+    month = {01},
+    abstract = "{We present a new algorithm for finding low-complexity neural networks with high generalization capability. The algorithm searches for a “flat” minimum of the error function. A flat minimum is a large connected region in weight space where the error remains approximately constant. An MDL-based, Bayesian argument suggests that flat minima correspond to “simple” networks and low expected overfitting. The argument is based on a Gibbs algorithm variant and a novel way of splitting generalization error into underfitting and overfitting error. Unlike many previous approaches, ours does not require gaussian assumptions and does not depend on a “good” weight prior. Instead we have a prior over input output functions, thus taking into account net architecture and training set. Although our algorithm requires the computation of second-order derivatives, it has backpropagation's order of complexity. Automatically, it effectively prunes units, weights, and input lines. Various experiments with feedforward and recurrent nets are described. In an application to stock market prediction, flat minimum search outperforms conventional backprop, weight decay, and “optimal brain surgeon/optimal brain damage.”}",
+    issn = {0899-7667},
+    doi = {10.1162/neco.1997.9.1.1},
+    url = {https://doi.org/10.1162/neco.1997.9.1.1},
+    eprint = {https://direct.mit.edu/neco/article-pdf/9/1/1/813385/neco.1997.9.1.1.pdf},
+}
+
+@inproceedings{
+foret2021sharpnessaware,
+title={Sharpness-aware Minimization for Efficiently Improving Generalization},
+author={Pierre Foret and Ariel Kleiner and Hossein Mobahi and Behnam Neyshabur},
+booktitle={International Conference on Learning Representations},
+year={2021},
+url={https://openreview.net/forum?id=6Tm1mposlrM}
+}
+
+@inproceedings{
+Jiang*2020Fantastic,
+title={Fantastic Generalization Measures and Where to Find Them},
+author={Yiding Jiang* and Behnam Neyshabur* and Hossein Mobahi and Dilip Krishnan and Samy Bengio},
+booktitle={International Conference on Learning Representations},
+year={2020},
+url={https://openreview.net/forum?id=SJgIPJBFvH}
+}
+
+@inproceedings{Mulayoff2020Unique,
+   abstract = {It is well known that (stochastic) gradient descent has an implicit bias towards flat minima. In deep neural network training, this mechanism serves to screen out minima. However, the precise effect that this has on the trained network is not yet fully understood. In this paper, we characterize the flat minima in linear neural networks trained with a quadratic loss. First, we show that linear ResNets with zero initialization necessarily converge to the flattest of all minima. We then prove that these minima correspond to nearly balanced networks whereby the gain from the input to any intermediate representation does not change drastically from one layer to the next. Finally, we show that consecutive layers in flat minima solutions are coupled. That is, one of the left singular vectors of each weight matrix, equals one of the right singular vectors of the next matrix. This forms a distinct path from input to output, that, as we show, is dedicated to the signal that experiences the largest gain end-to-end. Experiments indicate that these properties are characteristic of both linear and nonlinear models trained in practice.},
+   author = {Rotem Mulayoff and Tomer Michaeli},
+   editor = {Hal Daumé III and Aarti Singh},
+   journal = {Proceedings of the 37th International Conference on Machine Learning},
+   month = {7},
+   pages = {7108-7118},
+   publisher = {PMLR},
+   title = {Unique Properties of Flat Minima in Deep Networks},
+   volume = {119},
+   url = {https://proceedings.mlr.press/v119/mulayoff20a.html},
+   year = {2020},
+}
+
+@article{stillRequiresRethinkingGen,
+author = {Zhang, Chiyuan and Bengio, Samy and Hardt, Moritz and Recht, Benjamin and Vinyals, Oriol},
+title = {Understanding Deep Learning (Still) Requires Rethinking Generalization},
+year = {2021},
+issue_date = {March 2021},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {64},
+number = {3},
+issn = {0001-0782},
+url = {https://doi.org/10.1145/3446776},
+doi = {10.1145/3446776},
+abstract = {Despite their massive size, successful deep artificial neural networks can exhibit a remarkably small gap between training and test performance. Conventional wisdom attributes small generalization error either to properties of the model family or to the regularization techniques used during training.Through extensive systematic experiments, we show how these traditional approaches fail to explain why large neural networks generalize well in practice. Specifically, our experiments establish that state-of-the-art convolutional networks for image classification trained with stochastic gradient methods easily fit a random labeling of the training data. This phenomenon is qualitatively unaffected by explicit regularization and occurs even if we replace the true images by completely unstructured random noise. We corroborate these experimental findings with a theoretical construction showing that simple depth two neural networks already have perfect finite sample expressivity as soon as the number of parameters exceeds the number of data points as it usually does in practice.We interpret our experimental findings by comparison with traditional models.We supplement this republication with a new section at the end summarizing recent progresses in the field since the original version of this paper.},
+journal = {Commun. ACM},
+month = {feb},
+pages = {107–115},
+numpages = {9}
+}
+
+@article{Neyshabur17ImplicitThesis,
+  author    = {Behnam Neyshabur},
+  title     = {Implicit Regularization in Deep Learning},
+  journal   = {CoRR},
+  volume    = {abs/1709.01953},
+  year      = {2017},
+  url       = {http://arxiv.org/abs/1709.01953},
+  eprinttype = {arXiv},
+  eprint    = {1709.01953},
+  timestamp = {Mon, 13 Aug 2018 16:47:23 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1709-01953.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{
+Belkin19Reconciling,
+author = {Mikhail Belkin  and Daniel Hsu  and Siyuan Ma  and Soumik Mandal },
+title = {Reconciling modern machine-learning practice and the classical bias\&\#x2013;variance trade-off},
+journal = {Proceedings of the National Academy of Sciences},
+volume = {116},
+number = {32},
+pages = {15849-15854},
+year = {2019},
+doi = {10.1073/pnas.1903070116},
+URL = {https://www.pnas.org/doi/abs/10.1073/pnas.1903070116},
+eprint = {https://www.pnas.org/doi/pdf/10.1073/pnas.1903070116},
+abstract = {Breakthroughs in machine learning are rapidly changing science and society, yet our fundamental understanding of this technology has lagged far behind. Indeed, one of the central tenets of the field, the bias–variance trade-off, appears to be at odds with the observed behavior of methods used in modern machine-learning practice. The bias–variance trade-off implies that a model should balance underfitting and overfitting: Rich enough to express underlying structure in data and simple enough to avoid fitting spurious patterns. However, in modern practice, very rich models such as neural networks are trained to exactly fit (i.e., interpolate) the data. Classically, such models would be considered overfitted, and yet they often obtain high accuracy on test data. This apparent contradiction has raised questions about the mathematical foundations of machine learning and their relevance to practitioners. In this paper, we reconcile the classical understanding and the modern practice within a unified performance curve. This “double-descent” curve subsumes the textbook U-shaped bias–variance trade-off curve by showing how increasing model capacity beyond the point of interpolation results in improved performance. We provide evidence for the existence and ubiquity of double descent for a wide spectrum of models and datasets, and we posit a mechanism for its emergence. This connection between the performance and the structure of machine-learning models delineates the limits of classical analyses and has implications for both the theory and the practice of machine learning.}}
+
+
+@inproceedings{
+Nakkiran2020DoubleDecent,
+title={Deep Double Descent: Where Bigger Models and More Data Hurt},
+author={Preetum Nakkiran and Gal Kaplun and Yamini Bansal and Tristan Yang and Boaz Barak and Ilya Sutskever},
+booktitle={International Conference on Learning Representations},
+year={2020},
+url={https://openreview.net/forum?id=B1g5sA4twr}
+}
+
+@misc{choromanska14surface,
+  doi = {10.48550/ARXIV.1412.0233},
+  
+  url = {https://arxiv.org/abs/1412.0233},
+  
+  author = {Choromanska, Anna and Henaff, Mikael and Mathieu, Michael and Arous, Gérard Ben and LeCun, Yann},
+  
+  keywords = {Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  
+  title = {The Loss Surfaces of Multilayer Networks},
+  
+  publisher = {arXiv},
+  
+  year = {2014},
+  
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+
+
+@misc{wadia20whitening,
+  doi = {10.48550/ARXIV.2008.07545},
+  
+  url = {https://arxiv.org/abs/2008.07545},
+  
+  author = {Wadia, Neha S. and Duckworth, Daniel and Schoenholz, Samuel S. and Dyer, Ethan and Sohl-Dickstein, Jascha},
+  
+  keywords = {Machine Learning (cs.LG), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  
+  title = {Whitening and second order optimization both make information in the dataset unusable during training, and can reduce or prevent generalization},
+  
+  publisher = {arXiv},
+  
+  year = {2020},
+  
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+
+
+@inproceedings{Arora2019Convrg,
+   author = {Sanjeev Arora and Nadav Cohen and Noah Golowich and Wei Hu},
+   journal = {International Conference on Learning Representations},
+   title = {A Convergence Analysis of Gradient Descent for Deep Linear Neural Networks},
+   url = {https://openreview.net/forum?id=SkMQg3C5K7},
+   year = {2019},
+}
+
+@inproceedings{arora2018optimization,
+	title={On the optimization of deep networks: Implicit acceleration by overparameterization},
+	author={Arora, Sanjeev and Cohen, Nadav and Hazan, Elad E},
+	booktitle={35th International Conference on Machine Learning, ICML 2018},
+	pages={372--389},
+	year={2018},
+	organization={International Machine Learning Society (IMLS)}
+}
+
+
+@article{wu2019implicit,
+	title={Implicit Regularization of Normalization Methods},
+	author={Wu, Xiaoxia and Dobriban, Edgar and Ren, Tongzheng and Wu, Shanshan and Li, Zhiyuan and Gunasekar, Suriya and Ward, Rachel and Liu, Qiang},
+	journal={arXiv preprint arXiv:1911.07956},
+	year={2019}
+}
+
+
+@article{strand1974theory,
+	title={Theory and methods related to the singular-function expansion and Landweber’s iteration for integral equations of the first kind},
+	author={Strand, Otto Neall},
+	journal={SIAM Journal on Numerical Analysis},
+	volume={11},
+	number={4},
+	pages={798--825},
+	year={1974},
+	publisher={SIAM}
+}
+
+
+@inproceedings{morgan1990generalization,
+	title={Generalization and parameter estimation in feedforward nets: Some experiments},
+	author={Morgan, Nelson and Bourlard, Herv{\'e}},
+	booktitle={Advances in neural information processing systems},
+	pages={630--637},
+	year={1990}
+}
+
+
+@inproceedings{nar2018step,
+  title={Step size matters in deep learning},
+  author={Nar, Kamil and Sastry, Shankar},
+  booktitle={Advances in Neural Information Processing Systems},
+  pages={3436--3444},
+  year={2018}
+}
+
+@article{soudry2018implicit,
+	title={The implicit bias of gradient descent on separable data},
+	author={Soudry, Daniel and Hoffer, Elad and Nacson, Mor Shpigel and Gunasekar, Suriya and Srebro, Nathan},
+	journal={The Journal of Machine Learning Research},
+	volume={19},
+	number={1},
+	pages={2822--2878},
+	year={2018},
+	publisher={JMLR. org}
+}
+
+@article{neyshabur2014search,
+	title={In search of the real inductive bias: On the role of implicit regularization in deep learning},
+	author={Neyshabur, Behnam and Tomioka, Ryota and Srebro, Nathan},
+	journal={arXiv preprint arXiv:1412.6614},
+	year={2014}
+}
+
+@inproceedings{wilson2017marginal,
+	title={The marginal value of adaptive gradient methods in machine learning},
+	author={Wilson, Ashia C and Roelofs, Rebecca and Stern, Mitchell and Srebro, Nati and Recht, Benjamin},
+	booktitle={Advances in Neural Information Processing Systems},
+	pages={4148--4158},
+	year={2017}
+}
+
+@article{zhang2016understanding,
+	title={Understanding deep learning requires rethinking generalization},
+	author={Zhang, Chiyuan and Bengio, Samy and Hardt, Moritz and Recht, Benjamin and Vinyals, Oriol},
+	journal={arXiv preprint arXiv:1611.03530},
+	year={2016}
+}
+
+@inproceedings{neyshabur2017exploring,
+	title={Exploring generalization in deep learning},
+	author={Neyshabur, Behnam and Bhojanapalli, Srinadh and McAllester, David and Srebro, Nati},
+	booktitle={Advances in Neural Information Processing Systems},
+	pages={5947--5956},
+	year={2017}
+}
+
+@article{soudry2016no,
+	title={No bad local minima: Data independent training error guarantees for multilayer neural networks},
+	author={Soudry, Daniel and Carmon, Yair},
+	journal={arXiv preprint arXiv:1605.08361},
+	year={2016}
+}
+
+@inproceedings{gunasekar2018implicit,
+	title={Implicit bias of gradient descent on linear convolutional networks},
+	author={Gunasekar, Suriya and Lee, Jason D and Soudry, Daniel and Srebro, Nati},
+	booktitle={Advances in Neural Information Processing Systems},
+	pages={9461--9471},
+	year={2018}
+}
+
+
+@inproceedings{gunasekar2017implicit,
+	title={Implicit regularization in matrix factorization},
+	author={Gunasekar, Suriya and Woodworth, Blake E and Bhojanapalli, Srinadh and Neyshabur, Behnam and Srebro, Nati},
+	booktitle={Advances in Neural Information Processing Systems},
+	pages={6151--6159},
+	year={2017}
+}
+
+@inproceedings{du2018algorithmic,
+	title={Algorithmic regularization in learning deep homogeneous models: Layers are automatically balanced},
+	author={Du, Simon S and Hu, Wei and Lee, Jason D},
+	booktitle={Advances in Neural Information Processing Systems},
+	pages={384--395},
+	year={2018}
+}
+
+
+@inproceedings{tian2017analytical,
+	title={An analytical formula of population gradient for two-layered relu network and its applications in convergence and critical point analysis},
+	author={Tian, Yuandong},
+	booktitle={Proceedings of the 34th International Conference on Machine Learning-Volume 70},
+	pages={3404--3413},
+	year={2017},
+	organization={JMLR. org}
+}
+
+@article{saxe2013exact,
+	title={Exact solutions to the nonlinear dynamics of learning in deep linear neural networks},
+	author={Saxe, Andrew M and McClelland, James L and Ganguli, Surya},
+	journal={arXiv preprint arXiv:1312.6120},
+	year={2013}
+}
+
+
+@article{keskar2016large,
+	title={On large-batch training for deep learning: Generalization gap and sharp minima},
+	author={Keskar, Nitish Shirish and Mudigere, Dheevatsa and Nocedal, Jorge and Smelyanskiy, Mikhail and Tang, Ping Tak Peter},
+	journal={arXiv preprint arXiv:1609.04836},
+	year={2016}
+}
+
+@inproceedings{wu2018sgd,
+	title={How {SGD} selects the global minima in over-parameterized learning: A dynamical stability perspective},
+	author={Wu, Lei and Ma, Chao and Weinan, E},
+	booktitle={Advances in Neural Information Processing Systems},
+	pages={8279--8288},
+	year={2018}
+}
+
+
+@article{simsekli2019tail,
+	title={A tail-index analysis of stochastic gradient noise in deep neural networks},
+	author={Simsekli, Umut and Sagun, Levent and Gurbuzbalaban, Mert},
+	journal={arXiv preprint arXiv:1901.06053},
+	year={2019}
+}
+
+@article{jastrzkebski2017three,
+	title={Three factors influencing minima in {SGD}},
+	author={Jastrzebski, Stanis{\l}aw and Kenton, Zachary and Arpit, Devansh and Ballas, Nicolas and Fischer, Asja and Bengio, Yoshua and Storkey, Amos},
+	journal={arXiv preprint arXiv:1711.04623},
+	year={2017}
+}
+
+@inproceedings{hoffer2017train,
+	title={Train longer, generalize better: closing the generalization gap in large batch training of neural networks},
+	author={Hoffer, Elad and Hubara, Itay and Soudry, Daniel},
+	booktitle={Advances in Neural Information Processing Systems},
+	pages={1731--1741},
+	year={2017}
+}
+
+@article{masters2018revisiting,
+	title={Revisiting small batch training for deep neural networks},
+	author={Masters, Dominic and Luschi, Carlo},
+	journal={arXiv preprint arXiv:1804.07612},
+	year={2018}
+}
+
+@article{smith2017don,
+	title={Don't decay the learning rate, increase the batch size},
+	author={Smith, Samuel L and Kindermans, Pieter-Jan and Ying, Chris and Le, Quoc V},
+	journal={arXiv preprint arXiv:1711.00489},
+	year={2017}
+}
+
+
+@article{sagun2017empirical,
+	title={Empirical analysis of the {H}essian of over-parametrized neural networks},
+	author={Sagun, Levent and Evci, Utku and Guney, V Ugur and Dauphin, Yann and Bottou, Leon},
+	journal={arXiv preprint arXiv:1706.04454},
+	year={2017}
+}
+
+@article{sagun2016eigenvalues,
+	title={Eigenvalues of the {H}essian in deep learning: Singularity and beyond},
+	author={Sagun, Levent and Bottou, Leon and LeCun, Yann},
+	journal={arXiv preprint arXiv:1611.07476},
+	year={2016}
+}
+
+@inproceedings{dinh2017sharp,
+	title={Sharp minima can generalize for deep nets},
+	author={Dinh, Laurent and Pascanu, Razvan and Bengio, Samy and Bengio, Yoshua},
+	booktitle={Proceedings of the 34th International Conference on Machine Learning-Volume 70},
+	pages={1019--1028},
+	year={2017},
+	organization={JMLR. org}
+}
+
+
+@inproceedings{krizhevsky2012imagenet,
+	title={Imagenet classification with deep convolutional neural networks},
+	author={Krizhevsky, Alex and Sutskever, Ilya and Hinton, Geoffrey E},
+	booktitle={Advances in neural information processing systems},
+	pages={1097--1105},
+	year={2012}
+}
+
+@article{kingma2014adam,
+	title={Adam: A method for stochastic optimization},
+	author={Kingma, Diederik P and Ba, Jimmy},
+	journal={arXiv preprint arXiv:1412.6980},
+	year={2014}
+}
+
+@article{smith2017bayesian,
+	title={A bayesian perspective on generalization and stochastic gradient descent},
+	author={Smith, Samuel L and Le, Quoc V},
+	journal={arXiv preprint arXiv:1710.06451},
+	year={2017}
+}
+
+@inproceedings{
+	lyu2020gradient,
+	title={Gradient Descent Maximizes the Margin of Homogeneous Neural Networks},
+	author={Kaifeng Lyu and Jian Li},
+	booktitle={International Conference on Learning Representations},
+	year={2020}
+}
+
+@article{gunasekar2018characterizing,
+	title={Characterizing implicit bias in terms of optimization geometry},
+	author={Gunasekar, Suriya and Lee, Jason and Soudry, Daniel and Srebro, Nathan},
+	journal={arXiv preprint arXiv:1802.08246},
+	year={2018}
+}
+
+@article{lecun1998mnist,
+	title={The {MNIST} database of handwritten digits},
+	author={LeCun, Yann},
+	year={1998}
+}
+
+@article{hochreiter1997flat,
+	title={Flat minima},
+	author={Hochreiter, Sepp and Schmidhuber, J{\"u}rgen},
+	journal={Neural Computation},
+	volume={9},
+	number={1},
+	pages={1--42},
+	year={1997},
+	publisher={MIT Press}
+}
+
+@article{chaudhari2019entropy,
+	title={Entropy-{SGD}: {B}iasing gradient descent into wide valleys},
+	author={Chaudhari, Pratik and Choromanska, Anna and Soatto, Stefano and LeCun, Yann and Baldassi, Carlo and Borgs, Christian and Chayes, Jennifer and Sagun, Levent and Zecchina, Riccardo},
+	journal={Journal of Statistical Mechanics: Theory and Experiment},
+	volume={2019},
+	number={12},
+	pages={124018},
+	year={2019},
+	publisher={IOP Publishing}
+}
+
+@inproceedings{ji2019gradient,
+	title={Gradient descent aligns the layers of deep linear networks},
+	author={Ji, Ziwei and Telgarsky, Matus Jan},
+	booktitle={7th International Conference on Learning Representations, ICLR 2019},
+	year={2019}
+}
+
+@inproceedings{desjardins2015natural,
+	title={Natural neural networks},
+	author={Desjardins, Guillaume and Simonyan, Karen and Pascanu, Razvan and others},
+	booktitle={Advances in Neural Information Processing Systems},
+	pages={2071--2079},
+	year={2015}
+}
+
+@article{arpit2016normalization,
+	title={Normalization propagation: A parametric technique for removing internal covariate shift in deep networks},
+	author={Arpit, Devansh and Zhou, Yingbo and Kota, Bhargava U and Govindaraju, Venu},
+	journal={arXiv preprint arXiv:1603.01431},
+	year={2016}
+}
+
+@inproceedings{neyshabur2015pathsgd,
+	title={Path-{SGD}: Path-normalized optimization in deep neural networks},
+	author={Neyshabur, Behnam and Salakhutdinov, Ruslan R and Srebro, Nati},
+	booktitle={Advances in Neural Information Processing Systems},
+	pages={2422--2430},
+	year={2015}
+}
+
+@inproceedings{li2018visualizing,
+	title={Visualizing the loss landscape of neural nets},
+	author={Li, Hao and Xu, Zheng and Taylor, Gavin and Studer, Christoph and Goldstein, Tom},
+	booktitle={Advances in Neural Information Processing Systems},
+	pages={6389--6399},
+	year={2018}
+}
+
+@inproceedings{zhang2018fixup,
+	title={Fixup Initialization: Residual Learning Without Normalization},
+	author={Zhang, Hongyi and Dauphin, Yann N and Ma, Tengyu},
+	booktitle={International Conference on Learning Representations},
+	year={2018}
+}
+
+@inproceedings{he2015delving,
+	title={Delving deep into rectifiers: {S}urpassing human-level performance on imagenet classification},
+	author={He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+	booktitle={Proceedings of the IEEE international conference on computer vision},
+	pages={1026--1034},
+	year={2015}
+}

@@ -3,3 +3,12 @@
 *.lyx~
 *.lyx#
 *.pdf
+
+#VScode
+*.xml
+*.gz
+*.log
+*.out
+*.fls
+*.aux
+*.fdb_latexmk
