@@ -23,6 +23,9 @@
 
 %Double struck 0, 1
 \usepackage{bbold}
+
+\usepackage{chngcntr}
+\counterwithin*{section}{part}
 \end_preamble
 \use_default_options true
 \begin_modules
@@ -143,7 +146,13 @@ date{}
 
 
 \backslash
-author{Nadav Magar, Artiom Makhlin, Noam Razin}
+author{Nadav Magar, Artiom Makhlin
+\backslash
+
+\backslash
+[0.3cm]{
+\backslash
+small Advisors: Noam Razin, Nadav Cohen}}
 \end_layout
 
 \end_inset
@@ -152,7 +161,317 @@ author{Nadav Magar, Artiom Makhlin, Noam Razin}
 \end_layout
 
 \begin_layout Title
-On the Generalization of Flat Minima in Linear Neural Networks
+On Flat Minima in Linear Neural Networks
+\end_layout
+
+\begin_layout Abstract
+Empirical evidence suggests that for a variety of overparameterized models
+ flat minima—those around which the loss grows slowly— consistently correlate
+ strongly with generalization.
+ It has been shown that (stochastic) gradient descent exhibits implicit
+ bias towards such minima.
+ This phenomenon makes minima flatness an appealing measurement in the study
+ of generalization.
+ Despite this, it is still an open theoretical problem why and under which
+ circumstances flatness is connected to generalization.
+ In this work we study this connection by focusing on the simplest class
+ of overparameterized models: linear neural networks.
+ First, we analyze the properties of flattest solutions, extending known
+ results for the case of an infinitude of solutions.
+ We then prove that under reasonable assumptions all solutions must have
+ the same flatness value
+\shape italic
+, for any local flatness measure
+\shape default
+.
+ Our results show that for the linear setting flatness does not correlate
+ with generalization.
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Subsection
+Flatness and generalization
+\end_layout
+
+\begin_layout Standard
+Recent advances in machine learning have relied on training highly overparameter
+ized models, notably deep neural networks, to fit natural data.
+ In this setting the number of learnable weights far exceeds that of the
+ training samples, thereby resulting in models that achieve near-zero training
+ error.
+ Indeed, many modern neural networks can easily memorize the training data
+ and have the capacity to readily overfit 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "stillRequiresRethinkingGen"
+literal "false"
+
+\end_inset
+
+.
+ In contrast to classical learning paradigms and theory, that advocate the
+ use of small hypothesis classes and explicit regularization to limit overfittin
+g, such overparameterized models exhibit a remarkably small gap between
+ training and test performance.
+ Recent work suggests ubiquity of the “double descent” phenomenon 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Belkin19Reconciling,stillRequiresRethinkingGen"
+literal "false"
+
+\end_inset
+
+, wherein significant overparameterization actually improves generalization.
+ Furthermore generalizing solutions are found by simple optimization techniques
+ such as stochastic gradient descent (SGD), even without explicit regularization
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "stillRequiresRethinkingGen"
+literal "false"
+
+\end_inset
+
+.
+ The common view is that gradient-based optimization induces an implicit
+ regularization — a tendency to fit data with predictors of low complexity
+ measure (see, e.g., 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "Neyshabur17ImplicitThesis,gunasekar2017implicit,arora2019implicit,razin2020implicit,razin2021implicit,razin2022implicit"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The flatness of solutions — roughly meaning the rate at which the loss grows
+ around them— is one such complexity measure that has been extensively studied
+ both theoretically 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "hochreiter1997flat,dziugaite2017nonvacuosPACBayes,valle-perez2018deep,chaudhari2019entropy"
+literal "false"
+
+\end_inset
+
+ and empirically 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "keskar2016large,foret2021sharpnessaware"
+literal "false"
+
+\end_inset
+
+.
+ Notably, 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Jiang*2020Fantastic"
+literal "false"
+
+\end_inset
+
+ conducted a large-scale empirical study and found that flatness-based measures
+ correlate better with generalization than alternatives like weight norms,
+ margin-, and optimization-based measures.
+ Nevertheless why and under circumstances this correlation holds remains
+ an open problem.
+ In particular 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "dinh2017sharp"
+literal "false"
+
+\end_inset
+
+ showed that reparameterizations of ReLU neural networks can change simple
+ measures of flatness, without affecting the model's represented function
+ and generalization, suggesting that such measures may capture superfluous
+ correlation rather then casual connections
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Jiang*2020Fantastic"
+literal "false"
+
+\end_inset
+
+.
+ However 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Jiang*2020Fantastic"
+literal "false"
+
+\end_inset
+
+ found empirical evidence that other flatness measures had the best causal
+ relationship with generalization in comparison with other measures, and
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "petzka2021relativeFlatness"
+literal "false"
+
+\end_inset
+
+ proposed a relative-flatness measure that is reparameterization invariant.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Another fact that makes flatness an appealing measurement in the study of
+ generalization, is that SGD has implicit bias towards flat solutions, namely
+ by its inability to stably converge to sharp minima 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "jastrzkebski2017three,wu2018sgd,simsekli2019tail"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+ have showed that under certain conditions GD and its continuous counterpart
+ gradient flow can only converge to flattest minima in simple settings.
+ This bias may play a part in SGD's success in finding generalizing solutions,
+ supporting the conjecture that there exists a significant connection between
+ the two notions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename assets/Keskar_et_al.png
+	scale 60
+	rotateOrigin centerBaseline
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citep
+key "keskar2016large"
+literal "false"
+
+\end_inset
+
+ A Conceptual Sketch of Flat and Sharp Minima.
+ The Y-axis indicates value of the loss function and the X-axis the weight
+ space.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Linear Neural Networks
+\end_layout
+
+\begin_layout Standard
+Linear neural networks (LNN) are fully connected networks with no (linear?)
+ activation function.
+ The end-to-end function of a deep linear network can always be rewritten
+ as a shallow network, thus such networks do not gain expressive power from
+ increased depth, and will perform poorly on complex real world problems.
+ While it lacks important aspects of modern neural network architectures,
+ LNN exhibit interesting phenomena akin to more complex models, while being
+ simpler for theoretical analysis.
+ Indeed the under reasonable assumptions their loss landscape is non-convex
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "saxe2013exact"
+literal "false"
+
+\end_inset
+
+ and there exist "bad" saddle points (where the Hessian has no negative
+ eigenvalue) 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "kawaguchi2016deep"
+literal "false"
+
+\end_inset
+
+.
+ Furthermore this model has interesting training dynamics for gradient-flow,
+ where increased depth may implicitly accelerate optimization 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "arora2018optimization"
+literal "false"
+
+\end_inset
+
+, and exhibit implicit bias towards low-rank solutions 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Arora2019Convrg"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -165,18 +484,8 @@ Consider the case of linear regression: given a sample
 \end_inset
 
 .
- 
-\end_layout
-
-\begin_layout Standard
-Denote 
-\begin_inset Formula $X=\begin{pmatrix}\vert & \vert &  & \vert\\
-\left[x^{(1)}\right] & \left[x^{(2)}\right] & ... & [x^{(N)}]\\
-\vert & \vert &  & \vert
-\end{pmatrix}\in\mathbb{R}^{d_{x}\times N},Y=\begin{pmatrix}\vert & \vert &  & \vert\\
-\left[y^{(1)}\right] & \left[y^{(2)}\right] & ... & [y^{(N)}]\\
-\vert & \vert &  & \vert
-\end{pmatrix}\in\mathbb{R}^{d_{y}\times N}$
+ Denote 
+\begin_inset Formula $X=\left(x^{(1)},x^{(2)},...,x^{(N)}\right)\in\mathbb{R}^{d_{x}\times N},Y=\left(y^{(1)},y^{(2)},...,y^{(N)}\right)\in\mathbb{R}^{d_{y}\times N}$
 \end_inset
 
 , our objective is to learn a linear transformation 
@@ -196,7 +505,7 @@ Denote
 \begin_inset Formula $W$
 \end_inset
 
- is decomposed as a product of matrices (Linear Neural Network): 
+ is decomposed as a product of matrices (LNN): 
 \begin_inset Formula $W_{i}\in\mathbb{R}^{d_{i}\times d_{i-1}},i\in\left[m\right]$
 \end_inset
 
@@ -238,15 +547,6 @@ The set of global minima of
 \end_inset
 
 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Mulayoff2020Unique"
-literal "false"
-
-\end_inset
-
- characterized the sharpness of a solution by its Hessian's maximal eigenvalue.
- 
 \end_layout
 
 \begin_layout Definition
@@ -263,26 +563,19 @@ Denote the vectorization of the network's parameters
 \begin_inset Formula $(W_{1},W_{2},...,W_{m})$
 \end_inset
 
- by 
-\begin_inset Formula $w$
+.
+ Let 
+\begin_inset Formula $\omega:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
 \end_inset
 
-, and the Hessian of 
-\begin_inset Formula $\phi$
-\end_inset
-
- at the corresponding point by 
-\begin_inset Formula $H_{w}$
-\end_inset
-
-, then the set of 
+ be some sharpness measure, then the set of 
 \emph on
 flattest 
 \emph default
 global minima is defined to be:
 \begin_inset Formula 
 \begin{equation}
-\Omega_{0}=\argmin_{w\in\Omega}\lambda_{\mathrm{\max}}\left(H_{w}\right)\label{eq:flattestmin}
+\Omega_{0}=\argmin_{w\in\Omega}\omega(W_{1},W_{2},...,W_{m})\label{eq:flattestmin}
 \end{equation}
 
 \end_inset
@@ -313,8 +606,252 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-Mulayoff et al.
- (2020) studied the case where a single end-to-end solution exists:
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Balancedness of Flattest Solutions
+\end_layout
+
+\begin_layout Standard
+As previously discussed SGD shows implicit bias towards flat solutions,
+ and is able to find generalizing solutions.
+ Furthermore a variety of optimization algorithms that explicitly bias towards
+ flat solutions achieve impressive performance 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "izmailov2018averaging,chaudhari2019entropy,foret2021sharpnessaware"
+literal "false"
+
+\end_inset
+
+.
+ In light of this phenomena, one would expect that flat solutions are in
+ some sense regular, residing in benign regions where optimization algorithms
+ perform well.
+\end_layout
+
+\begin_layout Standard
+Several works have showed a relationship between measures of flatness and
+ those of 
+\shape italic
+balancedness
+\shape default
+ —a notion of scaling and alignment between consecutive weight matrices—
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Mulayoff2020Unique,ding2022flat"
+literal "false"
+
+\end_inset
+
+.
+ A particular definition of balancedness that is of interest in our setting
+ was proposed by 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "arora2018optimization"
+literal "false"
+
+\end_inset
+
+: 
+\end_layout
+
+\begin_layout Definition
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Balancedness
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "def:balancedness"
+
+\end_inset
+
+For 
+\begin_inset Formula $\delta\ge0$
+\end_inset
+
+ we say that the weight matrices 
+\begin_inset Formula $\kaliseries W,m$
+\end_inset
+
+ are 
+\begin_inset Formula $\delta-$
+\end_inset
+
+balanced if:
+\begin_inset Formula 
+\begin{equation}
+\left\Vert W_{j+1}^{T}W_{j+1}-W_{j}W_{j}^{T}\right\Vert _{F}\le\delta\quad,\forall j\in[m-1]
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+If 
+\begin_inset Formula $\kaliseries W,N$
+\end_inset
+
+ are 0-balanced we simply say that they are balanced.
+ Let us denote the set of balanced weight matrices by:
+\begin_inset Formula 
+\begin{equation}
+\mathcal{B}=\left\{ (W_{1},W_{2},...,W_{m})\in\prod_{j=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\ \Bigm\vert\ W_{j+1}^{T}W_{j+1}=W_{j}W_{j}^{T}\quad,\forall j\in[m-1]\right\} 
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+A useful fact is that this notion of balancedness is conserved by GF throughout
+ optimization, formally:
+\end_layout
+
+\begin_layout Proposition
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citeauthor
+key "Arora2019Convrg"
+literal "false"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "prop:balancedness"
+
+\end_inset
+
+Assume the weight matrices 
+\begin_inset Formula $\kaliseries W,m$
+\end_inset
+
+ are initialized to be 
+\begin_inset Formula $\delta-\mathrm{balanced}$
+\end_inset
+
+: 
+\begin_inset Formula 
+\[
+\left\Vert W_{j+1}^{T}(0)W_{j+1}(0)-W_{j}(0)W_{j}^{T}(0)\right\Vert _{F}\le\delta,\quad\forall j\in[m-1]
+\]
+
+\end_inset
+
+ this property is conserved throughout optimization:
+\begin_inset Formula 
+\[
+\left\Vert W_{j+1}^{T}(t)W_{j+1}(t)-W_{j}(t)W_{j}^{T}(t)\right\Vert _{F}\le\delta,\quad\kaliForall j\in[m-1],\ t\ge0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We seek to refine the relationship between 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "def:e2e-flatness"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and two common measures of flatness: maximal Hessian eigenvalue, and the
+ Hessian trace.
+\end_layout
+
+\begin_layout Subsection
+Maximal Hessian Eigenvalue
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $H_{w}$
+\end_inset
+
+ be the Hessian matrix of 
+\begin_inset Formula $\phi$
+\end_inset
+
+ at the point 
+\begin_inset Formula $\left(\kaliseries W,m\right)$
+\end_inset
+
+.
+ Define a flatness measure 
+\begin_inset Formula $\omega:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
+\end_inset
+
+ by:
+\begin_inset Formula 
+\begin{equation}
+\omega\left(\kaliseries W,m\right)=\lambda_{max}\left(H_{w}\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that this measure captures the sharpness of a point in the 
+\begin_inset Quotes eld
+\end_inset
+
+worst-case
+\begin_inset Quotes erd
+\end_inset
+
+ sense, and is the factor affecting stable convergence of GD and SGD 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Mulayoff2020Unique,nar2018step"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In particular they studied the case where a single end-to-end solution exists:
 \end_layout
 
 \begin_layout Enumerate
@@ -390,176 +927,6 @@ T=USV^{T}
 \end_layout
 
 \begin_layout Standard
-\begin_inset Newpage newpage
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Balancedness of Flattest Solutions
-\end_layout
-
-\begin_layout Standard
-Theoretical study of optimization in deep learning is a highly active research
- area.
- A recent approach who has seen significant results, studies the trajectories
- of specific optimizers emanating from specific initializations.
- 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "arora2018optimization"
-literal "false"
-
-\end_inset
-
- derived closed term expressions for the dynamics induced by gradient-flow
- on LNN as defined in 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:overparamloss"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
- Using their analysis 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Arora2019Convrg"
-literal "false"
-
-\end_inset
-
- have showed a convergence result for both GF and GD.
- The authors propose the following definition:
-\end_layout
-
-\begin_layout Definition
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Balancedness
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "def:balancedness"
-
-\end_inset
-
-For 
-\begin_inset Formula $\delta\ge0$
-\end_inset
-
- we say that the weight matrices 
-\begin_inset Formula $\kaliseries W,m$
-\end_inset
-
- are 
-\begin_inset Formula $\delta-$
-\end_inset
-
-balanced if:
-\begin_inset Formula 
-\begin{equation}
-\left\Vert W_{j+1}^{T}W_{j+1}-W_{j}W_{j}^{T}\right\Vert _{F}\le\delta\quad,\forall j\in[m-1]
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Definition
-If 
-\begin_inset Formula $\kaliseries W,N$
-\end_inset
-
- are 0-balanced we simply say that they are balanced.
- Let us denote the set of balanced weight matrices by:
-\begin_inset Formula 
-\begin{equation}
-\mathcal{B}=\left\{ (W_{1},W_{2},...,W_{m})\in\prod_{j=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\ \Bigm\vert\ W_{j+1}^{T}W_{j+1}=W_{j}W_{j}^{T}\quad,\forall j\in[m-1]\right\} 
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Definition
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proposition
-\begin_inset Argument 1
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset CommandInset citation
-LatexCommand citeauthor
-key "Arora2019Convrg"
-literal "false"
-
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "prop:balancedness"
-
-\end_inset
-
-Assume the weight matrices 
-\begin_inset Formula $\kaliseries W,m$
-\end_inset
-
- are initialized to be 
-\begin_inset Formula $\delta-\mathrm{balanced}$
-\end_inset
-
-: 
-\begin_inset Formula 
-\[
-\left\Vert W_{j+1}^{T}(0)W_{j+1}(0)-W_{j}(0)W_{j}^{T}(0)\right\Vert _{F}\le\delta,\quad\forall j\in[m-1]
-\]
-
-\end_inset
-
- this property is conserved throughout optimization:
-\begin_inset Formula 
-\[
-\left\Vert W_{j+1}^{T}(t)W_{j+1}(t)-W_{j}(t)W_{j}^{T}(t),\quad j\right\Vert _{F}\le\delta\quad,\kaliForall j\in[m-1],\ t\ge0
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset VSpace bigskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Mulayoff2020Unique"
@@ -567,7 +934,7 @@ literal "false"
 
 \end_inset
 
- have showed that under the assumptions:
+ showed that under the assumptions:
 \end_layout
 
 \begin_layout Enumerate
@@ -662,6 +1029,16 @@ name "thm:sufficient"
 Assume 
 \begin_inset CommandInset ref
 LatexCommand eqref
+reference "assumption:nonsingular"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+,
+\begin_inset CommandInset ref
+LatexCommand eqref
 reference "assumption:capacity"
 plural "false"
 caps "false"
@@ -679,23 +1056,17 @@ noprefix "false"
 
 \end_inset
 
-,
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "assumption:nonsingular"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
 .
  If a solution 
 \begin_inset Formula $w\in\Omega$
 \end_inset
 
  satisfies 
-\begin_inset Formula $\sigma_{\max}(W_{k})=\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
+\begin_inset Formula 
+\[
+\sigma_{\max}(W_{k})=\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}
+\]
+
 \end_inset
 
  for all 
@@ -738,19 +1109,15 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-\begin_inset VSpace defskip
-\end_inset
-
-
+One may wonder if the reverse implication holds:
 \end_layout
 
 \begin_layout Standard
-One may wonder if the reverse implication holds, i.e.
- are all 
-\begin_inset Formula $w\in\Omega_{0}$
-\end_inset
+\paragraph_spacing onehalf
+\align center
 
- balanced? 
+\shape italic
+Are all flattest solutions balanced? 
 \end_layout
 
 \begin_layout Standard
@@ -765,6 +1132,16 @@ name "prop:FlatUnbalanced"
 \end_inset
 
 Assume 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:nonsingular"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+,
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "assumption:capacity"
@@ -784,30 +1161,24 @@ noprefix "false"
 
 \end_inset
 
-,
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "assumption:nonsingular"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
  and that 
 \begin_inset Formula $2\le\min\{d_{x},d_{y}\},m$
 \end_inset
 
 .
  Unless 
-\begin_inset Formula $\sigma_{\max}\left(T\right)=\sigma_{\min}\left(T\right)$
+\begin_inset Formula $\sigma_{\min}\left(T\right)=\sigma_{\max}\left(T\right)$
 \end_inset
 
 , then there exists an unbalanced flattest solution, namely: 
-\begin_inset Formula $\Omega_{0}\nsubseteq\Omega\cap\mathcal{B}$
+\begin_inset Formula 
+\[
+\Omega_{0}\nsubseteq\Omega\cap\mathcal{B}
+\]
+
 \end_inset
 
-.
+
 \end_layout
 
 \begin_layout Proof
@@ -3792,6 +4163,19 @@ options "myStyle"
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Part*
+\start_of_appendix
+Appendix
+\end_layout
+
+\begin_layout Section
+Deferred Proofs
+\end_layout
+
+\begin_layout Standard
 
 \end_layout
 

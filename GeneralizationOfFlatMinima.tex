@@ -1,0 +1,290 @@
+%% LyX 2.3.6.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\PassOptionsToPackage{natbib=true}{biblatex}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=2cm,bmargin=2cm,lmargin=2cm,rmargin=2cm}
+\setlength{\parindent}{0bp}
+\usepackage{xcolor}
+\usepackage{babel}
+\usepackage{refstyle}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+ breaklinks=false,pdfborder={0 0 0},pdfborderstyle={},backref=false,colorlinks=false]
+ {hyperref}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+
+\AtBeginDocument{\providecommand\propref[1]{\ref{prop:#1}}}
+\AtBeginDocument{\providecommand\thmref[1]{\ref{thm:#1}}}
+\RS@ifundefined{subsecref}
+  {\newref{subsec}{name = \RSsectxt}}
+  {}
+\RS@ifundefined{thmref}
+  {\def\RSthmtxt{theorem~}\newref{thm}{name = \RSthmtxt}}
+  {}
+\RS@ifundefined{lemref}
+  {\def\RSlemtxt{lemma~}\newref{lem}{name = \RSlemtxt}}
+  {}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\newlength{\lyxlabelwidth}      % auxiliary length 
+\theoremstyle{definition}
+\newtheorem{defn}{\protect\definitionname}
+\theoremstyle{plain}
+\newtheorem{prop}{\protect\propositionname}
+\theoremstyle{plain}
+\newtheorem{thm}{\protect\theoremname}
+\theoremstyle{plain}
+\newtheorem{fact}{\protect\factname}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{amsmath}
+\usepackage{amsthm}
+% Necessary Commands:
+\usepackage{autobreak}
+\usepackage{relsize}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+%referencing layouts
+\newref{prop}{refcmd={\emph{Proposition\,\ref{#1}}}}
+\newref{thm}{refcmd={\emph{Theorem\,\ref{#1}}}}
+%\providecommand{\propautorefname}{Proposition}
+
+\providecommand\phantomsection{}
+
+%Double struck 0, 1
+\usepackage{bbold}
+
+\makeatother
+
+\usepackage[bibstyle=verbose,citestyle=authoryear,backend=bibtex8]{biblatex}
+\providecommand{\definitionname}{Definition}
+\providecommand{\factname}{Fact}
+\providecommand{\propositionname}{Proposition}
+\providecommand{\theoremname}{Theorem}
+
+\addbibresource{main.bib}
+\begin{document}
+\input{MacrosEnglish.tex}
+
+\date{}
+\author{Nadav Magar, Artion Makhlin, Noam Razin}
+\title{On the Generalization of Flat Minima in Linear Neural Networks}
+\maketitle
+
+\section*{Problem Setting}
+
+Consider the case of linear regression: given a sample $S=\left(x^{(i)},y^{(i)}\right)_{i=1}^{N}\subseteq\left(\mathbb{R}^{d_{x}}\times\mathbb{R}^{d_{y}}\right),S\stackrel{i.i.d}{\sim}{\scriptstyle D^{N}}$. 
+
+Denote $X=\begin{pmatrix}\vert & \vert &  & \vert\\
+\left[x^{(1)}\right] & \left[x^{(2)}\right] & ... & [x^{(N)}]\\
+\vert & \vert &  & \vert
+\end{pmatrix}\in\mathbb{R}^{d_{x}\times N},Y=\begin{pmatrix}\vert & \vert &  & \vert\\
+\left[y^{(1)}\right] & \left[y^{(2)}\right] & ... & [y^{(N)}]\\
+\vert & \vert &  & \vert
+\end{pmatrix}\in\mathbb{R}^{d_{y}\times N}$, our objective is to learn a linear transformation $f:\mathbb{R}^{d_{x}}\rightarrow\mathbb{R}^{d_{y}}$
+corresponding to a matrix $W\in\mathbb{R}^{d_{y}\times d_{x}}$, that
+minimizes the empirical (quadratic) loss: $L(W)=\left\Vert WX-Y\right\Vert ^{2}$.
+We study the overparameterized regime, in which $W$ is decomposed
+as a product of matrices (Linear Neural Network): $W_{i}\in\mathbb{R}^{d_{i}\times d_{i-1}},i\in\left[m\right]$
+where $d_{0}:=d_{x},d_{N}:=d_{y}$. 
+
+Denote $W_{1:m}:=\prod_{i=1}^{m}W_{i}$ ,the overparameterized objective
+is defined by: 
+\begin{equation}
+\phi(W_{1},W_{2},...,W_{m})=L(W_{1:m})\label{eq:overparamloss}
+\end{equation}
+
+We restrict our attention to the Realizable case, i.e. we there exists
+a matrix $W^{\ast}\in\mathbb{R}^{d_{y}\times d_{x}}$ such that $L(W^{\ast})=0$.
+Thus the set of global minima of $\phi$ is given by:
+\begin{equation}
+\Omega=\left\{ (W_{1},W_{2},...,W_{m})\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\ \Bigm\vert\ L(W_{1:m})=0\right\} 
+\end{equation}
+\citep{Mulayoff2020Unique} characterized the sharpness of a solution
+by its Hessian's maximal eigenvalue. 
+\begin{defn}[Minima Flatness]
+Denote the vectorization of the network's parameters $(W_{1},W_{2},...,W_{m})$
+by $w$, and the Hessian of $\phi$ at the corresponding point by
+$H_{w}$, then the set of \emph{flattest }global minima is defined
+to be:
+\begin{equation}
+\Omega_{0}=\argmin_{w\in\Omega}\lambda_{\mathrm{\max}}\left(H_{w}\right)\label{eq:flattestmin}
+\end{equation}
+
+Where in (\ref{eq:flattestmin}) we have used a slight abuse of notation
+by identifying $(W_{1},W_{2},...,W_{m})$ with $w$ for brevity.
+\end{defn}
+Mulayoff et al. (2020) studied the case where a single end-to-end
+solution exists:
+\begin{enumerate}[label=\bfseries{A3}]
+\item \label{assumption:nonsingular} The data's ambient dimension $d_{x}$
+is smaller then the number of training samples $N$.
+\end{enumerate}
+In this case the unique solution can be written as $f^{\ast}(x)=Tx$
+where: 
+\begin{equation}
+T=\hat{\Sigma}_{yx}\hat{\Sigma}_{x}^{-1}:=YX^{T}\left(XX^{T}\right)^{-1}
+\end{equation}
+
+We will deonte the the SVD of $T$ by:
+\begin{equation}
+T=USV^{T}
+\end{equation}
+
+\newpage{}
+
+\section*{Balancedness of Flattest Solutions}
+
+Theoretical study of optimization in deep learning is a highly active
+research area. A recent approach who has seen significant results,
+studies the trajectories of specific optimizers emanating from specific
+initializations. Arrora et al. (2018) derived closed term expressions
+for the dynamics induced by gradient-flow on LNN as defined in (\ref{eq:overparamloss}).
+Using their analysis Arrora et al. (2019) have showed a convergence
+result for both GF and GD. The authors propose the following definition:
+\begin{defn}[Balancedness]
+For $\delta\ge0$ we say that the weight matrices $\kaliseries W,m$
+are $\delta-$balanced if:
+\begin{equation}
+\left\Vert W_{j+1}^{T}W_{j+1}-W_{j}W_{j}^{T}\right\Vert _{F}\le\delta\quad,\forall j\in[m-1]
+\end{equation}
+
+If $\kaliseries W,N$ are 0-balanced we simply say that they are balanced.
+Let us denote the set of balanced weight matrices by:
+\begin{equation}
+\mathcal{B}=\left\{ (W_{1},W_{2},...,W_{m})\in\prod_{j=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\ \Bigm\vert\ W_{j+1}^{T}W_{j+1}=W_{j}W_{j}^{T}\quad,\forall j\in[m-1]\right\} 
+\end{equation}
+
+\medskip{}
+\end{defn}
+\begin{prop}[Arrora et al. ]
+\label{prop:balancedness}Assume the weight matrices $\kaliseries W,N$
+are initialized to be $\delta-\mathrm{balanced}$: 
+\[
+\left\Vert W_{j+1}^{T}(0)W_{j+1}(0)-W_{j}(0)W_{j}^{T}(0)\right\Vert _{F}\le\delta,\quad\forall j\in[m-1]
+\]
+ this property is conserved throughout optimization:
+\[
+\left\Vert W_{j+1}^{T}(t)W_{j+1}(t)-W_{j}(t)W_{j}^{T}(t),\quad j\right\Vert _{F}\le\delta\quad,\kaliForall j\in[m-1],\ t\ge0
+\]
+\end{prop}
+\bigskip{}
+
+Mulayoff et al. (2020) have showed that under the assumptions:
+\begin{enumerate}[label=\bfseries{A\arabic{enumi}}]
+\item  \label{assumption:capacity}The network has the capacity to implement
+any linear function from $\mathbb{R}^{d_{x}}$ to $\mathbb{R}^{d_{y}}$:
+$\min_{i\in\left[m\right]}\{d_{i}\}\ge\min\{d_{x},d_{y}\}.$
+\item \label{assumption:white}The data is white, namely $\hat{\Sigma}_{x}=I_{d_{x}}$.
+\end{enumerate}
+The following sufficient condition for minima flatness holds:
+\begin{thm}[Sufficient Condition, Mulayoff et al.]
+\label{thm:sufficient}Assume (\ref{assumption:capacity}),(\ref{assumption:white}),(\ref{assumption:nonsingular}).
+If a solution $w\in\Omega$ satisfies $\sigma_{\max}(W_{k})=\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
+for all $k\in[m]$, then necessarily $w\in\Omega_{0}.$
+\end{thm}
+Using this fact it can be shown that GF starting from a balanced initialization
+can only converge to flattest solutions. By \propref{balancedness}
+we can see that any balanced solution $w\in\Omega\cap\mathcal{B}$
+is in fact a flattest minima:
+\begin{equation}
+\Omega\cap\mathcal{B}\subseteq\Omega_{0}
+\end{equation}
+
+\medskip{}
+
+One may wonder if the reverse implication holds, i.e. are all $w\in\Omega_{0}$
+balanced? The following proposition shows that this is not the case:
+\begin{prop}
+Assume (\ref{assumption:capacity}),(\ref{assumption:white}),(\ref{assumption:nonsingular}),
+$2\le\min\{d_{x},d_{y}\},m$ and that $\sigma_{\max}\left(T\right)\neq0$,
+then there exists an unbalanced flattest solution, namely: $\Omega_{0}\nsubseteq\Omega\cap\mathcal{B}$.
+\end{prop}
+\begin{proof}
+First, notice that the set $\Omega_{0}\cap\mathcal{B}$ is non-empty.
+Mulayoff et al. (2020) proposed the canonical flattest solution:
+\begin{equation}
+W_{m}^{\ast}=US_{m}^{\frac{1}{m}},\quad W_{j}^{\ast}=S_{j}^{\frac{1}{m}},\quad W_{1}^{\ast}=S_{1}^{\frac{1}{m}}V^{T}
+\end{equation}
+
+Where $S_{j}^{\frac{1}{m}}$ is used to denote the $d_{j}\times d_{j-1}$
+matrix whose $k$th diagonal entry is $\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+and $\sigma_{k}\left(T\right)$ is the $k$th largest singular value
+of $T$. By \thmref{sufficient} this is indeed a flattest solution,
+and one can readily see that it is also balanced.
+
+Now let $\left(\kaliseries W,m\right)\in\Omega_{0}\cap\mathcal{B}$
+be a flattest balanced solution which satisfies the sufficient condition
+in \thmref{sufficient}. Let $k\in\left[m-1\right]$ and denote the
+SVD decomposition of $W_{k},\;W_{k+1}$ by: 
+\[
+W_{k}=U_{k}S_{k}V_{k}^{T},\;W_{k+1}=U_{k+1}S_{k+1}V_{k+1}^{T}
+\]
+Because $w$ is balanced we know that $V_{k+1}S_{k+1}^{2}V_{k+1}^{T}=U_{k}S_{k}^{2}U_{k}^{T}$
+which implies:
+\begin{equation}
+U_{k}=V_{k+1},\quad S_{k}=S_{k+1}\label{eq:SvdChain}
+\end{equation}
+
+Without loss of generality, assume that $S_{k}$ is of the form $S_{k}=\begin{pmatrix}diag_{r}\left(\sigma_{1}^{(k)},\sigma_{2}^{(k)},\dots,\sigma_{r}^{(k)}\right)\\
+\mathbb{0}_{\left(d_{k}-r\right)\times d_{k-1}}
+\end{pmatrix}$ where\\
+ $\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}=\sigma_{1}^{(k)}\ge\sigma_{2}^{(k)}\ge...\ge\sigma_{r}^{(k)}$.
+We create a flattest unbalanced solution by ``perturbing'' $w$. 
+
+Define $\bar{S}_{k+1}\in\mathbb{R}^{d_{k+1}\times\left(d_{k}+1\right)},\bar{S}_{k}\in\mathbb{R}^{\left(d_{k}+1\right)\times d_{k-1}}$,
+$\bar{V}_{k+1},\bar{U}_{k}\in\mathbb{R}^{\left(d_{k}+1\right)\times\left(d_{k}+1\right)}$
+by:
+\[
+\bar{S}_{k+1}=\begin{pmatrix}S_{k+1} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & 0
+\end{pmatrix},\ \bar{S}_{k}=\begin{pmatrix}S_{k} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & \left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}
+\end{pmatrix},\ \bar{V}_{k+1}=\begin{pmatrix}V_{k+1} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & 1
+\end{pmatrix}=\bar{U}_{k}
+\]
+
+And $\bar{W}_{k+1}\in\mathbb{R}^{d_{k+1}\times\left(d_{k}+1\right)},\bar{W}_{k}\in\mathbb{R}^{\left(d_{k}+1\right)\times d_{k-1}}$
+appropriately:
+\[
+\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}\bar{V}_{k+1}^{T},\ \bar{W}_{k}=U_{k}\bar{S}_{k}V_{k}^{T}
+\]
+
+For $j\in\left[m\right]\backslash\left\{ k,k+1\right\} $set $\bar{W}_{j}=W_{j}$,
+by (\ref{eq:SvdChain}) we have:
+
+\begin{align*}
+\bar{W}_{1:m} & =\prod_{j=k+2}^{m}W_{j}U_{k+1}\bar{S}_{k+1}{\color{gray}\underset{=I_{d_{k}}}{\underbrace{{\normalcolor \begin{pmatrix}V_{k+1}^{T} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & 1
+\end{pmatrix}\begin{pmatrix}V_{k+1} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & 1
+\end{pmatrix}}}}}\bar{S}_{k}V_{k}^{T}\prod_{j=1}^{k-1}W_{j}\\
+ & =\prod_{j=k+2}^{m}W_{j}{\color{gray}\underset{\overset{(\ref{eq:SvdChain})}{=}W_{k+1}W_{k}}{\underbrace{{\normalcolor U_{k+1}\begin{pmatrix}S_{k+1} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & 0
+\end{pmatrix}\begin{pmatrix}S_{k} & \mathbb{0}_{d_{k}\times1}\\
+\mathbb{0}_{1\times d_{k}} & \left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}
+\end{pmatrix}V_{k}^{T}}}}}W_{k+1}\prod_{j=1}^{k-1}W_{j}\\
+ & =W_{1:m}=T\\
+ & \Rightarrow\bar{W}_{1:m}\in\Omega
+\end{align*}
+\end{proof}
+\begin{fact}
+It remains to notice that by \thmref{sufficient} $\left(\kaliseries{\bar{W}},m\right)\in\Omega_{0}$,
+and that the contra-positive of implication (\ref{eq:SvdChain}) yields
+$\bar{w}$$\notin\mathcal{B}$.\newpage\printbibliography
+\end{fact}
+
+\end{document}
