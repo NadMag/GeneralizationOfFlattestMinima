@@ -1046,5 +1046,14 @@ End
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\mysvd}[1]{U_{#1}S_{#1}V_{#1}^{T}}
+{U_{#1}S_{#1}V_{#1}^{T}}
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document

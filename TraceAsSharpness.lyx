@@ -1,0 +1,939 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{xcolor}
+\definecolor{blue}{RGB}{0, 0, 180}
+\definecolor{red}{RGB}{180, 0, 0}
+\definecolor{green}{RGB}{0, 140, 0}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+% Necessary Commands:
+\usepackage{autobreak}
+\usepackage{relsize}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams-bytype
+theorems-ams-extended-bytype
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\headsep 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "MacrosEnglish.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+date{}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+author{Nadav Magar, Artion Makhlin, Noam Razin}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+On the Generalization of Flat Minima in Linear Neural Network
+\end_layout
+
+\begin_layout Section
+Revisiting Flatness definition
+\end_layout
+
+\begin_layout Standard
+Following Propositon 2, we showed that there exists an unbalanced flattest
+ solution.
+ To solve this problem, we propose a new definition of the sharpness(flatness)
+ of a solution:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Sharp(w)=Trace(H_{w})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $w$
+\end_inset
+
+ is defined as 
+\begin_inset Formula $w:=Vec(W_{1},W_{2},...,W_{m})$
+\end_inset
+
+ such that 
+\begin_inset Formula $W_{m}\cdot...\cdot W_{1}=T$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We seek to revisit Mulayoff et.al.
+ (2020) results while useing the new definition for sharpness.
+\end_layout
+
+\begin_layout Standard
+For now we assume that:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+T & =\Sigma_{yx}\Sigma_{x}^{-1},\,\Sigma_{x}^{-1}=Id
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Sharpness of a general solution
+\end_layout
+
+\begin_layout Standard
+Following Mulayoff et.al.
+ (2020), we know that the hessian at a global minimum has the following
+ form:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+H_{w}=2\Phi\Phi^{T}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\Phi=\left[\Phi_{1}^{T},\Phi_{2}^{T},...,\Phi_{m}^{T}\right]{}^{T}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\Phi_{k}=\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)\otimes\left(\prod_{i=k+1}^{m}W_{i}\right)^{T}
+\]
+
+\end_inset
+
+ Thus we get the follwing:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Sharp(w)=Trace(H_{w})=Trace(2\Phi\Phi^{T})=2\sum_{i=1}^{m}Trace(\Phi_{i}\Phi_{i}^{T})
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{alignat}{1}
+Trace(\Phi_{i}\Phi_{i}^{T}) & =Trace\left(\left[\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)\otimes\left(\prod_{i=k+1}^{m}W_{i}\right)^{T}\right]\left[\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)\otimes\left(\prod_{i=k+1}^{m}W_{i}\right)^{T}\right]^{T}\right)\nonumber \\
+ & =Trace\left(\left[\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)\otimes\left(\prod_{i=k+1}^{m}W_{i}\right)^{T}\right]\left[\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)^{T}\otimes\left(\prod_{i=k+1}^{m}W_{i}\right)\right]\right)\label{eq:trace}\\
+ & =Trace\left(\left[\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)^{T}\right]\otimes\left[\left(\prod_{i=k+1}^{m}W_{i}\right)^{T}\left(\prod_{i=k+1}^{m}W_{i}\right)\right]\right)\nonumber \\
+ & =Trace\left(\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)^{T}\right)\cdot Trace\left(\left(\prod_{i=k+1}^{m}W_{i}\right)^{T}\left(\prod_{i=k+1}^{m}W_{i}\right)\right)\nonumber \\
+ & =||\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}||_{F}^{2}\cdot||\prod_{i=k+1}^{m}W_{i}||_{F}^{2}\nonumber 
+\end{alignat}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+By our assumption, 
+\begin_inset Formula $\Sigma_{x}^{-1}=Id$
+\end_inset
+
+, turning 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ into:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Trace(\Phi_{i}\Phi_{i}^{T})=||\prod_{j=1}^{k-1}W_{j}||_{F}^{2}\cdot||\prod_{i=k+1}^{m}W_{i}||_{F}^{2}=||W_{k-1:1}||_{F}^{2}\cdot||W_{m:k+1}||_{F}^{2}\label{eq:trace2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where we used the following notation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{alignat*}{1}
+W_{n:k} & :=\prod_{i=k}^{n}W_{i}=W_{n}W_{n-1}...W_{k}
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:trace2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we get the followin:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Trace(H_{w})=2\sum_{k=1}^{m}||W_{k-1:1}||_{F}^{2}\cdot||W_{m:k+1}||_{F}^{2}\label{eq:hessian_sharp}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Sharpness of a balanced soltuion
+\end_layout
+
+\begin_layout Standard
+Now, we discuss the case of a balanced solution:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\forall n\in[m].W_{n}W_{n}^{T}=W_{n+1}^{T}W_{n+1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+For a balnced solution, it holds that: 
+\begin_inset Formula $||\prod_{i=k}^{n}W_{i}||_{F}^{2}=||S^{\frac{n-k+1}{m}}||_{F}^{2}$
+\end_inset
+
+ where 
+\begin_inset Formula $W_{m:1}=T=USV^{T}$
+\end_inset
+
+is the SVD decompostion of the End-to-End solution.
+\end_layout
+
+\begin_layout Proof
+Denote the SVD decompostion of 
+\begin_inset Formula $W_{k}=U_{k}S_{k}V_{k}^{T}$
+\end_inset
+
+.
+ By balancedness:
+\begin_inset Formula 
+\[
+U_{k}S_{k}S_{k}^{T}U_{k}^{T}=U_{k}S_{k}V_{k}^{T}V_{k}S_{k}^{T}U_{k}^{T}=W_{k}W_{k}^{T}=W_{k+1}^{T}W_{k+1}=V_{k+1}S_{k+1}^{T}U_{k+1}^{T}U_{k+1}S_{k+1}V_{k+1}^{T}=V_{k+1}S_{k+1}^{T}S_{k+1}V_{k+1}^{T}
+\]
+
+\end_inset
+
+ And by uniqness of diagonalisation of symmetric matrix:
+\begin_inset Formula 
+\[
+U_{k}=V_{k+1},S_{k}=S_{k+1}
+\]
+
+\end_inset
+
+ Thus we get the following:
+\begin_inset Formula 
+\[
+\prod_{i=k}^{n}W_{i}=W_{n}W_{n-1}...W_{k+1}W_{k}=\mysvd n\mysvd{n-1}...\mysvd{k+1}\mysvd k=U_{n}S_{k}^{n-k+1}V_{k}^{T}
+\]
+
+\end_inset
+
+ Plugging it into the End-to-End soltuion we get:
+\begin_inset Formula 
+\[
+U_{m}S_{1}^{m}V_{1}^{T}=W_{m:1}=T=USV^{T}=>\forall i\in[m].S_{i}=S^{\frac{1}{m}}
+\]
+
+\end_inset
+
+ Finaly:
+\begin_inset Formula 
+\[
+||\prod_{i=k}^{n}W_{i}||_{F}^{2}=||U_{n}S_{k}^{n-k+1}V_{k}^{T}||_{F}^{2}=||S^{\frac{n-k+1}{m}}||_{F}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By using the lemma above with 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:hessian_sharp"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we get the following result for balanced solutions:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Trace(H_{w})=2\sum_{k=1}^{m}||S^{\frac{k-1}{m}}||_{F}^{2}\cdot||S^{\frac{m-k}{m}}||_{F}^{2}\label{eq:balanced_trace}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Is balancedness equal to flattest solution
+\end_layout
+
+\begin_layout Subsection
+2-Layer case
+\end_layout
+
+\begin_layout Standard
+First, we look into the 2 layer case: 
+\begin_inset Formula $T=W_{2}W_{1}$
+\end_inset
+
+.
+ Assume that 
+\begin_inset Formula $W_{2},W_{1}\in\mathbb{R}^{n\times n}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+By 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:hessian_sharp"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we get: 
+\begin_inset Formula 
+\[
+Trace(H_{w})=2\left(||W_{0:1}||_{F}^{2}\cdot||W_{2:2}||_{F}^{2}+||W_{1:1}||_{F}^{2}\cdot||W_{2:3}||_{F}^{2}\right)=2n\left(||W_{1}||_{F}^{2}+||W_{2}||_{F}^{2}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:flattest2"
+
+\end_inset
+
+
+\begin_inset Formula $\underset{W_{2}W_{1}=T}{\min}\left(||W_{1}||_{F}^{2}+||W_{2}||_{F}^{2}\right)=2||S^{\frac{1}{2}}||_{F}^{2}=2||S||_{\sigma}$
+\end_inset
+
+, where 
+\begin_inset Formula $||\cdot||_{\sigma}$
+\end_inset
+
+ is the nuclear norm, and 
+\begin_inset Formula $T=USV^{T}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+By AM-GM we have:
+\begin_inset Formula 
+\[
+||W_{1}||_{F}^{2}+||W_{2}||_{F}^{2}\geq2\sqrt{||W_{1}||_{F}^{2}\cdot||W_{2}||_{F}^{2}}=2||W_{1}||_{F}||W_{2}||_{F}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Using Cauchy-Schwarz inequality we get:
+\begin_inset Formula 
+\begin{alignat*}{1}
+||W_{1}||_{F}||W_{2}||_{F} & =||U^{T}W_{2}||_{F}\cdot||VW_{1}^{T}||_{F}\\
+ & \geq\langle U^{T}W_{2},VW_{1}^{T}\rangle_{F}\\
+ & =Trace\left(U^{T}W_{2}W_{1}V\right)\\
+ & =Trace\left(U^{T}USV^{T}V\right)\\
+ & =Trace\left(S\right)\\
+ & =||S^{\frac{1}{2}}||_{F}^{2}
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Thus:
+\begin_inset Formula 
+\[
+||W_{1}||_{F}^{2}+||W_{2}||_{F}^{2}\geq2||S^{\frac{1}{2}}||_{F}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+With equality for 
+\begin_inset Formula $W_{2}=US^{\frac{1}{2}},W_{1}=S^{\frac{1}{2}}V^{T},$
+\end_inset
+
+completing the proof.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using this lemma we conclude the following corollary:
+\end_layout
+
+\begin_layout Corollary
+\begin_inset CommandInset label
+LatexCommand label
+name "cor:bal_is_flat"
+
+\end_inset
+
+In the 2 layer case, balanced solution is a flattest solution.
+\end_layout
+
+\begin_layout Proof
+Using equation 
+\begin_inset Formula $\left(\text{\ref{eq:balanced_trace}}\right)$
+\end_inset
+
+ in the 2 layer case we get:
+\begin_inset Formula 
+\[
+Trace(H_{w})=2\sum_{k=1}^{2}||S^{\frac{k-1}{2}}||_{F}^{2}\cdot||S^{\frac{2-k}{2}}||_{F}^{2}=2\left(||S^{0}||_{F}^{2}\cdot||S^{\frac{1}{2}}||_{F}^{2}+||S^{\frac{1}{2}}||_{F}^{2}\cdot||S^{0}||_{F}^{2}\right)=4n||S^{\frac{1}{2}}||_{F}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Which is indeed the flattest solution by 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:flattest2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, completing the proof.
+\end_layout
+
+\begin_layout Theorem
+In the 2 layer case, balanced solution is equivalent to flattest solution.
+\end_layout
+
+\begin_layout Proof
+First direction 
+\begin_inset Formula $balanced\rightarrow flattest$
+\end_inset
+
+ is by 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cor:bal_is_flat"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+To show the other direction, assume that 
+\begin_inset Formula $W_{1},W_{2}$
+\end_inset
+
+ is a flattest solution.
+ Thus 
+\begin_inset Formula $W_{1,}W_{2}$
+\end_inset
+
+ satisfy: 
+\begin_inset Formula 
+\[
+W_{1},W_{2}=\underset{W_{2}W_{1}=T}{\argmin}\left(||W_{1}||_{F}^{2}+||W_{2}||_{F}^{2}\right)=\frac{1}{2n}Trace(H_{w})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Define the following function:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+f(X)=||W_{2}X||_{F}^{2}+||X^{-1}W_{1}||_{F}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+The function 
+\begin_inset Formula $f$
+\end_inset
+
+ is defined on the open set of invertible 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrices, thus any local minima satisfies:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+\nabla f(X_{min})=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+In particular, 
+\begin_inset Formula $X=Id$
+\end_inset
+
+ is a local minima by defenition of 
+\begin_inset Formula $W_{1},W_{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Next we want to calculate the gradient of 
+\begin_inset Formula $f$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+First let us look into:
+\begin_inset Formula 
+\[
+g_{A}(X)=||XA||_{F}^{2}=\sum_{i}\sum_{j}\left(\sum_{k}X_{i,k}A_{k,j}\right)^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial X_{s,t}}g(X)=\frac{\partial}{\partial X_{s,t}}\sum_{i}\sum_{j}\left(\sum_{k}X_{i,k}A_{k,j}\right)^{2}=\frac{\partial}{\partial X_{s,t}}\sum_{j}\left(\sum_{k}X_{s,k}A_{k,j}\right)^{2}=2\sum_{j}\left(\sum_{k}X_{s,k}A_{k,j}\right)A_{t,j}=2\left(XAA^{T}\right)_{s,t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+\nabla g\left(X\right)=2XAA^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Now, using the fact that 
+\begin_inset Formula $\nabla\left(X^{-1}\right)=X^{-2}$
+\end_inset
+
+ we get the following:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+\nabla f\left(X\right)=\nabla g_{W_{2}^{T}}\left(X^{T}\right)+\nabla g_{W_{1}}\left(X^{-1}\right)=W_{2}^{T}W_{2}X^{T}-X^{-3}W_{1}W_{1}^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Plugging 
+\begin_inset Formula $X=Id$
+\end_inset
+
+ we get:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+0=\nabla f\left(Id\right)=W_{2}^{T}W_{2}-W_{1}W_{1}^{T}\Rightarrow W_{1}W_{1}^{T}=W_{2}^{T}W_{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Completing the proof.
+\end_layout
+
+\begin_layout Subsection
+m-Layer Case
+\end_layout
+
+\begin_layout Standard
+We will show now that for the m-Layer case for 
+\begin_inset Formula $m\geq3$
+\end_inset
+
+ there is no correlation between balancedness and flatness as a trace.
+\end_layout
+
+\begin_layout Proof
+Let:
+\begin_inset Formula 
+\[
+S=diag\left(2^{m},1,0,...,0\right)\in\mathbb{R}^{n\times n}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+T=USV^{T}\in\mathbb{R}^{n\times n}-SVD
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+For a balanced solution 
+\begin_inset Formula $T=W_{m}\cdot...\cdot W_{1},w=(W_{m},...,W_{1})$
+\end_inset
+
+ we know that it holds:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+Trace(H_{w})=2\sum_{k=1}^{m}||S^{\frac{k-1}{m}}||_{F}^{2}\cdot||S^{\frac{m-k}{m}}||_{F}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Plugging in the value of 
+\begin_inset Formula $S$
+\end_inset
+
+ we get:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+Trace(H_{w}) & =2\left(2n\left(4^{m-1}+1\right)+\sum_{k=2}^{m-1}\left(4^{k-1}+1\right)\left(4^{m-k}+1\right)\right)\\
+ & =2\left(2n\left(4^{m-1}+1\right)+\left(m-2\right)\left(4^{m-1}+1\right)+\frac{2}{3}\left(4^{m-1}-4\right)\right)\\
+ & =n\left(4^{m}+4\right)+2\left(\left(m-2\right)\left(4^{m-1}+1\right)+\frac{2}{3}\left(4^{m-1}-4\right)\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Now, we look at another solution:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+W_{m}=US^{\frac{1}{2}},W_{1}=S^{\frac{1}{2}}V^{T},W_{i}=I_{n},\hat{w}=\left(W_{m},...,W_{1}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+For this solution we know it holds:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+Trace(H_{\hat{w}}) & =2\sum_{k=1}^{m}||W_{k-1:1}||_{F}^{2}\cdot||W_{m:k+1}||_{F}^{2}\\
+ & =2\left(2n\left(2^{m}+1\right)+\sum_{k=2}^{m-1}\left(2^{m}+1\right)\left(2^{m}+1\right)\right)\\
+ & =n\left(4\cdot2^{m}+4\right)+2\left(m-2\right)\left(2^{m}+1\right)^{2}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+If we require that 
+\begin_inset Formula $Trace(H_{w})>Trace(H_{\hat{w}})$
+\end_inset
+
+ we get:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+n\left(4^{m}+4\right)+2\left(\left(m-2\right)\left(4^{m-1}+1\right)+\frac{2}{3}\left(4^{m-1}-4\right)\right) & >n\left(4\cdot2^{m}+4\right)+2\left(m-2\right)\left(2^{m}+1\right)^{2}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+n\left(4^{m}-4\cdot2^{m}\right)>2\left(m-2\right)\left(2^{m}+1\right)^{2}-2\left(\left(m-2\right)\left(4^{m-1}+1\right)+\frac{2}{3}\left(4^{m-1}-4\right)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+As the number of layers holdes 
+\begin_inset Formula $m\geq3$
+\end_inset
+
+, we can divide by 
+\begin_inset Formula $\left(4^{m}-4\cdot2^{m}\right)$
+\end_inset
+
+ and get the following requirement:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+n>\frac{\left(m-2\right)\left(\left(2^{m}+1\right)^{2}-\left(4^{m-1}+1\right)\right)-\frac{2}{3}\left(4^{m-1}-4\right)}{2\left(4^{m-1}-2^{m}\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Thus, by picking 
+\begin_inset Formula $n$
+\end_inset
+
+ large enough, we can get a solution with lower Hessian trace than any balanced
+ solution, thus showing that flattest solution cannot be balanced and vice
+ versa.
+\end_layout
+
+\end_body
+\end_document
