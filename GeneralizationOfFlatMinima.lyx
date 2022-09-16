@@ -34,6 +34,7 @@ pdfform
 theorems-ams-bytype
 theorems-ams-extended-bytype
 enumitem
+theorems-sec-bytype
 \end_modules
 \maintain_unincluded_children false
 \language english
@@ -427,7 +428,7 @@ Linear Neural Networks
 \end_layout
 
 \begin_layout Standard
-Linear neural networks (LNN) are fully connected networks with no (linear?)
+Linear neural networks (LNN) are fully connected networks with no neuron
  activation function.
  The end-to-end function of a deep linear network can always be rewritten
  as a shallow network, thus such networks do not gain expressive power from
@@ -454,8 +455,8 @@ literal "false"
 \end_inset
 
 .
- Furthermore this model has interesting training dynamics for gradient-flow,
- where increased depth may implicitly accelerate optimization 
+ Furthermore this model has interesting training dynamics, where increased
+ depth may implicitly accelerate optimization 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "arora2018optimization"
@@ -463,10 +464,19 @@ literal "false"
 
 \end_inset
 
-, and exhibit implicit bias towards low-rank solutions 
+, exhibit implicit bias towards low-rank solutions in the form of incremental
+ learning 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Arora2019Convrg"
+literal "false"
+
+\end_inset
+
+, and towards norm-like minimal solutions 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "yun2021a"
 literal "false"
 
 \end_inset
@@ -1182,178 +1192,19 @@ noprefix "false"
 \end_layout
 
 \begin_layout Proof
-First, notice that the set 
-\begin_inset Formula $\Omega_{0}\cap\mathcal{B}$
-\end_inset
+\begin_inset ERT
+status collapsed
 
- is non-empty.
- Mulayoff et al.
- (2020) proposed the canonical flattest solution:
-\begin_inset Formula 
-\begin{equation}
-W_{m}^{\ast}=US_{m}^{\frac{1}{m}},\quad W_{j}^{\ast}=S_{j}^{\frac{1}{m}},\quad W_{1}^{\ast}=S_{1}^{\frac{1}{m}}V^{T}\label{eq:Cannonical-sol}
-\end{equation}
+\begin_layout Plain Layout
 
-\end_inset
-
-
+[Proof sketch (proof in 
+\backslash
+ref{subsec:proof-flat-unbalanced})]
 \end_layout
 
-\begin_layout Proof
-Where 
-\begin_inset Formula $S_{j}^{\frac{1}{m}}$
 \end_inset
 
- is used to denote the 
-\begin_inset Formula $d_{j}\times d_{j-1}$
-\end_inset
-
- matrix whose 
-\begin_inset Formula $k$
-\end_inset
-
-th diagonal entry is 
-\begin_inset Formula $\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
-\end_inset
-
- and 
-\begin_inset Formula $\sigma_{k}\left(T\right)$
-\end_inset
-
- is the 
-\begin_inset Formula $k$
-\end_inset
-
-th largest singular value of 
-\begin_inset Formula $T$
-\end_inset
-
-.
- By 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "thm:sufficient"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- this is indeed a flattest solution, and one can readily see that it is
- also balanced.
-\end_layout
-
-\begin_layout Proof
-Now let 
-\begin_inset Formula $\left(\kaliseries W,m\right)\in\Omega_{0}\cap\mathcal{B}$
-\end_inset
-
- be a flattest balanced solution which satisfies the sufficient condition
- in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "thm:sufficient"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, we transform it into an unbalanced flattest solution.
-\end_layout
-
-\begin_layout Proof
-Let 
-\begin_inset Formula $k\in\left[m-1\right]$
-\end_inset
-
- and denote the SVD decomposition of 
-\begin_inset Formula $W_{k},\;W_{k+1}$
-\end_inset
-
- by: 
-\begin_inset Formula 
-\[
-W_{k}=U_{k}S_{k}V_{k}^{T},\;W_{k+1}=U_{k+1}S_{k+1}V_{k+1}^{T}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-Without loss of generality, assume that the elements along the main diagonal
- of 
-\begin_inset Formula $S_{k}$
-\end_inset
-
- are decreasing.
-\end_layout
-
-\begin_layout Proof
-Because 
-\begin_inset Formula $w$
-\end_inset
-
- is balanced we know that: 
-\begin_inset Formula $V_{k+1}S_{k+1}^{2}V_{k+1}^{T}=U_{k}S_{k}^{2}U_{k}^{T}$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Proof
-For a given 
-\begin_inset Formula $k$
-\end_inset
-
-, the two sides of the above equation are both orthogonal eigenvalue decompositi
-ons of the same matrix.
- Denote its eigenvalues by 
-\begin_inset Formula $\lambda_{1}^{k},...,\lambda_{r_{k}}^{k}$
-\end_inset
-
-and the multiplicity of the 
-\begin_inset Formula $i$
-\end_inset
-
-th eigenvalue by 
-\begin_inset Formula $\mu_{i}^{k}$
-\end_inset
-
-, there exists orthogonal matrices 
-\begin_inset Formula $O_{k,i}\in\mathbb{R}^{\mu_{i}\times\mu_{i}}$
-\end_inset
-
- such that:
-\end_layout
-
-\begin_layout Proof
-\begin_inset Formula 
-\begin{equation}
-U_{k}=V_{k+1}\cdot diag\left(O_{k,1},...,O_{k,r_{k}}\right),\quad S_{k}=S_{k+1}\label{eq:SvdChain}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-\begin_inset Formula $O_{k,i}$
-\end_inset
-
- here is simply a matrix changing between orthonormal bases of the eigenspace
- of 
-\begin_inset Formula $\lambda_{i}^{k}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Proof
-We create a flattest unbalanced solution by 
+ We find flattest unbalanced solutions by 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1361,103 +1212,25 @@ perturbing
 \begin_inset Quotes erd
 \end_inset
 
- 
-\begin_inset Formula $w$
+ a flattest balanced solution 
+\begin_inset Formula $\left(\kaliseries W,m\right)\in\Omega_{0}\cap\mathcal{B}$
 \end_inset
 
-:
-\end_layout
-
-\begin_layout Proof
-\begin_inset VSpace medskip
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-
-\bar under
-If
-\begin_inset space \space{}
-\end_inset
-
-
-\begin_inset Formula $\exists l\in[r].0<\sigma_{l}^{(k)}<\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
-\end_inset
-
-:
-\bar default
- Let 
-\begin_inset Formula $\varepsilon>0$
-\end_inset
-
- such that 
-\begin_inset Formula $\left(1+\epsilon\right)\sigma_{l}^{(k)}\le\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
-\end_inset
-
-, define 
-\begin_inset Formula $\bar{S}_{k+1},\bar{S}_{k}$
-\end_inset
-
- by:
-\begin_inset Formula 
-\[
-\left(\bar{S}_{k}\right)_{i,j}=\begin{cases}
-\left(S_{k}\right)_{i,j} & (i,j)\neq(l,l)\\
-\frac{\sigma_{l}^{(k)}}{1+\varepsilon} & (i,j)=(l,l)
-\end{cases}\;,\left(\bar{S}_{k+1}\right)=\begin{cases}
-\left(S_{k+1}\right)_{i,j} & (i,j)\neq(l,l)\\
-\left(1+\varepsilon\right)\sigma_{2}^{(k)} & (i,j)=(l,l)
-\end{cases}
-\]
+ into unbalancedness, without changing its end-to-end function.
+ As 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Mulayoff2020Unique"
+literal "false"
 
 \end_inset
 
-
-\begin_inset Formula 
-\[
-\bar{W}_{k}=U_{k}\bar{S}_{k}V_{k}^{T},\;\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}\left(V_{k+1}\cdot diag\left(O_{k,1},...,O_{k,r_{k}}\right)\right)^{T}
-\]
-
+ state, it is intractable to derive a closed form expression for 
+\begin_inset Formula $\lambda_{\max}\left(H_{w}\right)$
 \end_inset
 
- We define 
-\begin_inset Formula $\bar{W}_{j}=W_{j}$
-\end_inset
-
- for 
-\begin_inset Formula $j\in\left[m\right]\backslash\left\{ k,k+1\right\} $
-\end_inset
-
- and 
-\begin_inset Formula $\bar{w}=vec\left(\kaliseries{\bar{W}},m\right)$
-\end_inset
-
-, by 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:SvdChain"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- we have:
-\begin_inset Formula 
-\begin{align*}
-\bar{W}_{1:m} & =\prod_{j=k+2}^{m}W_{j}U_{k+1}\bar{S}_{k+1}{\color{gray}\underset{=I_{d_{k}}}{\underbrace{{\normalcolor \left(V_{k}\cdot diag\left(O_{k,1},...,O_{k,r_{k}}\right)\right)^{T}U_{k}}}}}\bar{S}_{k}V_{k}^{T}\prod_{j=1}^{k-1}W_{j}\\
- & =\prod_{j=k+2}^{m}W_{j}{\color{gray}\underset{\overset{\eqref{eq:SvdChain}}{=}W_{k+1}W_{k}}{\underbrace{{\normalcolor U_{k+1}\left(S_{k}^{2}\right)V_{k}^{T}}}}}W_{k+1}\prod_{j=1}^{k-1}W_{j}\\
- & =W_{1:m}=T\\
- & \Rightarrow\bar{W}_{1:m}\in\Omega
-\end{align*}
-
-\end_inset
-
- It remains to notice that by 
+ at an arbitrary minimum point, we therefore perturb the solution to meet
+ the conditions of 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "thm:sufficient"
@@ -1467,277 +1240,19 @@ noprefix "false"
 
 \end_inset
 
- 
-\begin_inset Formula $\bar{w}\in\Omega_{0}$
-\end_inset
-
- and by the contra-positive of 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:SvdChain"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- 
-\begin_inset Formula $\bar{w}$
-\end_inset
-
- is not balanced.
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-
-\bar under
-If
-\begin_inset space \space{}
-\end_inset
-
-
-\begin_inset Formula $\sigma_{2}^{(k)}=\sigma_{3}^{(k)}=\dotsc=\sigma_{r}^{(k)}=0$
-\end_inset
-
-:
-\bar default
- We define a flattest unbalanced solution in a similar fashion:
-\begin_inset Formula 
-\[
-\left(\bar{S}_{k+1}\right)=\begin{cases}
-\left(S_{k+1}\right)_{i,j} & (i,j)\neq(2,2)\\
-\frac{\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}}{2} & (i,j)=(2,2)
-\end{cases}\;,\quad\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}\left(V_{k+1}\cdot diag\left(O_{k,1},...,O_{k,r_{k}}\right)\right)
-\]
-
-\end_inset
-
-The results follows using the same arguments as for the case of 
-\begin_inset Formula $\sigma_{2}^{(k)}>0$
-\end_inset
-
 .
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-
-\bar under
-If
-\begin_inset space \space{}
-\end_inset
-
-
-\begin_inset Formula $\forall\left(\kaliseries W,m\right)\in\left(\Omega_{0}\cap\mathcal{B}\right).$
-\end_inset
-
-
-\begin_inset Formula $\forall k\in[m].\sigma_{1}^{(k)}\ge\sigma_{2}^{(k)}\ge\dotsc\ge\sigma_{r}^{(k)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}:$
-\end_inset
-
-
-\bar default
  
 \end_layout
 
-\begin_deeper
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-If
-\begin_inset space \space{}
+\begin_layout Remark*
+Unfortunately the authors could not find such a perturbation for the case
+ of 
+\begin_inset Formula $\sigma_{\min}\left(T\right)=\sigma_{\max}\left(T\right)$
 \end_inset
 
-
-\begin_inset Formula $\exists\left(\kaliseries W,m\right)\in\left(\Omega_{0}\cap\mathcal{B}\right).$
-\end_inset
-
-
-\begin_inset Formula $\exists k\in[m].\sigma_{1}^{(k)}>\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
-\end_inset
-
-:
+ or find a more lenient sufficient condition.
 \end_layout
 
-\begin_deeper
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-If
-\begin_inset space \space{}
-\end_inset
-
-
-\begin_inset Formula $\forall k\in[m],l\in[rank\left(W_{k}\right)].\ \sigma_{l}^{(k)}>\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}\rightarrow u_{l}^{(k)}\in Ker\left(W_{k+1:m}\right)$
-\end_inset
-
-: We can decrease all such singular values to 
-\begin_inset Formula $\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
-\end_inset
-
- (and even 0), without changing the end-to-end solution: 
-\begin_inset Formula $W_{1:m}$
-\end_inset
-
-.
- Denote the perturbed solution by 
-\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)$
-\end_inset
-
- we show by induction on 
-\begin_inset Formula $k\in[m]$
-\end_inset
-
- that 
-\begin_inset Formula $\bar{W}_{1:m}x=\bar{W}_{k+1:m}W_{1:k}x$
-\end_inset
-
- for 
-\begin_inset Formula $x\in Im(X).$
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-Induction
-\begin_inset space \space{}
-\end_inset
-
-Base
-\begin_inset space \space{}
-\end_inset
-
-(k=1): W.L.O.G we assume that only 
-\begin_inset Formula $\sigma_{l}^{(1)}>\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
-\end_inset
-
-:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{alignat*}{1}
-\bar{W}_{1:m}x & =\bar{W}_{2:m}\left(\sigma_{l}^{(1)}\left\langle x,v_{l}^{(1)}\right\rangle u_{l}^{(1)}+\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)\\
- & \stackrel{}{=}\bar{W}_{2:m}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)\\
- & =\bar{W}_{2:m}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)=\bar{W}_{2:m}W_{1}x
-\end{alignat*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-Induction
-\begin_inset space \space{}
-\end_inset
-
-step: Assume that the claim holds for all 
-\begin_inset Formula $a\in[k]$
-\end_inset
-
-, again w.l.o.g assume that only 
-\begin_inset Formula $\sigma_{l}^{(k+1)}>\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
-\end_inset
-
-.
-\begin_inset Formula 
-\begin{alignat*}{1}
-\bar{W}_{1:m}x & =\bar{W}_{k+1:m}\left(\sigma_{i}^{(k)}\left\langle \bar{W}_{1:k-1}x,v_{l}^{(k)}\right\rangle u_{l}^{(k)}+\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(k)}\left\langle \bar{W}_{1:k-1}x,v_{i}^{(k)}\right\rangle u_{i}^{(k)}\right)\\
- & \stackrel{i.h.}{=}\bar{W}_{k+1:m}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(k)}\left\langle W_{1:k-1}x,v_{i}^{(k)}\right\rangle u_{i}^{(k)}\right)=\bar{W}_{k+2:m}W_{1:k+1}x
-\end{alignat*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Thus 
-\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\left(\Omega\cap\mathcal{B}^{C}\right),$
-\end_inset
-
-and by 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "thm:sufficient"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- 
-\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\Omega_{0}$
-\end_inset
-
-.
-\end_layout
-
-\end_deeper
-\begin_layout Standard
-Assume by contradiction that 
-\begin_inset Formula $\exists k\in[m],l\in[r_{k}].\ \sigma_{l}^{(k)}>\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}\wedge u_{l}^{(k)}\notin Ker\left(W_{k+1:m}\right)$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-If 
-\begin_inset Formula $u_{l}^{(k)}\notin W_{1:k-1}X$
-\end_inset
-
- we can set 
-\begin_inset Formula $\sigma_{l}^{(k)}=\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
-\end_inset
-
- and using a similar induction we show that the perturbed end-to-end matrix
- is a solution.
-\end_layout
-
-\begin_layout Standard
-Otherwise, we know that 
-\begin_inset Formula $\exists x\in Im\left(X\right).W_{1:k-1}x=u_{l}^{(k)}$
-\end_inset
-
-.
- Notice that: 
-\begin_inset Formula 
-\[
-\sigma_{\min}\left(W_{k+1:m}\right)\ge\prod_{j=k+1}^{m}\sigma_{\min}^{(j)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{m-k+1}{m}},\quad\sigma_{\min}\left(W_{1:k-1}\right)\ge\prod_{j=1}^{k-1}\sigma_{\min}^{(j)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{k-1}{m}}
-\]
-
-\end_inset
-
-
-\begin_inset Formula 
-\begin{align*}
-\Rightarrow\sigma_{\max}\left(T\right)\left\Vert x\right\Vert _{2} & \ge\left\Vert W_{1:m}x\right\Vert \\
- & \ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{k-1}{m}}\sigma_{l}^{(k)}\left\Vert W_{k+1:m}u_{l}^{(k)}\right\Vert _{2}\left\Vert x\right\Vert _{2}\\
- & \ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{m-1}{m}}\sigma_{l}^{(k)}\left\Vert x\right\Vert _{2}\\
- & >\sigma_{\max}\left(T\right)\left\Vert x\right\Vert _{2}
-\end{align*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where the first inequality is true because the 
-\begin_inset Formula $l_{2}$
-\end_inset
-
- operator norm is induced.
-\end_layout
-
-\end_deeper
-\end_deeper
-\end_deeper
 \begin_layout Standard
 \begin_inset Newpage newpage
 \end_inset
@@ -4166,15 +3681,588 @@ options "myStyle"
 
 \end_layout
 
-\begin_layout Part*
-\start_of_appendix
-Appendix
-\end_layout
-
 \begin_layout Section
+\start_of_appendix
 Deferred Proofs
 \end_layout
 
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:proof-flat-unbalanced"
+
+\end_inset
+
+Proof of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "prop:FlatUnbalanced"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+First, notice that the set 
+\begin_inset Formula $\Omega_{0}\cap\mathcal{B}$
+\end_inset
+
+ is non-empty.
+ Mulayoff et al.
+ (2020) proposed the canonical flattest solution:
+\begin_inset Formula 
+\begin{equation}
+W_{m}^{\ast}=US_{m}^{\frac{1}{m}},\quad W_{j}^{\ast}=S_{j}^{\frac{1}{m}},\quad W_{1}^{\ast}=S_{1}^{\frac{1}{m}}V^{T}\label{eq:Cannonical-sol}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Where 
+\begin_inset Formula $S_{j}^{\frac{1}{m}}$
+\end_inset
+
+ is used to denote the 
+\begin_inset Formula $d_{j}\times d_{j-1}$
+\end_inset
+
+ matrix whose 
+\begin_inset Formula $k$
+\end_inset
+
+th diagonal entry is 
+\begin_inset Formula $\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\sigma_{k}\left(T\right)$
+\end_inset
+
+ is the 
+\begin_inset Formula $k$
+\end_inset
+
+th largest singular value of 
+\begin_inset Formula $T$
+\end_inset
+
+.
+ By 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:sufficient"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ this is indeed a flattest solution, and one can readily see that it is
+ also balanced.
+\end_layout
+
+\begin_layout Proof
+Now let 
+\begin_inset Formula $\left(\kaliseries W,m\right)\in\Omega_{0}\cap\mathcal{B}$
+\end_inset
+
+ be a flattest balanced solution which satisfies the sufficient condition
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:sufficient"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we transform it into an unbalanced flattest solution.
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $k\in\left[m-1\right]$
+\end_inset
+
+ and denote the SVD decomposition of 
+\begin_inset Formula $W_{k},\;W_{k+1}$
+\end_inset
+
+ by: 
+\begin_inset Formula 
+\[
+W_{k}=U_{k}S_{k}V_{k}^{T},\;W_{k+1}=U_{k+1}S_{k+1}V_{k+1}^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Without loss of generality, assume that the elements along the main diagonal
+ of 
+\begin_inset Formula $S_{k}$
+\end_inset
+
+ are decreasing.
+\end_layout
+
+\begin_layout Proof
+Because 
+\begin_inset Formula $w$
+\end_inset
+
+ is balanced we know that: 
+\begin_inset Formula $V_{k+1}S_{k+1}^{2}V_{k+1}^{T}=U_{k}S_{k}^{2}U_{k}^{T}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Proof
+For a given 
+\begin_inset Formula $k$
+\end_inset
+
+, the two sides of the above equation are both orthogonal eigenvalue decompositi
+ons of the same matrix.
+ Denote its eigenvalues by 
+\begin_inset Formula $\lambda_{1}^{k},...,\lambda_{r_{k}}^{k}$
+\end_inset
+
+and the multiplicity of the 
+\begin_inset Formula $i$
+\end_inset
+
+th eigenvalue by 
+\begin_inset Formula $\mu_{i}^{k}$
+\end_inset
+
+, there exists orthogonal matrices 
+\begin_inset Formula $O_{k,i}\in\mathbb{R}^{\mu_{i}\times\mu_{i}}$
+\end_inset
+
+ such that:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{equation}
+U_{k}=V_{k+1}\cdot diag\left(O_{k,1},...,O_{k,r_{k}}\right),\quad S_{k}=S_{k+1}\label{eq:SvdChain}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula $O_{k,i}$
+\end_inset
+
+ here is simply a matrix changing between orthonormal bases of the eigenspace
+ of 
+\begin_inset Formula $\lambda_{i}^{k}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+We create a flattest unbalanced solution by 
+\begin_inset Quotes eld
+\end_inset
+
+perturbing
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset Formula $w$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Proof
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\bar under
+If
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset Formula $\exists l\in[r].0<\sigma_{l}^{(k)}<\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+:
+\bar default
+ Let 
+\begin_inset Formula $\varepsilon>0$
+\end_inset
+
+ such that 
+\begin_inset Formula $\left(1+\epsilon\right)\sigma_{l}^{(k)}\le\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+, define 
+\begin_inset Formula $\bar{S}_{k+1},\bar{S}_{k}$
+\end_inset
+
+ by:
+\begin_inset Formula 
+\[
+\left(\bar{S}_{k}\right)_{i,j}=\begin{cases}
+\left(S_{k}\right)_{i,j} & (i,j)\neq(l,l)\\
+\frac{\sigma_{l}^{(k)}}{1+\varepsilon} & (i,j)=(l,l)
+\end{cases}\;,\left(\bar{S}_{k+1}\right)=\begin{cases}
+\left(S_{k+1}\right)_{i,j} & (i,j)\neq(l,l)\\
+\left(1+\varepsilon\right)\sigma_{2}^{(k)} & (i,j)=(l,l)
+\end{cases}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\bar{W}_{k}=U_{k}\bar{S}_{k}V_{k}^{T},\;\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}\left(V_{k+1}\cdot diag\left(O_{k,1},...,O_{k,r_{k}}\right)\right)^{T}
+\]
+
+\end_inset
+
+ We define 
+\begin_inset Formula $\bar{W}_{j}=W_{j}$
+\end_inset
+
+ for 
+\begin_inset Formula $j\in\left[m\right]\backslash\left\{ k,k+1\right\} $
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{w}=vec\left(\kaliseries{\bar{W}},m\right)$
+\end_inset
+
+, by 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:SvdChain"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we have:
+\begin_inset Formula 
+\begin{align*}
+\bar{W}_{1:m} & =\prod_{j=k+2}^{m}W_{j}U_{k+1}\bar{S}_{k+1}{\color{gray}\underset{=I_{d_{k}}}{\underbrace{{\normalcolor \left(V_{k}\cdot diag\left(O_{k,1},...,O_{k,r_{k}}\right)\right)^{T}U_{k}}}}}\bar{S}_{k}V_{k}^{T}\prod_{j=1}^{k-1}W_{j}\\
+ & =\prod_{j=k+2}^{m}W_{j}{\color{gray}\underset{\overset{\eqref{eq:SvdChain}}{=}W_{k+1}W_{k}}{\underbrace{{\normalcolor U_{k+1}\left(S_{k}^{2}\right)V_{k}^{T}}}}}W_{k+1}\prod_{j=1}^{k-1}W_{j}\\
+ & =W_{1:m}=T\\
+ & \Rightarrow\bar{W}_{1:m}\in\Omega
+\end{align*}
+
+\end_inset
+
+ It remains to notice that by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:sufficient"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\begin_inset Formula $\bar{w}\in\Omega_{0}$
+\end_inset
+
+ and by the contra-positive of 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:SvdChain"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\begin_inset Formula $\bar{w}$
+\end_inset
+
+ is not balanced.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\bar under
+If
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset Formula $\sigma_{2}^{(k)}=\sigma_{3}^{(k)}=\dotsc=\sigma_{r}^{(k)}=0$
+\end_inset
+
+:
+\bar default
+ We define a flattest unbalanced solution in a similar fashion:
+\begin_inset Formula 
+\[
+\left(\bar{S}_{k+1}\right)=\begin{cases}
+\left(S_{k+1}\right)_{i,j} & (i,j)\neq(2,2)\\
+\frac{\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}}{2} & (i,j)=(2,2)
+\end{cases}\;,\quad\bar{W}_{k+1}=U_{k+1}\bar{S}_{k+1}\left(V_{k+1}\cdot diag\left(O_{k,1},...,O_{k,r_{k}}\right)\right)
+\]
+
+\end_inset
+
+The results follows using the same arguments as for the case of 
+\begin_inset Formula $\sigma_{2}^{(k)}>0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\bar under
+If
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset Formula $\forall\left(\kaliseries W,m\right)\in\left(\Omega_{0}\cap\mathcal{B}\right).$
+\end_inset
+
+
+\begin_inset Formula $\forall k\in[m].\sigma_{1}^{(k)}\ge\sigma_{2}^{(k)}\ge\dotsc\ge\sigma_{r}^{(k)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}:$
+\end_inset
+
+
+\bar default
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+If
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset Formula $\exists\left(\kaliseries W,m\right)\in\left(\Omega_{0}\cap\mathcal{B}\right).$
+\end_inset
+
+
+\begin_inset Formula $\exists k\in[m].\sigma_{1}^{(k)}>\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+If
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset Formula $\forall k\in[m],l\in[rank\left(W_{k}\right)].\ \sigma_{l}^{(k)}>\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}\rightarrow u_{l}^{(k)}\in Ker\left(W_{k+1:m}\right)$
+\end_inset
+
+: We can decrease all such singular values to 
+\begin_inset Formula $\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+ (and even 0), without changing the end-to-end solution: 
+\begin_inset Formula $W_{1:m}$
+\end_inset
+
+.
+ Denote the perturbed solution by 
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)$
+\end_inset
+
+ we show by induction on 
+\begin_inset Formula $k\in[m]$
+\end_inset
+
+ that 
+\begin_inset Formula $\bar{W}_{1:m}x=\bar{W}_{k+1:m}W_{1:k}x$
+\end_inset
+
+ for 
+\begin_inset Formula $x\in Im(X).$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Induction
+\begin_inset space \space{}
+\end_inset
+
+Base
+\begin_inset space \space{}
+\end_inset
+
+(k=1): W.L.O.G we assume that only 
+\begin_inset Formula $\sigma_{l}^{(1)}>\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{alignat*}{1}
+\bar{W}_{1:m}x & =\bar{W}_{2:m}\left(\sigma_{l}^{(1)}\left\langle x,v_{l}^{(1)}\right\rangle u_{l}^{(1)}+\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)\\
+ & \stackrel{}{=}\bar{W}_{2:m}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)\\
+ & =\bar{W}_{2:m}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)=\bar{W}_{2:m}W_{1}x
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Induction
+\begin_inset space \space{}
+\end_inset
+
+step: Assume that the claim holds for all 
+\begin_inset Formula $a\in[k]$
+\end_inset
+
+, again w.l.o.g assume that only 
+\begin_inset Formula $\sigma_{l}^{(k+1)}>\left(\sigma_{\max}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{alignat*}{1}
+\bar{W}_{1:m}x & =\bar{W}_{k+1:m}\left(\sigma_{i}^{(k)}\left\langle \bar{W}_{1:k-1}x,v_{l}^{(k)}\right\rangle u_{l}^{(k)}+\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(k)}\left\langle \bar{W}_{1:k-1}x,v_{i}^{(k)}\right\rangle u_{i}^{(k)}\right)\\
+ & \stackrel{i.h.}{=}\bar{W}_{k+1:m}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(k)}\left\langle W_{1:k-1}x,v_{i}^{(k)}\right\rangle u_{i}^{(k)}\right)=\bar{W}_{k+2:m}W_{1:k+1}x
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus 
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\left(\Omega\cap\mathcal{B}^{C}\right),$
+\end_inset
+
+and by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:sufficient"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\Omega_{0}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Assume by contradiction that 
+\begin_inset Formula $\exists k\in[m],l\in[r_{k}].\ \sigma_{l}^{(k)}>\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}\wedge u_{l}^{(k)}\notin Ker\left(W_{k+1:m}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $u_{l}^{(k)}\notin W_{1:k-1}X$
+\end_inset
+
+ we can set 
+\begin_inset Formula $\sigma_{l}^{(k)}=\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+ and using a similar induction we show that the perturbed end-to-end matrix
+ is a solution.
+\end_layout
+
+\begin_layout Standard
+Otherwise, we know that 
+\begin_inset Formula $\exists x\in Im\left(X\right).W_{1:k-1}x=u_{l}^{(k)}$
+\end_inset
+
+.
+ Notice that: 
+\begin_inset Formula 
+\[
+\sigma_{\min}\left(W_{k+1:m}\right)\ge\prod_{j=k+1}^{m}\sigma_{\min}^{(j)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{m-k+1}{m}},\quad\sigma_{\min}\left(W_{1:k-1}\right)\ge\prod_{j=1}^{k-1}\sigma_{\min}^{(j)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{k-1}{m}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\Rightarrow\sigma_{\max}\left(T\right)\left\Vert x\right\Vert _{2} & \ge\left\Vert W_{1:m}x\right\Vert \\
+ & \ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{k-1}{m}}\sigma_{l}^{(k)}\left\Vert W_{k+1:m}u_{l}^{(k)}\right\Vert _{2}\left\Vert x\right\Vert _{2}\\
+ & \ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{m-1}{m}}\sigma_{l}^{(k)}\left\Vert x\right\Vert _{2}\\
+ & >\sigma_{\max}\left(T\right)\left\Vert x\right\Vert _{2}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where the first inequality is true because the 
+\begin_inset Formula $l_{2}$
+\end_inset
+
+ operator norm is induced.
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
 \begin_layout Standard
 
 \end_layout
