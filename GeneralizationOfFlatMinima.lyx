@@ -1036,7 +1036,7 @@ The following sufficient condition for minima flatness holds:
 
 \begin_layout Theorem
 \begin_inset Argument 1
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Sufficient Condition, 
@@ -1278,6 +1278,546 @@ Unfortunately the authors could not find such a perturbation for the case
 \end_inset
 
  or find a more lenient sufficient condition.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Hessian Trace
+\end_layout
+
+\begin_layout Standard
+Following 
+\begin_inset Formula $\text{\ref{prop:FlatUnbalanced}}$
+\end_inset
+
+, we showed that there exists an unbalanced flattest solution.
+ To try and solve this problem, we propose a new definition for the sharpness
+ of a solution:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\omega\left(\kaliseries W,m\right)=Trace\left(H_{w}\right)\label{eq:sharp_def_trace}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $w$
+\end_inset
+
+ is defined as 
+\begin_inset Formula $w:=Vec(W_{1},W_{2},...,W_{m})$
+\end_inset
+
+ such that 
+\begin_inset Formula $W_{m}\cdot...\cdot W_{1}=T$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The idea behind this definition is to include every singular value in the
+ calculation of the sharpness, thus eliminating the counter examples we
+ found eariler.
+\end_layout
+
+\begin_layout Standard
+We seek to revisit 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+ results while using the new definition for sharpness.
+\end_layout
+
+\begin_layout Subsubsection
+Sharpness of a general solution
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:hes-trace"
+
+\end_inset
+
+Assuming 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:nonsingular"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:white"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the trace of the Hessian for a solution is:
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Formula 
+\begin{equation}
+Trace(H_{w})=2\sum_{k=1}^{m}||W_{k-1:1}||_{F}^{2}\cdot||W_{m:k+1}||_{F}^{2}\label{eq:hes-trace}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[Proof sketch (proof in 
+\backslash
+ref{subsec:proof-of-hes-trace})]
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Proof
+We apply the trace function to the result from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+ for the Hessian structure, and using properties of Kronecker product and
+ trace, arrive to the result above.
+\end_layout
+
+\begin_layout Subsubsection
+Sharpness of a balanced soltuion
+\end_layout
+
+\begin_layout Standard
+Now, we discuss the case of a balanced solution:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\forall i\in[m].W_{i}W_{i}^{T}=W_{i+1}^{T}W_{i+1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:bal-hes-trace"
+
+\end_inset
+
+For a balnced solution, it holds that: 
+\begin_inset Formula $||\prod_{i=k}^{n}W_{i}||_{F}^{2}=||S^{\frac{n-k+1}{m}}||_{F}^{2}$
+\end_inset
+
+ where 
+\begin_inset Formula $W_{m:1}=T=USV^{T}$
+\end_inset
+
+is the SVD decompostion of the End-to-End solution.
+\end_layout
+
+\begin_layout Proof
+From 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "subsec:proof-flat-unbalanced"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we know the following:
+\begin_inset Formula 
+\[
+U_{k}=V_{k+1},S_{k}=S_{k+1}
+\]
+
+\end_inset
+
+ Thus we get that:
+\begin_inset Formula 
+\[
+\prod_{i=k}^{n}W_{i}=W_{n}W_{n-1}...W_{k+1}W_{k}=\mysvd n\mysvd{n-1}...\mysvd{k+1}\mysvd k=U_{n}S_{k}^{n-k+1}V_{k}^{T}
+\]
+
+\end_inset
+
+ Comparint it with the end-to-end soltuion we get:
+\begin_inset Formula 
+\[
+U_{m}S_{1}^{m}V_{1}^{T}=W_{m:1}=T=USV^{T}=>\forall i\in[m].S_{i}=S^{\frac{1}{m}}
+\]
+
+\end_inset
+
+ Finaly:
+\begin_inset Formula 
+\[
+||\prod_{i=k}^{n}W_{i}||_{F}^{2}=||U_{n}S_{k}^{n-k+1}V_{k}^{T}||_{F}^{2}=||S^{\frac{n-k+1}{m}}||_{F}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+By using 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "lem:hes-trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ with 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:hes-trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we get the following result for balanced solutions:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{equation}
+Trace(H_{w})=2\sum_{k=1}^{m}||S^{\frac{k-1}{m}}||_{F}^{2}\cdot||S^{\frac{m-k}{m}}||_{F}^{2}\label{eq:balanced_trace}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Is balancedness equal to flattest solution?
+\end_layout
+
+\begin_layout Standard
+After revisitting 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+ with our new definition for the sharpness of a solution, we can start and
+ investigate if balancedness equates to flatness of the solution.
+\end_layout
+
+\begin_layout Standard
+We split this to 2 cases: the 2-Layer case, and the general m-Layer Case.
+ As we will show, there is difference in the results, which stems from the
+ scaling of some elements in the equation 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:hes-trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+2-Layer case
+\end_layout
+
+\begin_layout Paragraph
+Non-Square Case
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the non-square case, we have an issue of scaling: the trace has a different
+ scaling for each norm, thus providing us a way to find a counter example.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:non-square-case"
+
+\end_inset
+
+ Assume 
+\begin_inset Formula $T\in\mathbb{R}^{d_{X}\times d_{Y}}$
+\end_inset
+
+ and 
+\begin_inset Formula $d_{X}\neq d_{Y}$
+\end_inset
+
+.
+ Then there exists a solution with lower sharpness than any balanced solution.
+\end_layout
+
+\begin_layout Proof
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[Proof sketch (proof in 
+\backslash
+ref{subsec:proof-of-non-square-case})]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+We bring a counter-example which has lower sharpness than the balanced solution.
+ As all balanced solutions have the same sharpness (by 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:balanced_trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), we conclude that any balanced solution is not the flattest, and any flattest
+ solution is not balanced.
+\end_layout
+
+\begin_layout Paragraph
+Square Case
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the square case, all the elements in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:hes-trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ are scales with the same constant - the dimension.
+ Using this, we prove that a solution is flattest if and only if the solution
+ is balanced.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:2-layer-case"
+
+\end_inset
+
+Assume that 
+\begin_inset Formula $T=W_{2}W_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $T\in\mathbb{R}^{d\times d}.$
+\end_inset
+
+ Then a solution is flattest if and only if the solution is balanced.
+\end_layout
+
+\begin_layout Proof
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[Proof sketch (proof in 
+\backslash
+ref{subsec:proof-of-2-layer-case})]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+First we show that balanced solution is always a flattest solution.
+\end_layout
+
+\begin_layout Proof
+To show this we show that minimizing the trace of the hessian in the 2-Layer
+ case for square end-to-end matrix is equal to the nuclear norm of the end-to-en
+d solution.
+\end_layout
+
+\begin_layout Proof
+To show the other direction, that any flattest solution is indeed balanced,
+ we define a new function that achievs a local minima at the solution.
+ By differentiating this funtion and equating the derivative to 0, we get
+ the balancedness criterion defind in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "def:balancedness"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+m-Layer Case
+\end_layout
+
+\begin_layout Standard
+As we saw before, the non-square case the statement is already invalid.
+ Thus we will focus here only on the square case.
+\end_layout
+
+\begin_layout Standard
+We will show now that for the m-Layer case for 
+\begin_inset Formula $m\geq3$
+\end_inset
+
+ balancedness does not imply flattest solution, or vice versa.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:m-layer-case"
+
+\end_inset
+
+ Assume 
+\begin_inset Formula $T\in\mathbb{R}^{d\times d}$
+\end_inset
+
+ .
+ Then for 
+\begin_inset Formula $m>2$
+\end_inset
+
+, there exists a solution 
+\begin_inset Formula $w=\left(W_{m},...W_{1}\right)$
+\end_inset
+
+ with lower sharpness than any balanced solution.
+\end_layout
+
+\begin_layout Proof
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[Proof sketch (proof in 
+\backslash
+ref{subsec:proof-of-m-layer-case})]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+We use a simmilar approach as in the proof of 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "lem:non-square-case"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We build a counter example, and show that there exist a value for the singular
+ values of the end-to-end matrix, such that any balanced solution will have
+ a higher sharpness value than our counter example.
+\end_layout
+
+\begin_layout Standard
+In conclusion, we see that even the new defintion of sharpness (
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:sharp_def_trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is not enough to achieve balancedness for the flatteset solutions, apart
+ from the simple case of 2-layers.
 \end_layout
 
 \begin_layout Standard
@@ -3864,6 +4404,853 @@ where the first inequality is true because the
 \end_deeper
 \end_deeper
 \end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:proof-of-hes-trace"
+
+\end_inset
+
+Proof of Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:hes-trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Following Mulayoff et.al.
+ (2020), we know that the hessian at a global minimum has the following
+ form:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+H_{w}=2\Phi\Phi^{T}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\Phi=\left[\Phi_{1}^{T},\Phi_{2}^{T},...,\Phi_{m}^{T}\right]{}^{T}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\Phi_{k}=\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)\odot\left(\prod_{i=k+1}^{m}W_{i}\right)^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Where 
+\begin_inset Formula $\odot$
+\end_inset
+
+ is the kronecker product.
+\end_layout
+
+\begin_layout Proof
+Thus we get the follwing:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+Sharp(w)=Trace(H_{w})=Trace(2\Phi\Phi^{T})=2\sum_{i=1}^{m}Trace(\Phi_{i}\Phi_{i}^{T})
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{alignat}{1}
+Trace(\Phi_{i}\Phi_{i}^{T}) & =Trace\left(\left[\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)\odot\left(\prod_{i=k+1}^{m}W_{i}\right)^{T}\right]\left[\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)\odot\left(\prod_{i=k+1}^{m}W_{i}\right)^{T}\right]^{T}\right)\nonumber \\
+ & =Trace\left(\left[\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)\odot\left(\prod_{i=k+1}^{m}W_{i}\right)^{T}\right]\left[\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)^{T}\odot\left(\prod_{i=k+1}^{m}W_{i}\right)\right]\right)\label{eq:trace}\\
+ & =Trace\left(\left[\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)^{T}\right]\odot\left[\left(\prod_{i=k+1}^{m}W_{i}\right)^{T}\left(\prod_{i=k+1}^{m}W_{i}\right)\right]\right)\nonumber \\
+ & =Trace\left(\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)\left(\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}\right)^{T}\right)\cdot Trace\left(\left(\prod_{i=k+1}^{m}W_{i}\right)^{T}\left(\prod_{i=k+1}^{m}W_{i}\right)\right)\nonumber \\
+ & =||\prod_{j=1}^{k-1}W_{j}\Sigma_{x}^{0.5}||_{F}^{2}\cdot||\prod_{i=k+1}^{m}W_{i}||_{F}^{2}\nonumber 
+\end{alignat}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Proof
+By our assumption, 
+\begin_inset Formula $\Sigma_{x}^{-1}=Id$
+\end_inset
+
+, turning 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ into:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{equation}
+Trace(\Phi_{i}\Phi_{i}^{T})=||\prod_{j=1}^{k-1}W_{j}||_{F}^{2}\cdot||\prod_{i=k+1}^{m}W_{i}||_{F}^{2}=||W_{k-1:1}||_{F}^{2}\cdot||W_{m:k+1}||_{F}^{2}\label{eq:trace2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Where we used the following notation:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{alignat*}{1}
+W_{n:k} & :=\prod_{i=k}^{n}W_{i}=W_{n}W_{n-1}...W_{k}
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Using 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:trace2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we get the following:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+Trace(H_{w})=2\sum_{k=1}^{m}||W_{k-1:1}||_{F}^{2}\cdot||W_{m:k+1}||_{F}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:proof-of-non-square-case"
+
+\end_inset
+
+Proof of Lemma 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "lem:non-square-case"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $T=USV^{T}\in\mathbb{R}^{d_{X}\times d_{Y}}$
+\end_inset
+
+ be the SVD decomposition, where: 
+\begin_inset Formula 
+\[
+S=\left[\begin{array}{ccccc}
+x & 0 & \cdots & \cdots & 0\\
+0 & 1 & \ddots &  & \vdots\\
+\vdots & \ddots & 0 & \ddots & \vdots\\
+\vdots &  & \ddots & \ddots & 0\\
+0 & \cdots & \cdots & 0 & 0
+\end{array}\right]\in\mathbb{R}^{d_{X}\times d_{Y}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Assume that we have a solution: 
+\begin_inset Formula $T=W_{2}W_{1}$
+\end_inset
+
+.
+ In the non-square case it holds that:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align}
+Trace(H_{w}) & =2\sum_{k=1}^{m}||W_{k-1:1}||_{F}^{2}\cdot||W_{m:k+1}||_{F}^{2}=\nonumber \\
+ & =2\left(||W_{0:1}||_{F}^{2}\cdot||W_{2:2}||_{F}^{2}+||W_{1:1}||_{F}^{2}\cdot||W_{2:3}||_{F}^{2}\right)\nonumber \\
+ & =2\left(||I_{d_{Y}}||_{F}^{2}\cdot||W_{2}||_{F}^{2}+||W_{1}||_{F}^{2}\cdot||I_{d_{X}}||_{F}^{2}\right)\label{eq:non_square_trace}\\
+ & =2\left(d_{y}||W_{2}||_{F}^{2}+d_{X}||W_{1}||_{F}^{2}\right)\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $W_{2}=US^{\frac{2}{3}}$
+\end_inset
+
+ and 
+\begin_inset Formula $W_{1}=S^{\frac{1}{3}}V^{T}$
+\end_inset
+
+.
+ It is easy to see that it is a non-balanced solution.
+ Assume that 
+\begin_inset Formula $d_{X}=\alpha\cdot d_{y}$
+\end_inset
+
+ for some 
+\begin_inset Formula $\alpha>1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+By 
+\begin_inset Formula $\text{\ref{eq:non_square_trace}}$
+\end_inset
+
+We get the following:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align}
+Trace(H_{w}) & =2\left(d_{y}||W_{2}||_{F}^{2}+d_{X}||W_{1}||_{F}^{2}\right)\nonumber \\
+ & =2\left(d_{y}||US^{\frac{2}{3}}||_{F}^{2}+\alpha\cdot d_{y}||S^{\frac{1}{3}}V^{T}||_{F}^{2}\right)\label{counter_trace}\\
+ & =2\left(d_{y}\left(x^{\frac{4}{3}}+1\right)+\alpha\cdot d_{y}\left(x^{\frac{2}{3}}+1\right)\right)\nonumber \\
+ & =2d_{y}\left(x^{\frac{4}{3}}+\alpha x^{\frac{2}{3}}+\alpha+1\right)\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+And for the balanced solution we have the following:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+Trace(H_{w_{bal}}) & =2\sum_{k=1}^{m}||S^{\frac{k-1}{m}}||_{F}^{2}\cdot||S^{\frac{m-k}{m}}||_{F}^{2}\\
+ & =2\left(||I_{d_{Y}}||_{F}^{2}\cdot||S^{\frac{1}{2}}||_{F}^{2}+||S^{\frac{1}{2}}||_{F}^{2}\cdot||I_{d_{X}}||_{F}^{2}\right)\\
+ & =2\left(d_{y}\cdot\left(x+1\right)+\alpha\cdot d_{y}\left(x+1\right)\right)\\
+ & =2d_{y}\left(x+\alpha x+1+\alpha\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+We want toe get a counter example by having the balanced trace be larger
+ than the non-balanced trace, i.e:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{flalign*}
+2d_{y}\left(x+\alpha x+1+\alpha\right) & >2d_{y}\left(x^{\frac{4}{3}}+\alpha x^{\frac{2}{3}}+\alpha+1\right)\\
+x+\alpha x & >x^{\frac{4}{3}}+\alpha x^{\frac{2}{3}}\\
+x^{\frac{4}{3}}-x-\alpha x+\alpha x^{\frac{2}{3}} & <0
+\end{flalign*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Solving the inequality results in the following:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+x\in\left(1,\alpha^{3}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Thus for 
+\begin_inset Formula $1<x<\alpha^{3}$
+\end_inset
+
+ we get a counter example, proving that balanced solution is not the flattest,
+ and that a flattest solution is not balanced, as all ballanced solution
+ have the same flattness.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:proof-of-2-layer-case"
+
+\end_inset
+
+Proof of Theorem 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "thm:2-layer-case"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $T=W_{2}W_{1}$
+\end_inset
+
+ such that 
+\begin_inset Formula $T\in\mathbb{R}^{d\times d}$
+\end_inset
+
+ and 
+\begin_inset Formula $W_{2},W_{1}^{T}\in\mathbb{R}^{d\times d_{h}}$
+\end_inset
+
+.
+ Define 
+\begin_inset Formula $w=\left(W_{2,}W_{1}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+By 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:hes-trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+we get: 
+\begin_inset Formula 
+\[
+Trace(H_{w})=2\left(||W_{0:1}||_{F}^{2}\cdot||W_{2:2}||_{F}^{2}+||W_{1:1}||_{F}^{2}\cdot||W_{2:3}||_{F}^{2}\right)=2d\left(||W_{1}||_{F}^{2}+||W_{2}||_{F}^{2}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Now we want to minimize the trace.
+ Let 
+\begin_inset Formula $T=USV^{T}$
+\end_inset
+
+ be the SVD decompostion of T.
+ Then it holds that:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{equation}
+\underset{W_{2}W_{1}=T}{\min}\left(||W_{1}||_{F}^{2}+||W_{2}||_{F}^{2}\right)=2||S^{\frac{1}{2}}||_{F}^{2}=2||S||_{\sigma}\label{eq:flattest-2-layer}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $||\cdot||_{\sigma}$
+\end_inset
+
+ is the nuclear norm.
+ To see that we use AM-GM and get the following:
+\begin_inset Formula 
+\[
+||W_{1}||_{F}^{2}+||W_{2}||_{F}^{2}\geq2\sqrt{||W_{1}||_{F}^{2}\cdot||W_{2}||_{F}^{2}}=2||W_{1}||_{F}||W_{2}||_{F}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Using Cauchy-Schwarz inequality we get:
+\begin_inset Formula 
+\begin{alignat*}{1}
+||W_{1}||_{F}||W_{2}||_{F} & =||U^{T}W_{2}||_{F}\cdot||VW_{1}^{T}||_{F}\\
+ & \geq\langle U^{T}W_{2},VW_{1}^{T}\rangle_{F}\\
+ & =Trace\left(U^{T}W_{2}W_{1}V\right)\\
+ & =Trace\left(U^{T}USV^{T}V\right)\\
+ & =Trace\left(S\right)\\
+ & =||S^{\frac{1}{2}}||_{F}^{2}
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Thus:
+\begin_inset Formula 
+\[
+||W_{1}||_{F}^{2}+||W_{2}||_{F}^{2}\geq2||S^{\frac{1}{2}}||_{F}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+With equality for 
+\begin_inset Formula $W_{2}=US^{\frac{1}{2}},W_{1}=S^{\frac{1}{2}}V^{T}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Using equation 
+\begin_inset Formula $\left(\text{\ref{eq:balanced_trace}}\right)$
+\end_inset
+
+ in the 2 layer case we get:
+\begin_inset Formula 
+\[
+Trace(H_{w})=2\sum_{k=1}^{2}||S^{\frac{k-1}{2}}||_{F}^{2}\cdot||S^{\frac{2-k}{2}}||_{F}^{2}=2\left(||S^{0}||_{F}^{2}\cdot||S^{\frac{1}{2}}||_{F}^{2}+||S^{\frac{1}{2}}||_{F}^{2}\cdot||S^{0}||_{F}^{2}\right)=4d||S^{\frac{1}{2}}||_{F}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Which is indeed the flattest solution by 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:flattest-2-layer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, completing the first direction of the theorem.
+\end_layout
+
+\begin_layout Proof
+To show the other direction, assume that 
+\begin_inset Formula $W_{1},W_{2}$
+\end_inset
+
+ is a flattest solution such that: 
+\begin_inset Formula $W_{2},W_{1}^{T}\in\mathbb{R}^{d\times d_{h}}$
+\end_inset
+
+.
+ Thus 
+\begin_inset Formula $W_{1,}W_{2}$
+\end_inset
+
+ satisfy: 
+\begin_inset Formula 
+\[
+W_{1},W_{2}=\underset{W_{2}W_{1}=T}{\argmin}\left(||W_{1}||_{F}^{2}+||W_{2}||_{F}^{2}\right)=\frac{1}{2d}Trace(H_{w})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+We define the following function:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+f(X)=||W_{2}X||_{F}^{2}+||X^{-1}W_{1}||_{F}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+The function 
+\begin_inset Formula $f$
+\end_inset
+
+ is defined on the open set of invertible 
+\begin_inset Formula $d_{h}\times d_{h}$
+\end_inset
+
+ matrices, thus any local minima satisfies:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+\nabla f(X_{min})=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+In particular, 
+\begin_inset Formula $X=Id$
+\end_inset
+
+ is a local minima by defenition of 
+\begin_inset Formula $W_{1},W_{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Next we want to calculate the gradient of 
+\begin_inset Formula $f$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+First let us look into:
+\begin_inset Formula 
+\[
+g_{A}(X)=||XA||_{F}^{2}=\sum_{i}\sum_{j}\left(\sum_{k}X_{i,k}A_{k,j}\right)^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial X_{s,t}}g(X)=\frac{\partial}{\partial X_{s,t}}\sum_{i}\sum_{j}\left(\sum_{k}X_{i,k}A_{k,j}\right)^{2}=\frac{\partial}{\partial X_{s,t}}\sum_{j}\left(\sum_{k}X_{s,k}A_{k,j}\right)^{2}=2\sum_{j}\left(\sum_{k}X_{s,k}A_{k,j}\right)A_{t,j}=2\left(XAA^{T}\right)_{s,t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+\nabla g\left(X\right)=2XAA^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Using the same calculation, we get that:
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial X}||X^{-1}A||_{F}^{2}=X^{-T}X^{-1}AA^{T}X^{-T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Plugging 
+\begin_inset Formula $X=Id$
+\end_inset
+
+ we get:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+0=\nabla f\left(Id\right)=W_{2}^{T}W_{2}-W_{1}W_{1}^{T}\Rightarrow W_{1}W_{1}^{T}=W_{2}^{T}W_{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Which is the condition of exact balancedness, showing that flattest solution
+ is indeed balanced and completing the proof.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:proof-of-m-layer-case"
+
+\end_inset
+
+Proof for Lemma 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "lem:m-layer-case"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+We show a counter example here, by providing a solution wich has lower sharpness
+ than any balanced solutiom.
+\end_layout
+
+\begin_layout Proof
+Let:
+\begin_inset Formula 
+\[
+S=diag\left(1,x,0,...,0\right)\in\mathbb{R}^{d\times d},x\in\left(0,1\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Such that 
+\begin_inset Formula $T=USV^{T}$
+\end_inset
+
+ is the SVD decompostion of the end-to-end solution.
+\end_layout
+
+\begin_layout Proof
+For a balanced solution 
+\begin_inset Formula $T=W_{m}\cdot...\cdot W_{1},w=(W_{m},...,W_{1})$
+\end_inset
+
+ we know from 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:balanced_trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+that it holds:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+Trace(H_{w})=2\sum_{k=1}^{m}||S^{\frac{k-1}{m}}||_{F}^{2}\cdot||S^{\frac{m-k}{m}}||_{F}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Plugging the value of 
+\begin_inset Formula $S$
+\end_inset
+
+ we get:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+Trace(H_{w}) & =2\left(2dx^{\frac{2}{m}(m-1)}+\sum_{k=2}^{m-1}\left(x^{\frac{2}{m}(k-1)}+1\right)\left(x^{\frac{2}{m}(m-k)}+1\right)\right)\\
+ & \stackrel{t=x^{\frac{2}{m}}}{=}2\left(2dt^{m-1}+\left(m-2\right)t^{m-1}+m-2+2\sum_{k=1}^{m-2}t^{k}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Now, we define another solution:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+\hat{W}_{m}=US^{\frac{1}{2}},\hat{W}_{1}=S^{\frac{1}{2}}V^{T},\hat{W}_{i}=I_{n},\hat{w}=\left(\hat{W}_{m},...,\hat{W}_{1}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+For this solution we know it holds from 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:hes-trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ that:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+Trace(H_{\hat{w}}) & =2\sum_{k=1}^{m}||W_{k-1:1}||_{F}^{2}\cdot||W_{m:k+1}||_{F}^{2}\\
+ & =2\left(2d\left(x+1\right)+\sum_{k=2}^{m-1}\left(x+1\right)\left(x+1\right)\right)\\
+ & \stackrel{t=x^{\frac{2}{m}}}{=}2\left(\left(m-2\right)t^{m}+2\left(m-2+d\right)t^{\frac{m}{2}}\right)
+\end{align*}
+
+\end_inset
+
+ Now we define the following function:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+f(t)=\frac{Trace(H_{\hat{w}})-Trace(H_{w})}{2}=\left(m-2\right)t^{m}+2\left(m-2+d\right)t^{\frac{m}{2}}-\left(2dt^{m-1}+\left(m-2\right)t^{m-1}+m-2+2\sum_{k=1}^{m-2}t^{k}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Notice that 
+\begin_inset Formula $f(0)=0$
+\end_inset
+
+.
+ Now we look at 
+\begin_inset Formula $f'(0)$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+f'(t) & =m\left(m-2\right)t^{m-1}+m\left(m-2+d\right)t^{\frac{m}{2}-1}-\left(2d\left(m-1\right)t^{m-2}+\left(m-2\right)\left(m-1\right)t^{m-2}+2\sum_{k=1}^{m-2}kt^{k-1}\right)\\
+f'(0) & =-2
+\end{align*}
+
+\end_inset
+
+ We got that the derivative at 0 is negative, thus exists 
+\begin_inset Formula $t>0$
+\end_inset
+
+ small enough such that 
+\begin_inset Formula $f(t)<0$
+\end_inset
+
+, which means 
+\begin_inset Formula $Trace(H_{w})>Trace(H_{\hat{w}})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+By 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:balanced_trace"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, all balnced solution share the same sharpness, thus any balanced solution
+ is not the flattest and any flattest solution is not balanced.
+\end_layout
+
 \begin_layout Subsection
 Proof of Lemma 
 \begin_inset CommandInset ref
