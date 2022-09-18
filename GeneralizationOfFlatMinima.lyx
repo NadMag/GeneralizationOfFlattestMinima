@@ -1017,7 +1017,7 @@ In particular they studied the case where a single end-to-end solution exists:
 
 \begin_layout Enumerate
 \begin_inset Argument 1
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1104,7 +1104,7 @@ literal "false"
 
 \begin_layout Enumerate
 \begin_inset Argument 1
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1168,7 +1168,7 @@ The following sufficient condition for minima flatness holds:
 
 \begin_layout Theorem
 \begin_inset Argument 1
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Sufficient Condition, 
@@ -3964,7 +3964,7 @@ noprefix "false"
  such that:
 \begin_inset Formula 
 \[
-\phi\left(B\left(\left(\kaliseries\bar{W},m\right),\varepsilon\right)\right)=\phi\left(B\left(\left(\kaliseries{W'},m\right),\varepsilon\right)\right)
+\phi\left(B\left(\left(\kaliseries{\bar{W}},m\right),\varepsilon\right)\right)=\phi\left(B\left(\left(\kaliseries{W'},m\right),\varepsilon\right)\right)
 \]
 
 \end_inset
@@ -3980,7 +3980,7 @@ therefore by the locality of
 :
 \begin_inset Formula 
 \[
-\min_{T\in\Psi}\rho\left(T\right)=\rho\left(T_{0}\right)=\omega\left(\kaliseries\bar{W},m\right)=\omega\left(\kaliseries{W'},m\right)\ge\rho\left(T'\right)
+\min_{T\in\Psi}\rho\left(T\right)=\rho\left(T_{0}\right)=\omega\left(\kaliseries{\bar{W}},m\right)=\omega\left(\kaliseries{W'},m\right)\ge\rho\left(T'\right)
 \]
 
 \end_inset
