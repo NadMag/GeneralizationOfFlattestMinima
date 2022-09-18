@@ -188,8 +188,12 @@ Empirical evidence suggests that for a variety of overparameterized models,
 \shape default
 .
  Our results show that in the setting of overparameterized linear regression,
+<<<<<<< HEAD
  flatness does not differentiate between solutions - making it ineffective
  of explaining generalization in linear models.
+=======
+ flatness does not correlate with generalization.
+>>>>>>> 8ee94ab2ed6b8d2a85219f73410dc447eddaa090
 \end_layout
 
 \begin_layout Section
@@ -426,7 +430,11 @@ literal "false"
 \end_layout
 
 \begin_layout Subsection
+<<<<<<< HEAD
 Linear Neural Networks
+=======
+Linear Neural Networks 
+>>>>>>> 8ee94ab2ed6b8d2a85219f73410dc447eddaa090
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:Linear-Neural-Networks"
@@ -1413,14 +1421,20 @@ Unfortunately the authors could not find such a perturbation for the case
  or find a more lenient sufficient condition.
 \end_layout
 
+\begin_layout Subsection
+Hessian Trace
+\end_layout
+
 \begin_layout Standard
-\begin_inset VSpace defskip
+The proof of 
+\begin_inset Formula $\text{\prettyref{prop:FlatUnbalanced}}$
 \end_inset
 
-
-\begin_inset VSpace defskip
+relied on the fact that the maximal eigenvalue of the Hessian of 
+\begin_inset Formula $\phi$
 \end_inset
 
+<<<<<<< HEAD
 Hessian Trace
 \end_layout
 
@@ -1443,6 +1457,18 @@ worst case
 \begin_inset Quotes erd
 \end_inset
 
+=======
+ is unaffected by a small perturbation of the overparameterization non-maximal
+ singular values.
+ The proof shows the 
+\begin_inset Quotes eld
+\end_inset
+
+worst case
+\begin_inset Quotes erd
+\end_inset
+
+>>>>>>> 8ee94ab2ed6b8d2a85219f73410dc447eddaa090
  nature of this measure 
 \begin_inset CommandInset ref
 LatexCommand eqref
@@ -1972,7 +1998,11 @@ noprefix "false"
 \end_layout
 
 \begin_layout Section
+<<<<<<< HEAD
 Analysis of the Multiple End-To-End Soultions Case 
+=======
+Analysis of the Singular Case 
+>>>>>>> 8ee94ab2ed6b8d2a85219f73410dc447eddaa090
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:singular-case"
@@ -2745,7 +2775,11 @@ noprefix "false"
 
 \end_layout
 
+<<<<<<< HEAD
 \begin_layout Subsection
+=======
+\begin_layout Section
+>>>>>>> 8ee94ab2ed6b8d2a85219f73410dc447eddaa090
 Generalization of Flattest Solutions 
 \begin_inset CommandInset label
 LatexCommand label
