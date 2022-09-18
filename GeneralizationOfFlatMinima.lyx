@@ -15,6 +15,8 @@
 \DeclareMathOperator*{\argmax}{argmax}
 
 %referencing layouts
+\newref{lem}{refcmd={\emph{Lemma\,\ref{#1}}}}
+\newref{cor}{refcmd={\emph{Corollary\,\ref{#1}}}}
 \newref{prop}{refcmd={\emph{Proposition\,\ref{#1}}}}
 \newref{thm}{refcmd={\emph{Theorem\,\ref{#1}}}}
 %\providecommand{\propautorefname}{Proposition}
@@ -153,7 +155,7 @@ author{Nadav Magar, Artiom Makhlin
 \backslash
 [0.3cm]{
 \backslash
-small Advisors: Noam Razin, Nadav Cohen}}
+small Supervised by: Noam Razin, Nadav Cohen}}
 \end_layout
 
 \end_inset
@@ -166,7 +168,7 @@ On Flat Minima in Linear Neural Networks
 \end_layout
 
 \begin_layout Abstract
-Empirical evidence suggests that for a variety of overparameterized models
+Empirical evidence suggests that for a variety of overparameterized models,
  flat minima—those around which the loss grows slowly— consistently correlate
  strongly with generalization.
  It has been shown that (stochastic) gradient descent exhibits implicit
@@ -185,7 +187,7 @@ Empirical evidence suggests that for a variety of overparameterized models
 , for any local flatness measure
 \shape default
 .
- Our results show that for the linear setting flatness does not correlate
+ Our results show that for the linear setting, flatness does not correlate
  with generalization.
 \end_layout
 
@@ -194,6 +196,12 @@ Introduction
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Flatness-and-generalization"
+
+\end_inset
+
 Flatness and generalization
 \end_layout
 
@@ -372,10 +380,6 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
@@ -424,19 +428,25 @@ literal "false"
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Linear-Neural-Networks"
+
+\end_inset
+
 Linear Neural Networks
 \end_layout
 
 \begin_layout Standard
 Linear neural networks (LNN) are fully connected networks with no neuron
- activation function.
+ activation.
  The end-to-end function of a deep linear network can always be rewritten
  as a shallow network, thus such networks do not gain expressive power from
  increased depth, and will perform poorly on complex real world problems.
  While it lacks important aspects of modern neural network architectures,
- LNN exhibit interesting phenomena akin to more complex models, while being
- simpler for theoretical analysis.
- Indeed the under reasonable assumptions their loss landscape is non-convex
+ it is useful to appeal to the simple case of linear models to see if there
+ are parallel insights that can help us better understand neural networks.
+ Indeed under reasonable assumptions their loss landscape is non-convex
  
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -455,7 +465,7 @@ literal "false"
 \end_inset
 
 .
- Furthermore this model has interesting training dynamics, where increased
+ Furthermore the training dynamics of gradient-flow on LNN show that increased
  depth may implicitly accelerate optimization 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -464,8 +474,7 @@ literal "false"
 
 \end_inset
 
-, exhibit implicit bias towards low-rank solutions in the form of incremental
- learning 
+, exhibit incremental rank learning 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Arora2019Convrg"
@@ -473,7 +482,7 @@ literal "false"
 
 \end_inset
 
-, and towards norm-like minimal solutions 
+ and is implicitly biased towards minimal norm-like solutions 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "yun2021a"
@@ -482,6 +491,14 @@ literal "false"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Subsection
+Different Measures of Flatness
+\end_layout
+
+\begin_layout Standard
+Add something here
 \end_layout
 
 \begin_layout Section
@@ -623,6 +640,12 @@ noprefix "false"
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Balancedness-of-Flattest"
+
+\end_inset
+
 Balancedness of Flattest Solutions
 \end_layout
 
@@ -825,7 +848,7 @@ Let
 \end_inset
 
 .
- Define a flatness measure 
+ Define a sharpness measure 
 \begin_inset Formula $\omega:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
 \end_inset
 
@@ -1013,7 +1036,7 @@ The following sufficient condition for minima flatness holds:
 
 \begin_layout Theorem
 \begin_inset Argument 1
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Sufficient Condition, 
@@ -1193,7 +1216,7 @@ noprefix "false"
 
 \begin_layout Proof
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1204,7 +1227,7 @@ ref{subsec:proof-flat-unbalanced})]
 
 \end_inset
 
- We find flattest unbalanced solutions by 
+ We find a flattest unbalanced solutions by 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1212,12 +1235,17 @@ perturbing
 \begin_inset Quotes erd
 \end_inset
 
- a flattest balanced solution 
+ the singular values of consecutive weight matrices of a balanced solution:
+ 
 \begin_inset Formula $\left(\kaliseries W,m\right)\in\Omega_{0}\cap\mathcal{B}$
 \end_inset
 
- into unbalancedness, without changing its end-to-end function.
- As 
+, without changing its end-to-end function.
+ 
+\end_layout
+
+\begin_layout Proof
+As 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Mulayoff2020Unique"
@@ -1241,7 +1269,6 @@ noprefix "false"
 \end_inset
 
 .
- 
 \end_layout
 
 \begin_layout Remark*
@@ -1266,15 +1293,14 @@ Analysis of the Singular Case
 
 \begin_layout Standard
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citeauthor
 key "Mulayoff2020Unique"
 literal "false"
 
 \end_inset
 
- studied the properties of flattest solutions from the perspective of optimizati
-on.
- To this end they assumed a single global minima exits 
+ argued that in the singular case any end-to-end solution has the same flatness,
+ to this end they assumed a single global minima exits 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "assumption:nonsingular"
@@ -1284,15 +1310,28 @@ noprefix "false"
 
 \end_inset
 
-, and argued that in the singular case any end-to-end solution has the same
- flatness.
- To study the connection between flatness and generalization we are interested
- in the case where 
+.
+ We prove their claim in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Generalization-of-Flattest"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, but first we extend their analysis to the case where 
 \begin_inset Formula $n<d_{x}$
 \end_inset
 
  and multiple end-to-end solutions exist.
- We begin by extending their analysis to the singular case.
+ The results carry over naturally to the singular case, and would later
+ allow us to prove the aforementioned claim.
+\end_layout
+
+\begin_layout Subsection
+Singular Problem Setting
 \end_layout
 
 \begin_layout Standard
@@ -1374,6 +1413,22 @@ Note that
 \end_layout
 
 \begin_layout Standard
+We denote the set of flattest overparameterizations for a solution 
+\begin_inset Formula $T$
+\end_inset
+
+ by:
+\begin_inset Formula 
+\[
+\varTheta_{0}(T)=\argmin_{(W_{1},W_{2},...,W_{m})\in\Theta(T)}\omega(W_{1},W_{2},...,W_{m})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 To study the connection between flatness and generalization one must consider
  the singular case where more then one end-to-end solutions exits (
 \begin_inset Formula $N<d_{x}$
@@ -1397,19 +1452,6 @@ Where
 \end_inset
 
  is the Moore-Penrose pseudo-inverse.
-\end_layout
-
-\begin_layout Remark*
-The realizability assumption can be alleviated by examining the solutions
- of the perturbed system 
-\begin_inset Formula $TX=Y+\mathcal{E}$
-\end_inset
-
-, for some error margin 
-\begin_inset Formula $\mathcal{E}$
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard
@@ -1470,7 +1512,7 @@ name "assumption:pseudo-white"
 
 \end_inset
 
- The data is pseudo-white w.r.t to features (rows), namely 
+ The data is pseudo-white, namely 
 \begin_inset Formula $\hat{\Sigma}_{x}=\begin{pmatrix}I_{N} & \mathbb{0}_{N\times\left(d_{x}-N\right)}\\
 \mathbb{0}_{\left(d_{x}-N\right)\times N} & \mathbb{0}_{d_{x}-N}
 \end{pmatrix}$
@@ -1479,23 +1521,11 @@ name "assumption:pseudo-white"
 .
 \end_layout
 
-\begin_layout Standard
-\begin_inset VSpace smallskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We note that this assumption may be unreasonable for the purpose of studying
- the generalization of solutions in our setting.
- As commonly known in practice? literature? whitening can impede the generalizat
-ion of trained models, mainly due to re-scaling of feature variances.
- Specifically this was implied for our case in 
-\begin_inset space \space{}
-\end_inset
-
-
+\begin_layout Remark*
+We note that this assumption may be unreasonable for study of generalization.
+ Beside its inapplicability to modern practices, whitening is known to potential
+ly impede generalization —mainly due to re-scaling of feature variances
+ 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "wadia20whitening"
@@ -1503,123 +1533,22 @@ literal "false"
 
 \end_inset
 
-:
-\end_layout
-
-\begin_layout Theorem*
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
+.
+ 
 \begin_inset CommandInset citation
-LatexCommand citealt
-key "wadia20whitening"
+LatexCommand citet
+key "Mulayoff2020Unique"
 literal "false"
 
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
-Consider a model f with a fully-connected first layer W, denote its activations
- on the training set by 
-\begin_inset Formula $Z=WX$
+ conjecture that analogous result hold in the general setting, there however,
+ there seems to be no known closed form expression for 
+\begin_inset Formula $\lambda_{\mathrm{\max}}\left(H_{w}\right)$
 \end_inset
 
 .
- Denote the networks other parameter by 
-\begin_inset Formula $\theta$
-\end_inset
-
-, such that 
-\begin_inset Formula $f(X)=g_{\theta}(Z)$
-\end_inset
-
-.
- Let W be initialized from an isotropic distribution.
- Further, let f(X) be trained via gradient descent on 
-\begin_inset Formula $\left(X,Y\right)$
-\end_inset
-
-.
- The learned weights 
-\begin_inset Formula $\theta^{t}$
-\end_inset
-
- and first layer activations 
-\begin_inset Formula $Z^{t}$
-\end_inset
-
- are independent of X conditioned on 
-\begin_inset Formula $\hat{\Sigma}_{x}$
-\end_inset
-
- and 
-\begin_inset Formula $Y$
-\end_inset
-
-.
- In terms of mutual information 
-\begin_inset Formula $\mathcal{I}$
-\end_inset
-
-, we have:
-\begin_inset Formula 
-\[
-\mathcal{I}\left(Z^{t},\theta^{t};X\ \vert\ ,X^{T}X,Y\right)=0
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Note that for data whitened w.r.t instances the theorem implies that: 
-\begin_inset Formula $\mathcal{I}\left(\theta^{t};\hat{X}\ \vert\ Y\right)=0$
-\end_inset
-
-.
- In our case the trained weights 
-\begin_inset Formula $\left(W_{2},...,W_{m}\right)$
-\end_inset
-
- and the whitened data 
-\begin_inset Formula $X$
-\end_inset
-
- are independent given 
-\begin_inset Formula $Y$
-\end_inset
-
-.
- Because the test predictions of the model 
-\begin_inset Formula $\hat{Y}_{test}$
-\end_inset
-
- are entirely determined by the first layer activations 
-\begin_inset Formula $Z_{test}$
-\end_inset
-
- and 
-\begin_inset Formula $\left(W_{2},...,W_{m}\right)$
-\end_inset
-
-, thus the model is able to generalize only through its first layer 
-\begin_inset Formula $W_{1}.$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Can we change this to covariance matrix 
-\begin_inset Formula $XX^{T}$
-\end_inset
-
-?
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -1701,11 +1630,7 @@ noprefix "false"
 
 \end_inset
 
-.
-\end_layout
 
-\begin_layout Remark*
-Note that this is a natural generalization of the non-singular case.
 \end_layout
 
 \begin_layout Standard
@@ -1768,7 +1693,7 @@ Then the following holds:
 \begin_deeper
 \begin_layout Enumerate
 \begin_inset Argument 1
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1778,7 +1703,7 @@ status open
 
 label=
 \backslash
-Roman{enumi}
+Roman{enumi}.
 \end_layout
 
 \end_inset
@@ -1824,64 +1749,50 @@ noprefix "false"
 
 \end_deeper
 \begin_layout Proof
-For the first part, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[Proof sketch (proof in 
+\backslash
+ref{subsec:proof-flat-unbalanced})]
+\end_layout
+
+\end_inset
+
+ The first part of the lemma proved in 
 \begin_inset CommandInset citation
-LatexCommand citeauthor
+LatexCommand citep
 key "Mulayoff2020Unique"
 literal "false"
 
 \end_inset
 
- have showed that 
-\begin_inset Formula $\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(B\hat{\Sigma}_{x}^{\frac{1}{2}}T^{T}\right)^{m-1}B\hat{\Sigma}_{x}^{\frac{1}{2}}\right\Vert _{2}^{\frac{2}{m}}$
+.
+ Note that 
+\begin_inset Formula $\max_{\left\Vert B\right\Vert _{F}=1}\nu_{T}\left(B\right)\le\rho(T)$
 \end_inset
 
- lower bounds the flatness of the single solution 
-\begin_inset Formula $T$
-\end_inset
-
- in the non-singular case.
- Note that this bound is independent of the specific overparameterization
- of T .Their analysis carries through to the singular case, where now apriori
- the bound is dependent on the end-to-end solution.
-\end_layout
-
-\begin_layout Proof
-In this case, let 
-\begin_inset Formula $T\in\Psi$
-\end_inset
-
- and denote 
-\begin_inset Formula $T=YX^{+}+K\left(I_{d_{x}}-XX^{+}\right)$
+ uniformly bounds all overparameterizations 
+\begin_inset Formula $w\in\varTheta(T)$
 \end_inset
 
 .
- By 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "assumption:pseudo-white"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- 
-\begin_inset Formula $X^{+}=X^{T}$
-\end_inset
-
-, plugging this into the above expression yields:
 \end_layout
 
 \begin_layout Proof
+To see how the dependence on a specific end-to-end solution is dropped in
+ the section part, notice that for a solution 
+\begin_inset Formula $T=YX^{+}+K\left(I_{d_{x}}-XX^{+}\right)$
+\end_inset
+
+:
 \begin_inset Formula 
 \begin{align*}
-\max_{\left\Vert B\right\Vert _{F}=1}\nu_{T}\left(B\right) & =2m\left\Vert \left(B\hat{\Sigma}_{x}^{\frac{1}{2}}T^{T}\right)^{m-1}B\hat{\Sigma}_{x}^{\frac{1}{2}}\right\Vert _{2}^{\frac{2}{m}}\\
- & \stackrel{\ref{assumption:pseudo-white}}{=}\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXX^{T}\left(X^{T}\right)^{T}Y^{T}\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
- & =\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXY^{T}\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
- & \le\max_{\left\Vert B\right\Vert _{F}=1}2m\left(\left\Vert B\right\Vert _{2}\left\Vert XY^{T}\right\Vert _{2}\right)^{2\left(1-\frac{1}{m}\right)}\left\Vert B\right\Vert _{2}^{\frac{2}{m}}\left\Vert XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
- & \le2m\left\Vert XY^{T}\right\Vert ^{2\left(1-\frac{1}{m}\right)}\left\Vert XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
- & =2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}
+\hat{\Sigma}_{x}^{\frac{1}{2}}T^{T} & =XX^{T}\left(\left(X^{T}\right)^{+}Y^{T}+\left(I_{d_{x}}-\left(X^{T}\right)^{+}X^{T}\right)K^{T}\right)\\
+ & =X{\color{gray}\underset{=I_{N}}{\underbrace{{\normalcolor X^{T}\left(X^{T}\right)^{+}}}}}Y^{T}+X{\color{gray}\underset{=\mathbb{0}_{N\times d_{x}}}{\underbrace{{\normalcolor X^{T}\left(I_{d_{x}}-\left(X^{T}\right)^{+}X^{T}\right)}}}}K^{T}\\
+ & =YX^{+}
 \end{align*}
 
 \end_inset
@@ -1890,114 +1801,8 @@ noprefix "false"
 \end_layout
 
 \begin_layout Proof
-Where in the inequality in the fourth line used norm sub-multiplicity, in
- the fifth the fact that 
-\begin_inset Formula $\left\Vert B\right\Vert _{2}\le\left\Vert B\right\Vert _{F}$
-\end_inset
-
-, and in the sixth 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "assumption:pseudo-white"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- and that 
-\begin_inset Formula $\sigma_{\max}\left(YX^{T}\right)=\text{\sigma_{\max}\left(X^{T}Y\right)}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Proof
-We now show that this bound is achieved with equality: 
-\end_layout
-
-\begin_layout Proof
-Denote the SVD of 
-\begin_inset Formula $YX^{T}$
-\end_inset
-
-by 
-\begin_inset Formula $USV^{T}$
-\end_inset
-
-, where 
-\begin_inset Formula $\left(S\right)_{i,i}\ge\left(S\right)_{i+1,i+1},\quad i\in\left[d_{y}-1\right]$
-\end_inset
-
-, and the left, right singular vectors corresponding to the maximal singular
- value by 
-\begin_inset Formula $u,$
-\end_inset
-
-v respectively.
-\end_layout
-
-\begin_layout Proof
-Taking 
-\begin_inset Formula $B=uv^{T}$
-\end_inset
-
-gives the following bound:
-\begin_inset Formula 
-\begin{alignat*}{2}
-\nu_{T}\left(uv^{T}\right) & = & 2m\left\Vert \left(uv^{T}XX^{T}X\left(X^{T}X\right)^{-1}Y^{T}\right)^{m-1}uv^{T}XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
- & = & 2m\left\Vert u\left(v^{T}XY^{T}u\right)^{m-1}v^{T}XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
- & = & 2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}\left\Vert uv^{T}XX^{T}\right\Vert _{2}^{\frac{2}{m}}
-\end{alignat*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-It remains to show that 
-\begin_inset Formula $\left\Vert uv^{T}XX^{T}\right\Vert _{2}=1$
-\end_inset
-
- .
- First notice that 
-\begin_inset Formula $uv^{T}$
-\end_inset
-
- has only the nonzero singular value 1 of multiplicity one, and that by
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "assumption:pseudo-white"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- 
-\begin_inset Formula $\left\Vert XX^{T}\right\Vert _{2}=1$
-\end_inset
-
-, thus:
-\begin_inset Formula 
-\[
-\left\Vert uv^{T}XX^{T}\right\Vert _{2}\le\left\Vert uv^{T}\right\Vert _{2}\left\Vert XX^{T}\right\Vert _{2}=1
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-Next we show that this bound is achieved by 
-\begin_inset Formula $v$
-\end_inset
-
-.
- To show this notice that by 
+Where the third equality is due to to the properties of the pseudo-inverse
+ and that by 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "assumption:pseudo-white"
@@ -2007,189 +1812,28 @@ noprefix "false"
 
 \end_inset
 
-:
-\begin_inset Formula 
-\[
-XX^{T}v=\begin{pmatrix}I_{n} & \mathbb{0}_{n\times\left(d_{x}-n\right)}\\
-\mathbb{0}_{\left(d_{x}-n\right)\times n} & \mathbb{0}_{d_{x}-n}
-\end{pmatrix}v=v\Leftrightarrow v\in\left(\mathbb{R}^{N}\times\{0\}^{d_{x}-N}\right)
-\]
-
-\end_inset
-
-We claim that the right-hand side must hold, to see this let 
-\begin_inset Formula $X=\sum_{i=1}^{N}\sigma_{i}\left(X\right)u_{X}^{i}\left(v_{X}^{i}\right)^{T}\text{,}\ Y=\sum_{i=1}^{r_{Y}}\sigma_{i}\left(Y\right)u_{Y}^{i}\left(v_{Y}^{i}\right)^{T}$
-\end_inset
-
- be the SVD of 
-\begin_inset Formula $X,Y$
-\end_inset
-
- respectively.
- By definition it holds that:
-\begin_inset Formula 
-\begin{alignat*}{1}
-\max_{\left\Vert w\right\Vert _{2}=1}\left\Vert YX^{T}w\right\Vert _{2}^{2} & =\left\Vert YX^{T}v\right\Vert _{2}^{2}\\
- & =\left\Vert Y\left(\sum_{j=1}^{N}\sigma_{j}\left(X\right)v_{X}^{j}\left(u_{X}^{j}\right)^{T}\right)\left(\sum_{i=1}^{d_{x}}\left\langle v,u_{X}^{i}\right\rangle u_{X}^{i}\right)\right\Vert _{2}^{2}\\
- & =\left\Vert Y\left(\sum_{j=1}^{N}\sum_{i=1}^{d_{x}}\sigma_{j}\left(X\right)\left\langle v,u_{X}^{i}\right\rangle v_{X}^{j}\left\langle u_{X}^{j},u_{X}^{i}\right\rangle \right)\right\Vert _{2}^{2}\\
- & =\left\Vert Y\left(\sum_{j=1}^{N}\sigma_{j}\left(X\right)\left\langle v,u_{X}^{j}\right\rangle v_{X}^{j}\right)\right\Vert _{2}^{2}\\
- & =\left\Vert \left(\sum_{i=1}^{r_{Y}}\sigma_{i}\left(Y\right)u_{Y}^{i}\left(v_{Y}^{i}\right)^{T}\right)\left(\sum_{j=1}^{N}\sigma_{j}\left(X\right)\left\langle v,u_{X}^{j}\right\rangle v_{X}^{j}\right)\right\Vert _{2}^{2}\\
- & =\left\Vert \sum_{i=1}^{r_{Y}}\left(\sum_{j=1}^{N}\sigma_{i}\left(Y\right)\sigma_{j}\left(X\right)\left\langle v,u_{X}^{j}\right\rangle \left\langle v_{Y}^{i},v_{X}^{j}\right\rangle \right)u_{Y}^{i}\right\Vert _{2}^{2}\\
- & =\sum_{i=1}^{r_{Y}}\left(\sum_{j=1}^{N}\sigma_{i}\left(Y\right)\sigma_{j}\left(X\right)\left\langle v_{Y}^{i},v_{X}^{j}\right\rangle \left\langle v,u_{X}^{j}\right\rangle \right)^{2}
-\end{alignat*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-Where the last equality is due to Pythagoras theorem.
-\end_layout
-
-\begin_layout Proof
-Assume by contradiction that 
-\begin_inset Formula $v\notin\left(\mathbb{R}^{N}\times\{0\}^{d_{x}-N}\right)$
-\end_inset
-
-, i.e.
  
-\begin_inset Formula $\exists k\in\left\{ N+1,N+2,...,d_{x}\right\} .(v)_{k}\neq0$
+\begin_inset Formula $X^{T}$
 \end_inset
 
-.
+ has linearly-independent columns, thus 
+\begin_inset Formula $\left(X^{T}\right)^{+}$
+\end_inset
+
+ is a left inverse.
 \end_layout
 
-\begin_layout Proof
-Note that:
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-\begin_inset Argument 1
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-label=
-\backslash
-alph{enumi}.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Formula $0<\sum_{j=1}^{N}\left\langle v,u_{X}^{j}\right\rangle ^{2}$
-\end_inset
-
-: Otherwise 
-\begin_inset Formula $v=\sum_{j=N+1}^{d_{x}}\left\langle v,u_{X}^{j}\right\rangle ^{2}u_{X}^{j}$
-\end_inset
-
- yielding 
-\begin_inset Formula $YX^{T}v=Y\mathbb{0}_{n}=\mathbb{0}_{d_{y}}$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Enumerate
-\begin_inset Formula $\sum_{j=1}^{N}\left\langle v,u_{X}^{j}\right\rangle ^{2}<1$
-\end_inset
-
-: By the Pythagoras theorem and the fact that
-\begin_inset Formula $\left\Vert v\right\Vert _{2}=1$
-\end_inset
-
- 
-\end_layout
-
-\end_deeper
-\begin_layout Proof
-Define 
-\begin_inset Formula $\bar{v}=\left(\sum_{k\neq j=1}^{d_{x}}\left\langle v,u_{X}^{j}\right\rangle ^{2}\right)^{-\frac{1}{2}}\sum_{k\neq j=1}^{d_{x}}\left\langle v,u_{X}^{j}\right\rangle u_{X}^{j}$
-\end_inset
-
- , by construction
-\begin_inset Formula $\left\Vert \bar{v}\right\Vert =1$
-\end_inset
-
-.
- Plugging it in the above derivation yields the following contradiction:
-\end_layout
-
-\begin_layout Proof
-\begin_inset Formula 
-\begin{alignat*}{1}
-\left\Vert YX^{T}\bar{v}\right\Vert _{2}^{2} & =\sum_{i=1}^{r_{Y}}\left(\sum_{j=1}^{N}\sigma_{i}\left(Y\right)\sigma_{j}\left(X\right)\left\langle v_{Y}^{i},v_{X}^{j}\right\rangle \left\langle \bar{v},u_{X}^{j}\right\rangle \right)^{2}\\
- & =\left(\sum_{k\neq j=1}^{d_{x}}\left\langle v,u_{X}^{j}\right\rangle ^{2}\right)^{-1}\sum_{i=1}^{r_{Y}}\left(\sum_{j=1}^{N}\sigma_{i}\left(Y\right)\sigma_{j}\left(X\right)\left\langle v_{Y}^{i},v_{X}^{j}\right\rangle \left\langle v,u_{X}^{j}\right\rangle \right)^{2}\\
- & =\left(\sum_{k\neq j=1}^{d_{x}}\left\langle v,u_{X}^{j}\right\rangle ^{2}\right)^{-1}\left\Vert YX^{T}v\right\Vert _{2}^{2}\\
- & >\left\Vert YX^{T}v\right\Vert _{2}^{2}\\
- & =\max_{\left\Vert w\right\Vert _{2}=1}\left\Vert YX^{T}w\right\Vert _{2}^{2}
-\end{alignat*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-We have showed that 
-\begin_inset Formula $v\in\left(\mathbb{R}^{N}\times\{0\}^{d_{x}-N}\right)$
-\end_inset
-
- hence 
-\begin_inset Formula $XX^{T}v=v$
-\end_inset
-
-.
- The lower bound now follows from the definition:
-\begin_inset Formula 
-\begin{alignat*}{2}
-\left\Vert uv^{T}XX^{T}\right\Vert _{2} & = & \max_{\left\Vert w\right\Vert _{2}=1}\left\Vert uv^{T}XX^{T}w\right\Vert _{2}\\
- & \ge & \left\Vert uv^{T}XX^{T}v\right\Vert _{2}\\
- & = & \left\Vert u\right\Vert _{2}\\
- & = & 1
-\end{alignat*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Remark*
-This is a natural generalization of the non-singular case under 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "assumption:white"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, where the single end-to-end solution is given by 
-\begin_inset Formula $T=\hat{\Sigma}_{yx}\left(\hat{\Sigma}_{x}\right)^{-1}=YX^{T}.$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Remark*
-Now we show that there exist a solution that achieves this bound:
+\begin_layout Standard
+Next we show that there exist a solution that achieves this bound:
 \end_layout
 
 \begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:lower-bound-achieved"
+
+\end_inset
+
 Assume 
 \begin_inset CommandInset ref
 LatexCommand eqref
@@ -2222,107 +1866,52 @@ noprefix "false"
 .
 \end_layout
 
-\begin_layout Proof
-Note that under these assumptions 
-\begin_inset Formula $YX^{T}\in\Psi$
+\begin_layout Standard
+
+\shape italic
+See proof in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:proof-of-lem-acheived"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
 .
- Let us denote its SVD by 
-\begin_inset Formula $USV^{T},$
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
 \end_inset
 
- we define the canonical solution as in 
+
+\end_layout
+
+\begin_layout Standard
+Using the necessary condition of 
 \begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:Cannonical-sol"
+LatexCommand formatted
+reference "thm:min-sharpness-singular"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- by:
-\begin_inset Formula 
-\begin{equation}
-W_{m}^{\ast}=US_{m}^{\frac{1}{m}},\quad W_{j}^{\ast}=S_{j}^{\frac{1}{m}}\quad j\in\left\{ 2,3,...,m-1\right\} ,\quad W_{1}^{\ast}=S_{1}^{\frac{1}{m}}V^{T}\label{eq:canon-singular}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-Following the proof given in 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Mulayoff2020Unique"
-literal "false"
-
-\end_inset
-
- we get that:
-\end_layout
-
-\begin_layout Proof
-\begin_inset Formula 
-\begin{align*}
-\lambda_{\mathrm{\max}}\left(H_{w^{\ast}}\right) & = & \max_{\left\Vert \tilde{B}\right\Vert _{F}=1}2\sum_{k=1}^{m}\left\Vert \left(S^{\frac{m-k}{m}}\right)^{T}\tilde{B}\hat{\Sigma}_{x}^{\frac{1}{2}}\left(S^{\frac{k-1}{m}}\right)^{T}\right\Vert _{F}^{2}\\
- & = & \max_{\left\Vert \tilde{B}\right\Vert _{F}=1}2\sum_{k=1}^{m}\left\Vert \left(S^{\frac{m-k}{m}}\right)^{T}\tilde{B}\begin{pmatrix}I_{N} & \mathbb{0}_{N\times\left(d_{x}-N\right)}\\
-\mathbb{0}_{\left(d_{x}-N\right)\times N} & \mathbb{0}_{d_{x}-N}
-\end{pmatrix}\left(S^{\frac{k-1}{m}}\right)^{T}\right\Vert _{F}^{2}\\
- & = & \max_{\left\Vert \tilde{B}\right\Vert _{F}=1}2\sum_{k=1}^{m}\sum_{i=1}^{N}\sum_{j=1}^{N}\left[\left(\sigma_{i}\left(YX^{T}\right)\right)^{\frac{m-k}{m}}\left(\sigma_{j}\left(YX^{T}\right)\right)^{\frac{k-1}{m}}\tilde{b}_{i.j}\right]^{2}\\
- & = & \max_{\left\Vert \tilde{B}\right\Vert _{F}=1}2\sum_{i,j=1}^{N}\tilde{b}_{i.j}^{2}\sum_{k=1}^{m}\left[\left(\sigma_{i}\left(YX^{T}\right)\right)^{\frac{m-k}{m}}\left(\sigma_{j}\left(YX^{T}\right)\right)^{\frac{k-1}{m}}\right]^{2}
-\end{align*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-This is a simple linear optimization problem over the unit simplex, whose
- optimal value is attained at the the vertex 
-\begin_inset Formula $\tilde{B}=\left(\delta_{1,1}(i,j)\right)_{i=1,j=1}^{d_{x}\ ,d_{x}}$
-\end_inset
-
-, where 
-\begin_inset Formula $\delta$
-\end_inset
-
- is the Kronecker delta.
- Thus the canonical solution sharpness is:
-\begin_inset Formula 
-\[
-\lambda_{\mathrm{\max}}\left(H_{w^{\ast}}\right)=2\sum_{k=1}^{m}\left[\left(\sigma_{\max}\left(YX^{T}\right)\right)^{\frac{m-k}{m}}\left(\sigma_{\max}\left(YX^{T}\right)\right)^{\frac{k-1}{m}}\right]^{2}=2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-And by 
+, we are able to derive a sufficient condition analogous to the non-singular
+ case (
 \begin_inset CommandInset ref
-LatexCommand eqref
-reference "lemma:unif-lb"
+LatexCommand formatted
+reference "thm:sufficient"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- we get the desired equality: 
-\begin_inset Formula 
-\[
-2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}\le\rho(YX^{T})\le\lambda_{\mathrm{\max}}\left(H_{w^{\ast}}\right)=2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}
-\]
-
-\end_inset
-
-
+):
 \end_layout
 
 \begin_layout Theorem
@@ -2391,7 +1980,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-The proof of this theorem remains unchanged as in 
+The proof of this theorem is analogous to the non-singular case in 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Mulayoff2020Unique"
@@ -2399,7 +1988,7 @@ literal "false"
 
 \end_inset
 
-, only now using 
+, by using 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "thm:min-sharpness-singular"
@@ -2409,7 +1998,7 @@ noprefix "false"
 
 \end_inset
 
- for the singular case.
+.
 \end_layout
 
 \begin_layout Standard
@@ -2420,40 +2009,78 @@ noprefix "false"
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Generalization-of-Flattest"
+
+\end_inset
+
 Generalization of Flattest Solutions
 \end_layout
 
-\begin_layout Standard
-TODO: Add discussion about works and why flat for generalization?
-\end_layout
-
 \begin_layout Subsection
-Flatness is Indifferent to End-To-End Solution
+Motivation: Simple Linear Regression
 \end_layout
 
 \begin_layout Standard
-Before studying connections between flatness and generalization the overparamete
-rized setting, let us take a step back an examine the case of simple linear
- regression with the quadratic loss: 
-\begin_inset Formula $L(W)=\left\Vert WX-Y\right\Vert _{F}^{2}$
+As discussed in sections 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Flatness-and-generalization"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
- where again 
-\begin_inset Formula $n\le d_{x}$
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Linear-Neural-Networks"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
-.
- In this setting the Hessian matrix is given by: 
-\begin_inset Formula $H_{L}(W)=I_{d_{y}\times d_{x}}\left(XX^{T}\right)^{\frac{1}{2}}\otimes I_{d_{x}\times d_{y}}$
+ it is not necessarily easy to understand the source of generalization even
+ for linear models.
+ Before studying the overparameterized setting, let us take a step back
+ an examine the case of simple underdetermined linear regression with the
+ quadratic loss: 
+\begin_inset Formula 
+\[
+L(W)=\left\Vert WX-Y\right\Vert _{F}^{2}
+\]
+
 \end_inset
 
-.
- Notice that the Hessian is independent of the choice of 
+In this setting the Hessian matrix of the loss function is given by: 
+\begin_inset Formula 
+\[
+H_{L}(W)=I_{d_{y}\times d_{x}}\left(XX^{T}\right)^{\frac{1}{2}}\odot I_{d_{x}\times d_{y}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\odot$
+\end_inset
+
+ denotes the Kronecker product.
+\end_layout
+
+\begin_layout Standard
+Notice that the Hessian is independent of the choice of 
 \begin_inset Formula $W$
 \end_inset
 
-, hence any definition of flatness depends only on it cannot correlate with
- generalization
+, hence any sharpness definition that depends only on it, cannot correlate
+ with generalization 
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:reg-regression-indf"
@@ -2469,46 +2096,9 @@ literal "false"
 \end_inset
 
 .
- (Add to intro something like 5 in 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "stillRequiresRethinkingGen"
-literal "false"
-
-\end_inset
-
-).
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Mulayoff2020Unique"
-literal "false"
-
-\end_inset
-
- claimed that a similar phenomena holds in the overparameterized setting
- as-well, namely any end-to-end solution has the same flatness 
-\begin_inset Formula $\left(\Psi=\Psi_{0}\right)$
-\end_inset
-
-.
- The claim implies that, for this setting, definition 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "def:e2e-flatness"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- does not correlate with generalization.
-\end_layout
-
-\begin_layout Standard
-We begin by proving the claim made by 
 \begin_inset CommandInset citation
 LatexCommand citeauthor
 key "Mulayoff2020Unique"
@@ -2516,7 +2106,8 @@ literal "false"
 
 \end_inset
 
-.
+ claimed that a similar phenomena holds in the overparameterized setting
+ as-well, namely any end-to-end solution has the same flatness, formally:
 \end_layout
 
 \begin_layout Theorem
@@ -2559,50 +2150,204 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-The proof relies on the fact that there exists a flattest solution 
-\begin_inset Formula $T_{0}\in\Psi_{0}$
+Note that this claim is not trivial in the overparameterized setting, as
+ the Hessian is location dependent, and a closed form expression for its
+ top eigenvalue seems intractable.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:-hessian-structure"
+
 \end_inset
 
-, which admits a specific form of overparameterization 
-\begin_inset Formula $w$
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Hessian Structure 
+\begin_inset CommandInset citation
+LatexCommand citeauthor
+key "Mulayoff2020Unique"
+literal "false"
+
 \end_inset
 
-, in the sense that for every solution 
+
+\end_layout
+
+\end_inset
+
+ Assume 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:capacity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ If 
+\begin_inset Formula $w\in\varTheta\left(T\right)$
+\end_inset
+
+ and 
 \begin_inset Formula $T\in\Psi$
 \end_inset
 
-, there exists a direction 
-\begin_inset Formula $\hat{w}\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}$
+ is a solution, then
+\begin_inset Formula 
+\[
+H_{w}=2\Phi\Phi^{T}
+\]
+
 \end_inset
 
- in the overparameterized space such that 
-\begin_inset Formula $w+\hat{w}$
+
+\end_layout
+
+\begin_layout Lemma
+where 
+\begin_inset Formula $\Phi=\left[\kaliseries{\Phi^{T}},m\right]^{T}$
+\end_inset
+
+, with 
+\begin_inset Formula 
+\[
+\Phi_{k}=\left(W_{k-1:1}\hat{\Sigma}_{x}^{\frac{1}{2}}\right)\odot\left(W_{m:k+1}\right)^{T}
+\]
+
 \end_inset
 
 
-\begin_inset Formula $\in\varTheta(T)$
-\end_inset
-
- and the loss does not change along 
-\begin_inset Formula $\hat{w}$
-\end_inset
-
-: 
-\begin_inset Formula $\forall t\in\mathbb{R}.\phi\left(w+t\hat{w}\right)=\phi\left(w\right)$
-\end_inset
-
-, therefore the flatness must not change as-well.
 \end_layout
 
 \begin_layout Standard
-We begin by showing that if a point at the overparameterized space satisfies
- a regularity constraint, then 
+The Hessian structure provides intuition for 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "thm:indifference"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+: note that 
+\begin_inset Formula $\Phi_{k}$
+\end_inset
+
+ is a 
+\begin_inset Formula $d_{k}d_{k-1}\times d_{x}d_{y}$
+\end_inset
+
+ matrix, therefore 
+\begin_inset Formula $\Phi$
+\end_inset
+
+ is a 
+\begin_inset Formula $P\times d_{x}d_{y}$
+\end_inset
+
+ where 
+\begin_inset Formula $P=\sum_{k=1}^{m}d_{k}d_{k-1}$
+\end_inset
+
+ is the total number of parameters in the network.
+ This shows that for networks with more than one layer the Hessian at an
+ end-to-end solution is rank-deficient.
+ Formally, by 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "lem:-hessian-structure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ if 
+\begin_inset Formula $w\in\varTheta(T)$
+\end_inset
+
+ and 
+\begin_inset Formula $T\in\Psi$
+\end_inset
+
+ then 
+\begin_inset Formula $H_{w}$
+\end_inset
+
+ is a 
+\begin_inset Formula $P\times P$
+\end_inset
+
+ matrix, and 
+\begin_inset Formula $rank\left(H_{w}\right)\le d_{x}d_{y}<P^{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Proof Outline for Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:indifference"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We begin by showing that if a point 
+\begin_inset Formula $w\in\Theta(T_{1})$
+\end_inset
+
+ at the overparameterized space satisfies a certain regularity constraint
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:overparam-regularity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, then for every other 
+\begin_inset Formula $T_{2}\in\mathbb{R}^{d_{y}\times d_{x}}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\left(T_{2}-T_{1}\right)X=0$
+\end_inset
+
+, there exists a direction 
+\begin_inset Formula $\bar{w}$
+\end_inset
+
+ in the overparameterized space, that connects 
+\begin_inset Formula $\Theta(T_{1})$
+\end_inset
+
+ with 
+\begin_inset Formula $\Theta(T_{2})$
+\end_inset
+
+, along which 
 \begin_inset Formula $\phi$
 \end_inset
 
- is constant along some affine space containing it.
- Furthermore every end-to-end solution has an overparameterization is this
- space.
+ is constant.
 \end_layout
 
 \begin_layout Proposition
@@ -2662,15 +2407,15 @@ noprefix "false"
 \begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\varTheta(T_{1})$
 \end_inset
 
- such that either 
-\begin_inset Formula $rank\left(\bar{W}_{2:m}\right)=d_{y}$
+ such that: 
+\begin_inset Formula 
+\begin{equation}
+rank\left(\bar{W}_{2:m}\right)=d_{y}\ or\ rank\left(\bar{W}_{1:m-1}\right)=d_{x}\label{eq:overparam-regularity}
+\end{equation}
+
 \end_inset
 
- or 
-\begin_inset Formula $rank\left(\bar{W}_{1:m-1}\right)=d_{x}$
-\end_inset
-
- (full rank), then
+ then
 \family default
 \series default
 \shape default
@@ -2801,11 +2546,11 @@ Next we show that the loss is constant along
 :
 \begin_inset Formula 
 \begin{align*}
-\phi\left(\left(\kaliseries{\bar{W}},m\right)+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right) & = & \left\Vert \left(\bar{W}_{i}+t\Delta_{i}\right)_{1:m}X-Y\right\Vert _{F}^{2}\\
- & = & \left\Vert \bar{W}_{2:m}\left(\bar{W}_{1}+t\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right)X-Y\right\Vert _{F}^{2}\\
- & = & \left\Vert \left[\bar{W}_{2:m}\bar{W}_{1}+t\bar{W}_{2:m}\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right]X-Y\right\Vert _{F}^{2}\\
- & = & \left\Vert \bar{W}_{1:m}X-Y\right\Vert _{F}^{2}\\
- & = & \phi\left(\kaliseries{\bar{W}},m\right)
+\phi\left(\left(\kaliseries{\bar{W}},m\right)+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right) & =\left\Vert \left(\bar{W}_{i}+t\Delta_{i}\right)_{1:m}X-Y\right\Vert _{F}^{2}\\
+ & =\left\Vert \bar{W}_{2:m}\left(\bar{W}_{1}+t\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right)X-Y\right\Vert _{F}^{2}\\
+ & =\left\Vert \bar{W}_{1:m}X+t\bar{W}_{2:m}\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)X-Y\right\Vert _{F}^{2}\\
+ & =\left\Vert \bar{W}_{1:m}X-Y\right\Vert _{F}^{2}\\
+ & =\phi\left(\kaliseries{\bar{W}},m\right)
 \end{align*}
 
 \end_inset
@@ -2894,7 +2639,7 @@ The overparameterized loss
  Formally define the translation function:
 \begin_inset Formula 
 \[
-s:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}},\quad s(W_{1},W_{2},...,W_{m})=(W_{1}+\Delta_{1},W_{2}+\Delta_{2},...,W_{m}+\Delta_{m})
+s_{t}:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}},\quad s(W_{1},W_{2},...,W_{m})=(W_{1},W_{2},...,W_{m})+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)
 \]
 
 \end_inset
@@ -2906,7 +2651,7 @@ then there exist
  such that:
 \begin_inset Formula 
 \[
-\forall t\in\mathbb{R}.\ \phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}\equiv\phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m})+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right),\varepsilon\right)}\circ s
+\forall t\in\mathbb{R}.\ \phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}\equiv\phi\circ s_{t}|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}
 \]
 
 \end_inset
@@ -2915,128 +2660,89 @@ then there exist
 \end_layout
 
 \end_deeper
-\begin_layout Proof
-Consider at the function 
-\begin_inset Formula $f:$
-\end_inset
-
-
-\begin_inset Formula $\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
-\end_inset
-
- defined by 
-\begin_inset Formula $f(W_{1},W_{2},...,W_{m})=det\left(W_{1:m}\right)$
-\end_inset
-
-, notice that is continuous in the overparameterized space so:
-\begin_inset Formula 
-\[
-\exists\varepsilon>0.\forall(W_{1},W_{2},...,W_{m})\in B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right).\ f(W_{1},W_{2},...,W_{m})\neq0
-\]
-
-\end_inset
-
-
-\begin_inset Formula 
-\[
-\Rightarrow\exists\varepsilon>0.\forall(W_{1},W_{2},...,W_{m})\in B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right).\ rank\left(W_{2:m}\right)=d_{y}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-We prove for the case of 
-\begin_inset Formula $d_{y}\le d_{x}$
-\end_inset
-
-, the case where 
-\begin_inset Formula $d_{x}\le d_{y}$
-\end_inset
-
- is analogous.
-\end_layout
-
-\begin_layout Proof
-Define 
-\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)$
-\end_inset
-
- by the point 
-\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)$
-\end_inset
-
- as in 
+\begin_layout Standard
 \begin_inset CommandInset ref
-LatexCommand eqref
-reference "def:dead-direction-delta"
+LatexCommand formatted
+reference "cor:dead-direction-local"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-, by construction it holds that 
-\begin_inset Formula $T_{2}=\left(\bar{W}_{i}+\Delta_{i}\right)_{1:m}$
+ provides an lower bounds the sharpness of 
+\shape italic
+all 
+\emph on
+solutions 
+\begin_inset Formula $T\in\Psi$
+\end_inset
+
+ by the sharpness of a solution 
+\begin_inset Formula $T_{0}$
+\end_inset
+
+ that admits 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:overparam-regularity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Thus to prove the theorem, it is suffices to show the existence of a 
+\emph default
+flattest
+\emph on
+ solution 
+\begin_inset Formula $T_{0}\in\Psi_{0}$
+\end_inset
+
+ that admits 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:overparam-regularity"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Proof
-Let 
-\begin_inset Formula $t\in\mathbb{R}$
-\end_inset
-
-, for-each point 
-\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right)$
-\end_inset
-
- we examine the loss along 
-\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)$
-\end_inset
-
-:
-\end_layout
-
-\begin_layout Proof
-\begin_inset Formula 
-\begin{align*}
-\phi\left((W_{1},W_{2},...,W_{m})+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right) & = & \left\Vert \left(W_{i}+t\Delta_{i}\right)_{1:m}X-Y\right\Vert _{F}^{2}\\
- & = & \left\Vert W_{2:m}\left(W_{1}+t\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right)X-Y\right\Vert _{F}^{2}\\
- & = & \left\Vert W_{2:m}W_{1}X+tW_{2:m}\left(\bar{W}_{2:m}\right)^{+}{\color{gray}\underset{=0}{\underbrace{{\normalcolor \left(T_{2}-T_{1}\right)X}}}}-Y\right\Vert _{F}^{2}\\
- & = & \left\Vert W_{1:m}X-Y\right\Vert _{F}^{2}\\
- & = & \phi\left(\kaliseries{\bar{W}},m\right)
-\end{align*}
+\begin_layout Remark*
+Note that while 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:dead-direction-local"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
+ holds for any local definition of sharpness 
+\begin_inset Formula $\omega$
+\end_inset
 
-\end_layout
-
-\begin_layout Proof
-Therefore we conclude that:
-\end_layout
-
-\begin_layout Proof
-\begin_inset Formula 
-\begin{equation}
-\exists\varepsilon>0.\ \phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}\equiv\phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m})+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right),\varepsilon\right)}\circ s\label{eq:equvilent-neig-1}
-\end{equation}
+, the existence of such a flattest solution may depend on the specific definitio
+n.
+ In section 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:def-agnostic-indf"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-Now we show that there exists a flattest solution 
-\begin_inset Formula $T_{0}\in\Psi_{0}$
-\end_inset
-
- which admits such an overparameterization:
+ we provide a definition-agnostic proof, under different assumptions.
+ 
 \end_layout
 
 \begin_layout Lemma
@@ -3071,7 +2777,7 @@ noprefix "false"
 \begin_inset Formula $T_{0}\in\Psi_{0}$
 \end_inset
 
- that admits an overparameterization 
+ that admits a flattest overparameterization 
 \family roman
 \series medium
 \shape up
@@ -3085,42 +2791,37 @@ noprefix "false"
 \noun off
 \color none
 
-\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\varTheta(T_{0})$
+\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\varTheta_{0}(T_{0})$
 \end_inset
 
- such that either 
-\begin_inset Formula $rank\left(W_{2:m}\right)=d_{y}\le d_{x}$
+ such that: 
+\begin_inset Formula 
+\[
+rank\left(\bar{W}_{2:m}\right)=d_{y}\ or\ rank\left(\bar{W}_{1:m-1}\right)=d_{x}
+\]
+
 \end_inset
 
- or 
-\begin_inset Formula $rank\left(W_{1:m-1}\right)=d_{x}\le d_{y}$
-\end_inset
 
-.
 \end_layout
 
 \begin_layout Proof
-We show the case of 
-\begin_inset Formula $d_{y}\le d_{x}$
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[Proof sketch (proof in 
+\backslash
+ref{subsec:proof-of-ex-of-frs})]
+\end_layout
+
 \end_inset
 
-.
- Define 
-\begin_inset Formula $T_{0}=YX^{T}$
-\end_inset
-
- , denote its SVD by 
-\begin_inset Formula $USV^{T}$
-\end_inset
-
- and let 
-\begin_inset Formula $\left(W_{1}^{\ast},W_{2}^{\ast},...,W_{m}^{\ast}\right)\in\varTheta(T_{0})$
-\end_inset
-
- be its canonical overparameterization defined in 
+The proof follows a similar argument as in 
 \begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:canon-singular"
+LatexCommand formatted
+reference "prop:FlatUnbalanced"
 plural "false"
 caps "false"
 noprefix "false"
@@ -3128,96 +2829,44 @@ noprefix "false"
 \end_inset
 
 .
- 
-\end_layout
-
-\begin_layout Proof
-We define 
-\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\varTheta(T_{0})$
+ Let 
+\begin_inset Formula $\left(W_{1}^{\ast},W_{2}^{\ast},...,W_{m}^{\ast}\right)$
 \end_inset
 
-, by perturbing the canonical overparameterization into non-singularity:
-\end_layout
-
-\begin_layout Proof
-Let 
-\begin_inset Formula $0<\varepsilon\le\left(\sigma_{\max}\left(YX^{T}\right)\right)^{\frac{1}{m}}$
-\end_inset
-
-, define 
-\begin_inset Formula $\tilde{S}\in\mathbb{R}^{d_{y}\times d_{x}}$
-\end_inset
-
-by 
-\begin_inset Formula 
-\[
-\tilde{S}=S+\sum_{r=rank(S)+1}^{d_{y}}\left(\varepsilon\delta_{r,r}(i,j)\right)_{i=1,j=1}^{d_{y}\ ,d_{x}}
-\]
-
-\end_inset
-
- and 
-\begin_inset Formula $(W_{1},W_{2},...,W_{m})$
-\end_inset
-
- by:
-\begin_inset Formula 
-\[
-W_{m}=U\tilde{S}_{m}^{\frac{1}{m}},\quad W_{j}=\tilde{S}_{j}^{\frac{1}{m}}\quad j\in\left\{ 2,3,...,m-1\right\} ,\quad W_{1}=S_{1}^{\frac{1}{m}}V^{T}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-Where 
-\begin_inset Formula $S_{j}^{\frac{1}{m}}$
-\end_inset
-
- is used to denote the 
-\begin_inset Formula $d_{j}\times d_{j-1}$
-\end_inset
-
- matrix whose 
-\begin_inset Formula $k$
-\end_inset
-
-th diagonal entry is 
-\begin_inset Formula $\left(\sigma_{k}\left(T_{0}\right)\right)^{\frac{1}{m}}$
+ be the canonical overparameterization of 
+\begin_inset Formula $T_{0}$
 \end_inset
 
 .
- Note that by construction 
-\begin_inset Formula $rank\left(W_{2:m}\right)=d_{y}.$
+ We define a new overparameterization 
+\begin_inset Formula $\left(W_{1},W_{2},...,W_{m}\right)$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Proof
-Note that 
-\begin_inset Formula $W_{1}^{\ast}=S_{1}^{\frac{1}{m}}V^{T}=\begin{pmatrix}diag\left(\sigma_{1}\left(T_{0}\right),...,\sigma_{rank(S)}\left(T_{0}\right)\right) & \mathbb{0}_{rank(S)\times\left(d_{x}-rank(S)\right)}\\
-\mathbb{0}_{\left(d_{1}-rank(S)\right)\times rank(S)} & \mathbb{0}_{\left(d_{1}-rank(S)\right)\times\left(d_{x}-rank(S)\right)}
-\end{pmatrix}V^{T}$
+ by 
+\begin_inset Quotes eld
 \end_inset
 
- therefore:
-\begin_inset Formula 
-\[
-W_{1:m}=U\tilde{S}^{\frac{m-1}{m}}S^{\frac{1}{m}}V^{T}=USV^{T}=T_{0}
-\]
-
+perturbing
+\begin_inset Quotes erd
 \end_inset
 
+ the singular values of each weight matrix 
+\begin_inset Formula $W_{j}^{\ast}$
+\end_inset
 
-\end_layout
+ for 
+\begin_inset Formula $2\le j\le m$
+\end_inset
 
-\begin_layout Proof
-By 
+ into non-singularity.
+ Because 
+\begin_inset Formula $\left(W_{1}^{\ast},W_{2}^{\ast},...,W_{m}^{\ast}\right)$
+\end_inset
+
+ are balanced this perturbation does not change the end-to-end function.
+ By 
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand formatted
 reference "thm:sufficient-singular"
 plural "false"
 caps "false"
@@ -3225,40 +2874,46 @@ noprefix "false"
 
 \end_inset
 
- 
-\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\Omega_{0}(T_{0})$
+, for a sufficiently small perturbation, 
+\begin_inset Formula $\left(W_{1},W_{2},...,W_{m}\right)$
 \end_inset
 
- and 
-\begin_inset Formula $T_{0}\in\Psi_{0}$
+ is a flattest overparameterization of 
+\begin_inset Formula $T_{0}$
 \end_inset
 
-as required.
-\end_layout
-
-\begin_layout Proof
-The case of 
-\begin_inset Formula $d_{x}\le d_{y}$
-\end_inset
-
- is analogous.
+.
 \end_layout
 
 \begin_layout Subsubsection*
-Proof of Theorem 4
+Completing the Proof of Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:indifference"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Proof
-Assume 
+\begin_layout Standard
+We show the case where 
 \begin_inset Formula $d_{y}\le d_{x}$
 \end_inset
 
-, the case where 
+, the case of 
 \begin_inset Formula $d_{x}<d_{y}$
 \end_inset
 
  is analogous.
- By 
+ 
+\end_layout
+
+\begin_layout Standard
+By 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "lem:existence-of-fr"
@@ -3296,7 +2951,7 @@ noprefix "false"
 .
 \end_layout
 
-\begin_layout Proof
+\begin_layout Standard
 Let 
 \begin_inset Formula $T'\in\Psi$
 \end_inset
@@ -3324,25 +2979,23 @@ noprefix "false"
 \end_inset
 
 it holds that:
-\begin_inset Formula 
-\[
-\exists\varepsilon>0.\ \phi|_{B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right)}\equiv\phi|_{B\left((U_{1},U_{2},...,U_{m})+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right),\varepsilon\right)}\circ s
-\]
+\end_layout
 
-\end_inset
-
-
-\begin_inset Formula 
-\begin{equation}
-(U_{1},U_{2},...,U_{m})+(\Delta_{1},\Delta_{2},...,\Delta_{m})\in\varTheta(T')\label{eq:petubation-between-e2e}
-\end{equation}
-
+\begin_layout Enumerate
+\begin_inset Formula $(U_{1},U_{2},...,U_{m})+(\Delta_{1},\Delta_{2},...,\Delta_{m})\in\varTheta(T')$
 \end_inset
 
 
 \end_layout
 
-\begin_layout Proof
+\begin_layout Enumerate
+\begin_inset Formula $\exists\varepsilon>0.\ \phi|_{B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right)}\equiv\phi\circ s_{1}|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Because 
 \begin_inset Formula $\phi$
 \end_inset
@@ -3366,8 +3019,8 @@ H_{\phi}(U_{1},U_{2},...,U_{m})=H_{\phi}(U_{1}+\Delta_{1},U_{2}+\Delta_{2},...,U
 
 \end_layout
 
-\begin_layout Proof
-and specifically:Not
+\begin_layout Standard
+and specifically:
 \begin_inset Formula 
 \[
 \rho\left(T'\right)\stackrel{\ref{eq:petubation-between-e2e}}{\le}\lambda_{\max}\left(H_{\phi}(U_{1}+\Delta_{1},U_{2}+\Delta_{2},...,U_{m}+\Delta_{m})\right)=\lambda_{\mathrm{\max}}\left(H_{\phi}(U_{1},U_{2},...,U_{m})\right)=2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}
@@ -3378,7 +3031,7 @@ and specifically:Not
 
 \end_layout
 
-\begin_layout Proof
+\begin_layout Standard
 Now by 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -3404,56 +3057,33 @@ T'\in\Psi_{0}
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset VSpace smallskip
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:def-agnostic-indf"
+
 \end_inset
 
-
+Invariance Under Any Local Measure
 \end_layout
 
 \begin_layout Standard
+As discussed in 
 \begin_inset CommandInset ref
-LatexCommand formatted
-reference "thm:indifference"
+LatexCommand ref
+reference "sec:Balancedness-of-Flattest"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- implies that for the setting of overparameterized linear-regression, generaliza
-tion and flatness defined by 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "def:e2e-flatness"
-plural "false"
-caps "false"
-noprefix "false"
+ there are many different definitions for the sharpness of a solutions.
+ 
+\end_layout
 
-\end_inset
-
- are not correlated.
- Note that 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "def:e2e-flatness"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- captures the essence of flatness in the 
-\begin_inset Quotes eld
-\end_inset
-
-worst-case
-\begin_inset Quotes erd
-\end_inset
-
- sense, i.e.
- by the maximal Hessian eigenvalue.
- This notion was used in 
+\begin_layout Standard
+The proof of 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "lem:existence-of-fr"
@@ -3463,25 +3093,20 @@ noprefix "false"
 
 \end_inset
 
- to show the existence of a flattest solution satisfying the regularity
- condition of 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "prop:invariant-directions"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
- 
+ relied on tolerance of the maximal Hessian eigenvalue to small perturbations
+ of singular values, this begs the question:
 \end_layout
 
 \begin_layout Standard
-One may wonder if there is a different measure of flatness that does not
- exhibit such degeneracy.
- The following corollary of 
+\paragraph_spacing onehalf
+\align center
+
+\shape italic
+Is there a definition of sharpness under which not all solutions are flattest?
+\end_layout
+
+\begin_layout Standard
+The following corollary of 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "cor:dead-direction-local"
@@ -3491,19 +3116,7 @@ noprefix "false"
 
 \end_inset
 
- shows that as in 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "subsec:reg-regression-indf"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, flatness does not correlate with generalization in the overparameterized
- setting.
- Formally, under the assumption that 
+ shows that under the assumption that 
 \begin_inset Formula $d_{y}\le n\le d_{x}$
 \end_inset
 
@@ -3543,7 +3156,7 @@ Assume that that
  be a sharpness measure such that:
 \begin_inset Formula 
 \[
-\forall w,u\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}.\left(\exists\varepsilon>0.\ \phi\left[B\left(w,\varepsilon\right)\right]=\phi\left[B\left(u,\varepsilon\right)\right]\right)\rightarrow\omega(w)=\omega(u)
+\forall w,u\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}.\left(\exists\varepsilon>0.\ \phi\left(B\left(w,\varepsilon\right)\right)=\phi\left(B\left(u,\varepsilon\right)\right)\right)\rightarrow\omega(w)=\omega(u)
 \]
 
 \end_inset
@@ -3569,29 +3182,20 @@ By our assumption for any solution
 \end_inset
 
  it holds that 
-\begin_inset Formula $rank\left(T\right)\ge rank\left(TX\right)=rank\left(YX^{+}X\right)\stackrel{rank(X)=N}{=}rank\left(Y\right)=d_{y}$
+\begin_inset Formula $rank\left(T\right)\ge rank\left(TX\right)=rank\left(Y\right)=d_{y}$
 \end_inset
 
 .
- Specifically this shows the existence of a flattest solution 
+ Specifically this holds for any flattest solution 
 \begin_inset Formula $T_{0}\in\Psi_{0}$
 \end_inset
 
- of rank 
-\begin_inset Formula $d_{y}$
+, thus if 
+\begin_inset Formula $\left(\kaliseries W,m\right)\in\varTheta_{0}\left(T_{0}\right)$
 \end_inset
 
-.
- Let 
-\begin_inset Formula $\left(\kaliseries W,m\right)\in\varTheta\left(T_{0}\right)$
-\end_inset
-
- be any overparameterization, it holds that 
+ is a flattest overparameterization, it holds that 
 \begin_inset Formula $rank\left(W_{2:m}\right)\ge rank\left(T_{0}\right)=d_{y}$
-\end_inset
-
-, specifically this holds for any flattest overparameterization 
-\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)$
 \end_inset
 
 .
@@ -3623,7 +3227,7 @@ noprefix "false"
  such that:
 \begin_inset Formula 
 \[
-\phi\left[B\left(\left(\kaliseries{\bar{W}},m\right),\varepsilon\right)\right]=\phi\left[B\left(\left(\kaliseries{W'},m\right),\varepsilon\right)\right]
+\phi\left(B\left(\left(\kaliseries{\bar{W}},m\right),\varepsilon\right)\right)=\phi\left(B\left(\left(\kaliseries{W'},m\right),\varepsilon\right)\right)
 \]
 
 \end_inset
@@ -3632,7 +3236,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Proof
-therefore by our assumption on 
+therefore by the locality of 
 \begin_inset Formula $\omega$
 \end_inset
 
@@ -3648,21 +3252,11 @@ therefore by our assumption on
 \end_layout
 
 \begin_layout Proof
-and we conclude that 
+thus we conclude that 
 \begin_inset Formula $T'\in\Psi_{0}.$
 \end_inset
 
 
-\end_layout
-
-\begin_layout Remark*
-We note that although flatness is degenerate in our setting, different end-to-en
-d solutions generalize differently.
- Furthermore SGD is known to exhibit implicit bias towards minimal norm
- solutions.
- [Add citation to rethinking generalization, add citation to LNN case implicit
- bias].
- -TODO: push this to beginning discussion?
 \end_layout
 
 \begin_layout Standard
@@ -3681,6 +3275,13 @@ options "myStyle"
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 \start_of_appendix
 Deferred Proofs
@@ -3693,9 +3294,9 @@ name "subsec:proof-flat-unbalanced"
 
 \end_inset
 
-Proof of 
+Proof of Proposition 
 \begin_inset CommandInset ref
-LatexCommand formatted
+LatexCommand ref
 reference "prop:FlatUnbalanced"
 plural "false"
 caps "false"
@@ -4263,8 +3864,775 @@ where the first inequality is true because the
 \end_deeper
 \end_deeper
 \end_deeper
-\begin_layout Standard
+\begin_layout Subsection
+Proof of Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lemma:unif-lb"
+plural "false"
+caps "false"
+noprefix "false"
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+For the first part, 
+\begin_inset CommandInset citation
+LatexCommand citeauthor
+key "Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+ have showed that 
+\begin_inset Formula $\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(B\hat{\Sigma}_{x}^{\frac{1}{2}}T^{T}\right)^{m-1}B\hat{\Sigma}_{x}^{\frac{1}{2}}\right\Vert _{2}^{\frac{2}{m}}$
+\end_inset
+
+ lower bounds the flatness of the single solution 
+\begin_inset Formula $T$
+\end_inset
+
+ in the non-singular case.
+ Note that this bound is independent of the specific overparameterization
+ of T .Their analysis carries through to the singular case, where now apriori
+ the bound is dependent on the end-to-end solution.
+\end_layout
+
+\begin_layout Proof
+In this case, let 
+\begin_inset Formula $T\in\Psi$
+\end_inset
+
+ and denote 
+\begin_inset Formula $T=YX^{+}+K\left(I_{d_{x}}-XX^{+}\right)$
+\end_inset
+
+, plugging this into the above expression yields:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+\max_{\left\Vert B\right\Vert _{F}=1}\nu_{T}\left(B\right) & =2m\left\Vert \left(B\hat{\Sigma}_{x}^{\frac{1}{2}}T^{T}\right)^{m-1}B\hat{\Sigma}_{x}^{\frac{1}{2}}\right\Vert _{2}^{\frac{2}{m}}\\
+ & \stackrel{\ref{assumption:pseudo-white}}{=}\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXX^{T}\left(YX^{+}+K\left(I_{d_{x}}-XX^{+}\right)\right)^{T}\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
+ & =\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXX^{T}\left(\left(X^{T}\right)^{+}Y^{T}+\left(I_{d_{x}}-\left(X^{T}\right)^{+}X^{T}\right)K^{T}\right)\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
+ & =\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXY^{T}\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
+ & \le\max_{\left\Vert B\right\Vert _{F}=1}2m\left(\left\Vert B\right\Vert _{2}\left\Vert XY^{T}\right\Vert _{2}\right)^{2\left(1-\frac{1}{m}\right)}\left\Vert B\right\Vert _{2}^{\frac{2}{m}}\left\Vert XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
+ & \le2m\left\Vert XY^{T}\right\Vert ^{2\left(1-\frac{1}{m}\right)}\left\Vert XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
+ & =2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Where the equality in the third and fourth line are due to to the properties
+ of the Moore-Penrose pseudo-inverse and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "assumption:pseudo-white"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The inequality in the fith line used norm sub-multiplicity, that of the
+ sixth is due to the fact that 
+\begin_inset Formula $\left\Vert B\right\Vert _{2}\le\left\Vert B\right\Vert _{F}$
+\end_inset
+
+, and the seventh by 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "assumption:pseudo-white"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and the fact that 
+\begin_inset Formula $\sigma_{\max}\left(YX^{T}\right)=\text{\sigma_{\max}\left(X^{T}Y\right)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+We now show that this bound is achieved with equality: 
+\end_layout
+
+\begin_layout Proof
+Denote the SVD of 
+\begin_inset Formula $YX^{T}$
+\end_inset
+
+by 
+\begin_inset Formula $USV^{T}$
+\end_inset
+
+, where 
+\begin_inset Formula $\left(S\right)_{i,i}\ge\left(S\right)_{i+1,i+1},\quad i\in\left[d_{y}-1\right]$
+\end_inset
+
+, and the left, right singular vectors corresponding to the maximal singular
+ value by 
+\begin_inset Formula $u,$
+\end_inset
+
+v respectively.
+\end_layout
+
+\begin_layout Proof
+Taking 
+\begin_inset Formula $B=uv^{T}$
+\end_inset
+
+gives the following bound:
+\begin_inset Formula 
+\begin{alignat*}{2}
+\nu_{T}\left(uv^{T}\right) & = & 2m\left\Vert \left(uv^{T}XX^{T}X\left(X^{T}X\right)^{-1}Y^{T}\right)^{m-1}uv^{T}XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
+ & = & 2m\left\Vert u\left(v^{T}XY^{T}u\right)^{m-1}v^{T}XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
+ & = & 2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}\left\Vert uv^{T}XX^{T}\right\Vert _{2}^{\frac{2}{m}}
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+It remains to show that 
+\begin_inset Formula $\left\Vert uv^{T}XX^{T}\right\Vert _{2}=1$
+\end_inset
+
+ .
+ First notice that 
+\begin_inset Formula $uv^{T}$
+\end_inset
+
+ has only the nonzero singular value 1 of multiplicity one, and that by
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "assumption:pseudo-white"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\begin_inset Formula $\left\Vert XX^{T}\right\Vert _{2}=1$
+\end_inset
+
+, thus:
+\begin_inset Formula 
+\[
+\left\Vert uv^{T}XX^{T}\right\Vert _{2}\le\left\Vert uv^{T}\right\Vert _{2}\left\Vert XX^{T}\right\Vert _{2}=1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Next we show that this bound is achieved by 
+\begin_inset Formula $v$
+\end_inset
+
+.
+ To show this notice that by 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:pseudo-white"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+XX^{T}v=\begin{pmatrix}I_{n} & \mathbb{0}_{n\times\left(d_{x}-n\right)}\\
+\mathbb{0}_{\left(d_{x}-n\right)\times n} & \mathbb{0}_{d_{x}-n}
+\end{pmatrix}v=v\Leftrightarrow v\in\left(\mathbb{R}^{N}\times\{0\}^{d_{x}-N}\right)
+\]
+
+\end_inset
+
+We claim that the right-hand side must hold, to see this let 
+\begin_inset Formula $X=\sum_{i=1}^{N}\sigma_{i}\left(X\right)u_{X}^{i}\left(v_{X}^{i}\right)^{T}\text{,}\ Y=\sum_{i=1}^{r_{Y}}\sigma_{i}\left(Y\right)u_{Y}^{i}\left(v_{Y}^{i}\right)^{T}$
+\end_inset
+
+ be the SVD of 
+\begin_inset Formula $X,Y$
+\end_inset
+
+ respectively.
+ By definition it holds that:
+\begin_inset Formula 
+\begin{alignat*}{1}
+\max_{\left\Vert w\right\Vert _{2}=1}\left\Vert YX^{T}w\right\Vert _{2}^{2} & =\left\Vert YX^{T}v\right\Vert _{2}^{2}\\
+ & =\left\Vert Y\left(\sum_{j=1}^{N}\sigma_{j}\left(X\right)v_{X}^{j}\left(u_{X}^{j}\right)^{T}\right)\left(\sum_{i=1}^{d_{x}}\left\langle v,u_{X}^{i}\right\rangle u_{X}^{i}\right)\right\Vert _{2}^{2}\\
+ & =\left\Vert Y\left(\sum_{j=1}^{N}\sum_{i=1}^{d_{x}}\sigma_{j}\left(X\right)\left\langle v,u_{X}^{i}\right\rangle v_{X}^{j}\left\langle u_{X}^{j},u_{X}^{i}\right\rangle \right)\right\Vert _{2}^{2}\\
+ & =\left\Vert Y\left(\sum_{j=1}^{N}\sigma_{j}\left(X\right)\left\langle v,u_{X}^{j}\right\rangle v_{X}^{j}\right)\right\Vert _{2}^{2}\\
+ & =\left\Vert \left(\sum_{i=1}^{r_{Y}}\sigma_{i}\left(Y\right)u_{Y}^{i}\left(v_{Y}^{i}\right)^{T}\right)\left(\sum_{j=1}^{N}\sigma_{j}\left(X\right)\left\langle v,u_{X}^{j}\right\rangle v_{X}^{j}\right)\right\Vert _{2}^{2}\\
+ & =\left\Vert \sum_{i=1}^{r_{Y}}\left(\sum_{j=1}^{N}\sigma_{i}\left(Y\right)\sigma_{j}\left(X\right)\left\langle v,u_{X}^{j}\right\rangle \left\langle v_{Y}^{i},v_{X}^{j}\right\rangle \right)u_{Y}^{i}\right\Vert _{2}^{2}\\
+ & =\sum_{i=1}^{r_{Y}}\left(\sum_{j=1}^{N}\sigma_{i}\left(Y\right)\sigma_{j}\left(X\right)\left\langle v_{Y}^{i},v_{X}^{j}\right\rangle \left\langle v,u_{X}^{j}\right\rangle \right)^{2}
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Where the last equality is due to Pythagoras theorem.
+\end_layout
+
+\begin_layout Proof
+Assume by contradiction that 
+\begin_inset Formula $v\notin\left(\mathbb{R}^{N}\times\{0\}^{d_{x}-N}\right)$
+\end_inset
+
+, i.e.
+ 
+\begin_inset Formula $\exists k\in\left\{ N+1,N+2,...,d_{x}\right\} .(v)_{k}\neq0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Note that:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+label=
+\backslash
+alph{enumi}.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $0<\sum_{j=1}^{N}\left\langle v,u_{X}^{j}\right\rangle ^{2}$
+\end_inset
+
+: Otherwise 
+\begin_inset Formula $v=\sum_{j=N+1}^{d_{x}}\left\langle v,u_{X}^{j}\right\rangle ^{2}u_{X}^{j}$
+\end_inset
+
+ yielding 
+\begin_inset Formula $YX^{T}v=Y\mathbb{0}_{n}=\mathbb{0}_{d_{y}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\sum_{j=1}^{N}\left\langle v,u_{X}^{j}\right\rangle ^{2}<1$
+\end_inset
+
+: By the Pythagoras theorem and the fact that
+\begin_inset Formula $\left\Vert v\right\Vert _{2}=1$
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Proof
+Define 
+\begin_inset Formula $\bar{v}=\left(\sum_{k\neq j=1}^{d_{x}}\left\langle v,u_{X}^{j}\right\rangle ^{2}\right)^{-\frac{1}{2}}\sum_{k\neq j=1}^{d_{x}}\left\langle v,u_{X}^{j}\right\rangle u_{X}^{j}$
+\end_inset
+
+ , by construction
+\begin_inset Formula $\left\Vert \bar{v}\right\Vert =1$
+\end_inset
+
+.
+ Plugging it in the above derivation yields the following contradiction:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{alignat*}{1}
+\left\Vert YX^{T}\bar{v}\right\Vert _{2}^{2} & =\sum_{i=1}^{r_{Y}}\left(\sum_{j=1}^{N}\sigma_{i}\left(Y\right)\sigma_{j}\left(X\right)\left\langle v_{Y}^{i},v_{X}^{j}\right\rangle \left\langle \bar{v},u_{X}^{j}\right\rangle \right)^{2}\\
+ & =\left(\sum_{k\neq j=1}^{d_{x}}\left\langle v,u_{X}^{j}\right\rangle ^{2}\right)^{-1}\sum_{i=1}^{r_{Y}}\left(\sum_{j=1}^{N}\sigma_{i}\left(Y\right)\sigma_{j}\left(X\right)\left\langle v_{Y}^{i},v_{X}^{j}\right\rangle \left\langle v,u_{X}^{j}\right\rangle \right)^{2}\\
+ & =\left(\sum_{k\neq j=1}^{d_{x}}\left\langle v,u_{X}^{j}\right\rangle ^{2}\right)^{-1}\left\Vert YX^{T}v\right\Vert _{2}^{2}\\
+ & >\left\Vert YX^{T}v\right\Vert _{2}^{2}\\
+ & =\max_{\left\Vert w\right\Vert _{2}=1}\left\Vert YX^{T}w\right\Vert _{2}^{2}
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+We have showed that 
+\begin_inset Formula $v\in\left(\mathbb{R}^{N}\times\{0\}^{d_{x}-N}\right)$
+\end_inset
+
+ hence 
+\begin_inset Formula $XX^{T}v=v$
+\end_inset
+
+.
+ The lower bound now follows from the definition:
+\begin_inset Formula 
+\begin{alignat*}{2}
+\left\Vert uv^{T}XX^{T}\right\Vert _{2} & = & \max_{\left\Vert w\right\Vert _{2}=1}\left\Vert uv^{T}XX^{T}w\right\Vert _{2}\\
+ & \ge & \left\Vert uv^{T}XX^{T}v\right\Vert _{2}\\
+ & = & \left\Vert u\right\Vert _{2}\\
+ & = & 1
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:proof-of-lem-acheived"
+
+\end_inset
+
+Proof of Lemma 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "lem:lower-bound-achieved"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Note that under these assumptions 
+\begin_inset Formula $YX^{T}\in\Psi$
+\end_inset
+
+.
+ Let us denote its SVD by 
+\begin_inset Formula $USV^{T},$
+\end_inset
+
+ we define the canonical solution as in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Cannonical-sol"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ by:
+\begin_inset Formula 
+\begin{equation}
+W_{m}^{\ast}=US_{m}^{\frac{1}{m}},\quad W_{j}^{\ast}=S_{j}^{\frac{1}{m}}\quad j\in\left\{ 2,3,...,m-1\right\} ,\quad W_{1}^{\ast}=S_{1}^{\frac{1}{m}}V^{T}\label{eq:canon-singular}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Following the proof given in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+ we get that:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+\lambda_{\mathrm{\max}}\left(H_{w^{\ast}}\right) & = & \max_{\left\Vert \tilde{B}\right\Vert _{F}=1}2\sum_{k=1}^{m}\left\Vert \left(S^{\frac{m-k}{m}}\right)^{T}\tilde{B}\hat{\Sigma}_{x}^{\frac{1}{2}}\left(S^{\frac{k-1}{m}}\right)^{T}\right\Vert _{F}^{2}\\
+ & = & \max_{\left\Vert \tilde{B}\right\Vert _{F}=1}2\sum_{k=1}^{m}\left\Vert \left(S^{\frac{m-k}{m}}\right)^{T}\tilde{B}\begin{pmatrix}I_{N} & \mathbb{0}_{N\times\left(d_{x}-N\right)}\\
+\mathbb{0}_{\left(d_{x}-N\right)\times N} & \mathbb{0}_{d_{x}-N}
+\end{pmatrix}\left(S^{\frac{k-1}{m}}\right)^{T}\right\Vert _{F}^{2}\\
+ & = & \max_{\left\Vert \tilde{B}\right\Vert _{F}=1}2\sum_{k=1}^{m}\sum_{i=1}^{N}\sum_{j=1}^{N}\left[\left(\sigma_{i}\left(YX^{T}\right)\right)^{\frac{m-k}{m}}\left(\sigma_{j}\left(YX^{T}\right)\right)^{\frac{k-1}{m}}\tilde{b}_{i.j}\right]^{2}\\
+ & = & \max_{\left\Vert \tilde{B}\right\Vert _{F}=1}2\sum_{i,j=1}^{N}\tilde{b}_{i.j}^{2}\sum_{k=1}^{m}\left[\left(\sigma_{i}\left(YX^{T}\right)\right)^{\frac{m-k}{m}}\left(\sigma_{j}\left(YX^{T}\right)\right)^{\frac{k-1}{m}}\right]^{2}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+This is a simple linear optimization problem over the unit simplex, whose
+ optimal value is attained at the the vertex 
+\begin_inset Formula $\tilde{B}=\left(\delta_{1,1}(i,j)\right)_{i=1,j=1}^{d_{x}\ ,d_{x}}$
+\end_inset
+
+, where 
+\begin_inset Formula $\delta$
+\end_inset
+
+ is the Kronecker delta.
+ Thus the canonical solution sharpness is:
+\begin_inset Formula 
+\[
+\lambda_{\mathrm{\max}}\left(H_{w^{\ast}}\right)=2\sum_{k=1}^{m}\left[\left(\sigma_{\max}\left(YX^{T}\right)\right)^{\frac{m-k}{m}}\left(\sigma_{\max}\left(YX^{T}\right)\right)^{\frac{k-1}{m}}\right]^{2}=2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+And by 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "lemma:unif-lb"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we get the desired equality: 
+\begin_inset Formula 
+\[
+2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}\le\rho(YX^{T})\le\lambda_{\mathrm{\max}}\left(H_{w^{\ast}}\right)=2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Proof of Corollary 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cor:dead-direction-local"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Proof
+We prove for the case of 
+\begin_inset Formula $d_{y}\le d_{x}$
+\end_inset
+
+, the case where 
+\begin_inset Formula $d_{x}\le d_{y}$
+\end_inset
+
+ is analogous.
+\end_layout
+
+\begin_layout Proof
+Define 
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)$
+\end_inset
+
+ by the point 
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)$
+\end_inset
+
+ as in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "def:dead-direction-delta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, by construction it holds that 
+\begin_inset Formula $T_{2}=\left(\bar{W}_{i}+\Delta_{i}\right)_{1:m}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $t\in\mathbb{R}$
+\end_inset
+
+, for-each point 
+\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in B\left((U_{1},U_{2},...,U_{m}),\varepsilon\right)$
+\end_inset
+
+ we examine the loss along 
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+\phi\left((W_{1},W_{2},...,W_{m})+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right) & = & \left\Vert \left(W_{i}+t\Delta_{i}\right)_{1:m}X-Y\right\Vert _{F}^{2}\\
+ & = & \left\Vert W_{2:m}\left(W_{1}+t\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right)X-Y\right\Vert _{F}^{2}\\
+ & = & \left\Vert W_{2:m}W_{1}X+tW_{2:m}\left(\bar{W}_{2:m}\right)^{+}{\color{gray}\underset{=0}{\underbrace{{\normalcolor \left(T_{2}-T_{1}\right)X}}}}-Y\right\Vert _{F}^{2}\\
+ & = & \left\Vert W_{1:m}X-Y\right\Vert _{F}^{2}\\
+ & = & \phi\left(\kaliseries{\bar{W}},m\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Therefore we conclude that:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{equation}
+\exists\varepsilon>0.\ \phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}\equiv\phi\circ s_{t}|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}\label{eq:equvilent-neig-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:proof-of-ex-of-frs"
+
+\end_inset
+
+Proof of Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:existence-of-fr"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+We show the case of 
+\begin_inset Formula $d_{y}\le d_{x}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+Denote 
+\begin_inset Formula $T_{0}=YX^{T}$
+\end_inset
+
+, and its SVD by 
+\begin_inset Formula $USV^{T}$
+\end_inset
+
+ where 
+\begin_inset Formula $r=rank\left(T_{0}\right)$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $T_{0}$
+\end_inset
+
+is of full rank, then for any overparameterization 
+\begin_inset Formula $\left(\kaliseries W,m\right)\in\Theta(T_{0})$
+\end_inset
+
+ it holds that 
+\begin_inset Formula $rank\left(W_{m:2}\right)=r$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Otherwise, let 
+\begin_inset Formula $\left(W_{1}^{\ast},W_{2}^{\ast},...,W_{m}^{\ast}\right)\in\varTheta(T_{0})$
+\end_inset
+
+ be its canonical overparameterization, defined in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:canon-singular"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+We define 
+\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\varTheta(T_{0})$
+\end_inset
+
+, by perturbing the canonical overparameterization into non-singularity:
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $0<\varepsilon\le\left(\sigma_{\max}\left(YX^{T}\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+, define 
+\begin_inset Formula $\tilde{S}\in\mathbb{R}^{d_{y}\times d_{x}}$
+\end_inset
+
+ by: 
+\begin_inset Formula 
+\[
+\tilde{S}=S+diag\left({\color{gray}\underset{r\ times}{\underbrace{{\normalcolor 0,0,...,0}}}},{\color{gray}\underset{d_{y}-r\ times}{\underbrace{{\normalcolor \varepsilon,\varepsilon,...,\varepsilon}}}}\right)
+\]
+
+\end_inset
+
+ and 
+\begin_inset Formula $(W_{1},W_{2},...,W_{m})$
+\end_inset
+
+ by:
+\begin_inset Formula 
+\[
+W_{m}=U\tilde{S}_{m}^{\frac{1}{m}},\quad W_{j}=\tilde{S}_{j}^{\frac{1}{m}}\quad j\in\left\{ 2,3,...,m-1\right\} ,\quad W_{1}=S_{1}^{\frac{1}{m}}V^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+where 
+\begin_inset Formula $S_{j}^{\frac{1}{m}}$
+\end_inset
+
+ is used to denote the 
+\begin_inset Formula $d_{j}\times d_{j-1}$
+\end_inset
+
+ matrix whose 
+\begin_inset Formula $k$
+\end_inset
+
+th diagonal entry is 
+\begin_inset Formula $\left(\sigma_{k}\left(T_{0}\right)\right)^{\frac{1}{m}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+Note that by construction 
+\begin_inset Formula $rank\left(W_{2:m}\right)=d_{y}$
+\end_inset
+
+ and that 
+\begin_inset Formula 
+\[
+W_{1}^{\ast}=S_{1}^{\frac{1}{m}}V^{T}=\begin{pmatrix}diag\left(\sigma_{1}\left(T_{0}\right),...,\sigma_{rank(S)}\left(T_{0}\right)\right) & \mathbb{0}_{rank(S)\times\left(d_{x}-rank(S)\right)}\\
+\mathbb{0}_{\left(d_{1}-rank(S)\right)\times rank(S)} & \mathbb{0}_{\left(d_{1}-rank(S)\right)\times\left(d_{x}-rank(S)\right)}
+\end{pmatrix}V^{T}
+\]
+
+\end_inset
+
+ therefore:
+\begin_inset Formula 
+\[
+W_{1:m}=U\tilde{S}^{\frac{m-1}{m}}S^{\frac{1}{m}}V^{T}=USV^{T}=T_{0}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+By 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "thm:sufficient-singular"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\Omega_{0}(T_{0})$
+\end_inset
+
+ and 
+\begin_inset Formula $T_{0}\in\Psi_{0}$
+\end_inset
+
+as required.
+\end_layout
+
+\begin_layout Proof
+The case of 
+\begin_inset Formula $d_{x}\le d_{y}$
+\end_inset
+
+ is analogous.
 \end_layout
 
 \end_body
