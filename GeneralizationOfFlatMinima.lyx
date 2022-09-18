@@ -187,8 +187,9 @@ Empirical evidence suggests that for a variety of overparameterized models,
 , for any local flatness measure
 \shape default
 .
- Our results show that for the linear setting, flatness does not correlate
- with generalization.
+ Our results show that for the linear setting, flatness does not differentiate
+ between solutions - making it ineffective of explaining generalization
+ in linear models.
 \end_layout
 
 \begin_layout Section
@@ -438,7 +439,9 @@ Linear Neural Networks
 \end_layout
 
 \begin_layout Standard
-Linear neural networks (LNN) are fully connected networks with no neuron
+To simplify our research of generalization and flatness, we focus on a specific
+ neural network model called Linear neural networks.
+ Linear neural networks (LNN) are fully connected networks with no neuron
  activation.
  The end-to-end function of a deep linear network can always be rewritten
  as a shallow network, thus such networks do not gain expressive power from
@@ -697,7 +700,7 @@ literal "false"
 
 \begin_layout Definition
 \begin_inset Argument 1
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Balancedness
@@ -759,7 +762,62 @@ If
 
 \end_layout
 
+\begin_layout Standard
+When we optimize the model, we seek to minimize some loss function.
+ To do this, a common pratctice is to use some kind of Gradient Descent
+ algorithm.
+\end_layout
+
+\begin_layout Standard
+For the theoritcal approach, we use the continuous equivalent to Gradient
+ Descent - the Gradient Flow algorithm, wich works as follows:
+\end_layout
+
 \begin_layout Definition
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Gradient Flow
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "def:gf"
+
+\end_inset
+
+ Let 
+\begin_inset Formula $\mathbb{W}$
+\end_inset
+
+ be the linear space of weights of the model, and 
+\begin_inset Formula $f:\mathbb{W}\rightarrow\mathbb{R}$
+\end_inset
+
+ be a smooth loss function.
+ Gradient flow(or steepest descent curve) is a smoothh curve 
+\begin_inset Formula $w:\mathbb{R}\rightarrow\mathbb{W}$
+\end_inset
+
+ such that:
+\end_layout
+
+\begin_layout Definition
+\begin_inset Formula 
+\[
+\dot{w}\left(t\right)=-\nabla f\left(w\left(t\right)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 A useful fact is that this notion of balancedness is conserved by GF throughout
  optimization, formally:
 \end_layout
@@ -818,8 +876,8 @@ Assume the weight matrices
 \begin_layout Standard
 We seek to refine the relationship between 
 \begin_inset CommandInset ref
-LatexCommand ref
-reference "def:e2e-flatness"
+LatexCommand eqref
+reference "prop:balancedness"
 plural "false"
 caps "false"
 noprefix "false"
@@ -924,7 +982,11 @@ name "assumption:nonsingular"
 \begin_inset Formula $N$
 \end_inset
 
-.
+, and we have at least 
+\begin_inset Formula $d_{x}$
+\end_inset
+
+ linearly independent samples.
 \end_layout
 
 \begin_layout Standard
@@ -1828,7 +1890,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Section
-Analysis of the Singular Case
+Analysis of the Multiple End-To-End Soultions Case
 \end_layout
 
 \begin_layout Standard
@@ -1839,8 +1901,9 @@ literal "false"
 
 \end_inset
 
- argued that in the singular case any end-to-end solution has the same flatness,
- to this end they assumed a single global minima exits 
+ intuitiveely argued that in the singular case any end-to-end solution has
+ the same flatness, thus they could assume that a single global minima exits
+ 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "assumption:nonsingular"
@@ -2092,7 +2155,7 @@ literal "false"
 \end_layout
 
 \begin_layout Subsection
-Extending the Analysis to the Singular Case
+Extending the Analysis to the Multiple End-To-End Soultions Case
 \end_layout
 
 \begin_layout Standard
@@ -2165,7 +2228,7 @@ noprefix "false"
 , i.e.: 
 \begin_inset Formula 
 \[
-\Psi_{0}=\left\{ T\in\Psi\ \Bigm\vert\ \in\rho(T)=2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}\right\} 
+\Psi_{0}=\left\{ T\in\Psi\ \Bigm\vert\ \rho(T)=2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}\right\} 
 \]
 
 \end_inset
@@ -2192,6 +2255,54 @@ First we derive a uniform lower bound on the sharpness of an end-to-end
 
 \begin_layout Enumerate
 We show a solution which achieves this bound.
+\end_layout
+
+\begin_layout Remark*
+In the previous case of a single end-to-end soltuion, the minimal solution
+ sharpness was 
+\begin_inset Formula $2m\left(\sigma_{\max}\left(T\right)\right)^{2\left(1-\frac{1}{m}\right)}$
+\end_inset
+
+ where 
+\begin_inset Formula $T$
+\end_inset
+
+ is the end-to-end solution.
+\end_layout
+
+\begin_layout Remark*
+We see a similarity to 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "thm:min-sharpness-singular"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, as in the multiple solution case each solution has the following form:
+ 
+\begin_inset Formula 
+\[
+T=YX^{+}+\left(I-XX^{+}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Remark*
+And indeed, if 
+\begin_inset Formula $X$
+\end_inset
+
+ is a full rank we are in the single solution case, and 
+\begin_inset Formula $T=YX^{+}=YX^{T}\left(XX^{T}\right)^{-1}$
+\end_inset
+
+ which gives us exactly the same value as in the theorem.
 \end_layout
 
 \begin_layout Lemma
@@ -2548,7 +2659,7 @@ noprefix "false"
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Generalization-of-Flattest"
@@ -2558,7 +2669,7 @@ name "sec:Generalization-of-Flattest"
 Generalization of Flattest Solutions
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Motivation: Simple Linear Regression
 \end_layout
 
@@ -2598,7 +2709,7 @@ L(W)=\left\Vert WX-Y\right\Vert _{F}^{2}
 In this setting the Hessian matrix of the loss function is given by: 
 \begin_inset Formula 
 \[
-H_{L}(W)=I_{d_{y}\times d_{x}}\left(XX^{T}\right)^{\frac{1}{2}}\odot I_{d_{x}\times d_{y}}
+H_{L}(W)=2\cdot I_{d_{y}\times d_{x}}\left(XX^{T}\right)\odot I_{d_{x}\times d_{y}}
 \]
 
 \end_inset
@@ -2833,7 +2944,7 @@ noprefix "false"
 .
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Proof Outline for Theorem 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3597,7 +3708,7 @@ T'\in\Psi_{0}
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:def-agnostic-indf"
@@ -4406,6 +4517,13 @@ where the first inequality is true because the
 \end_deeper
 \begin_layout Standard
 \begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
 \end_inset
 
 
