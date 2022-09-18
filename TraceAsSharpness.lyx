@@ -372,7 +372,7 @@ U_{k}S_{k}S_{k}^{T}U_{k}^{T}=U_{k}S_{k}V_{k}^{T}V_{k}S_{k}^{T}U_{k}^{T}=W_{k}W_{
  And by uniqness of diagonalisation of symmetric matrix:
 \begin_inset Formula 
 \[
-U_{k}=V_{k+1},S_{k}=S_{k+1}
+U_{k}=V_{k+1},S_{k}^{T}=S_{k+1}
 \]
 
 \end_inset
@@ -435,6 +435,173 @@ Is balancedness equal to flattest solution
 
 \begin_layout Subsection
 2-Layer case
+\end_layout
+
+\begin_layout Subsubsection
+Non-Square Case
+\end_layout
+
+\begin_layout Standard
+In the non-square case, we have an issue of scaling: the trace has a different
+ scaling for each norm, thus providing us a way to find a counter example.
+\end_layout
+
+\begin_layout Standard
+Let us look at the following example:
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $T=USV^{T}\in\mathbb{R}^{d_{X}\times d_{Y}}$
+\end_inset
+
+ be the SVD decomposition, where: 
+\begin_inset Formula 
+\[
+S=\begin{array}{ccccc}
+x & 0 & \cdots & \cdots & 0\\
+0 & 1 & \ddots &  & \vdots\\
+\vdots & \ddots & 0 & \ddots & \vdots\\
+\vdots &  & \ddots & \ddots & 0\\
+0 & \cdots & \cdots & 0 & 0
+\end{array}\in\mathbb{R}^{d_{X}\times d_{Y}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assume that we have a solution: 
+\begin_inset Formula $T=W_{2}W_{1}$
+\end_inset
+
+.
+ In the non-square case it holds that:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+Trace(H_{w}) & =2\sum_{k=1}^{m}||W_{k-1:1}||_{F}^{2}\cdot||W_{m:k+1}||_{F}^{2}=\nonumber \\
+ & =2\left(||W_{0:1}||_{F}^{2}\cdot||W_{2:2}||_{F}^{2}+||W_{1:1}||_{F}^{2}\cdot||W_{2:3}||_{F}^{2}\right)\nonumber \\
+ & =2\left(||I_{d_{Y}}||_{F}^{2}\cdot||W_{2}||_{F}^{2}+||W_{1}||_{F}^{2}\cdot||I_{d_{X}}||_{F}^{2}\right)\label{eq:non_square_trace}\\
+ & =2\left(d_{y}||W_{2}||_{F}^{2}+d_{X}||W_{1}||_{F}^{2}\right)\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $W_{2}=US^{\frac{2}{3}}$
+\end_inset
+
+ and 
+\begin_inset Formula $W_{1}=S^{\frac{1}{3}}V^{T}$
+\end_inset
+
+.
+ It is easy to see that it is a non-balanced solution.
+ Assume that 
+\begin_inset Formula $d_{X}=\alpha\cdot d_{y}$
+\end_inset
+
+ for some 
+\begin_inset Formula $\alpha>1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+By 
+\begin_inset Formula $\text{\ref{eq:non_square_trace}}$
+\end_inset
+
+We get the following:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+Trace(H_{w}) & =2\left(d_{y}||W_{2}||_{F}^{2}+d_{X}||W_{1}||_{F}^{2}\right)\nonumber \\
+ & =2\left(d_{y}||US^{\frac{2}{3}}||_{F}^{2}+\alpha\cdot d_{y}||S^{\frac{1}{3}}V^{T}||_{F}^{2}\right)\label{counter_trace}\\
+ & =2\left(d_{y}\left(x^{\frac{4}{3}}+1\right)+\alpha\cdot d_{y}\left(x^{\frac{2}{3}}+1\right)\right)\nonumber \\
+ & =2d_{y}\left(x^{\frac{4}{3}}+\alpha x^{\frac{2}{3}}+\alpha+1\right)\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And for the balanced solution we have the following:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+Trace(H_{w_{bal}}) & =2\sum_{k=1}^{m}||S^{\frac{k-1}{m}}||_{F}^{2}\cdot||S^{\frac{m-k}{m}}||_{F}^{2}\\
+ & =2\left(||I_{d_{Y}}||_{F}^{2}\cdot||S^{\frac{1}{2}}||_{F}^{2}+||S^{\frac{1}{2}}||_{F}^{2}\cdot||I_{d_{X}}||_{F}^{2}\right)\\
+ & =2\left(d_{y}\cdot\left(x+1\right)+\alpha\cdot d_{y}\left(x+1\right)\right)\\
+ & =2d_{y}\left(x+\alpha x+1+\alpha\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We want toe get a counter example by having the balanced trace be larger
+ than the non-balanced trace, i.e:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{flalign*}
+2d_{y}\left(x+\alpha x+1+\alpha\right) & >2d_{y}\left(x^{\frac{4}{3}}+\alpha x^{\frac{2}{3}}+\alpha+1\right)\\
+x+\alpha x & >x^{\frac{4}{3}}+\alpha x^{\frac{2}{3}}\\
+x^{\frac{4}{3}}-x-\alpha x+\alpha x^{\frac{2}{3}} & <0
+\end{flalign*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Solving the inequality results in the following:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+x\in\left(1,\alpha^{3}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus for 
+\begin_inset Formula $1<x<\alpha^{3}$
+\end_inset
+
+ we get a counter example, proving that balanced solution is not the flattest,
+ and that a flattest solution is not balanced, as all ballanced solution
+ have the same flattness.
+\end_layout
+
+\begin_layout Subsubsection
+Square Case
 \end_layout
 
 \begin_layout Standard
@@ -727,17 +894,10 @@ g_{A}(X)=||XA||_{F}^{2}=\sum_{i}\sum_{j}\left(\sum_{k}X_{i,k}A_{k,j}\right)^{2}
 \end_layout
 
 \begin_layout Proof
-Now, using the fact that 
-\begin_inset Formula $\nabla\left(X^{-1}\right)=X^{-2}$
-\end_inset
-
- we get the following:
-\end_layout
-
-\begin_layout Proof
+Using the same calculation, we get that:
 \begin_inset Formula 
 \[
-\nabla f\left(X\right)=\nabla g_{W_{2}^{T}}\left(X^{T}\right)+\nabla g_{W_{1}}\left(X^{-1}\right)=W_{2}^{T}W_{2}X^{T}-X^{-3}W_{1}W_{1}^{T}
+\frac{\partial}{\partial X}||X^{-1}A||_{F}^{2}=X^{-T}X^{-1}AA^{T}X^{-T}
 \]
 
 \end_inset
@@ -773,28 +933,33 @@ m-Layer Case
 \end_layout
 
 \begin_layout Standard
+As we saw before that for the non-square case the statement is already invalid,
+ we focus here only on the square case.
+\end_layout
+
+\begin_layout Standard
 We will show now that for the m-Layer case for 
 \begin_inset Formula $m\geq3$
 \end_inset
 
- there is no correlation between balancedness and flatness as a trace.
+ balancedness does not imply flattest solution, or vice versa.
 \end_layout
 
 \begin_layout Proof
 Let:
 \begin_inset Formula 
 \[
-S=diag\left(2^{m},1,0,...,0\right)\in\mathbb{R}^{n\times n}
+S=diag\left(1,x,0,...,0\right)\in\mathbb{R}^{n\times n},x\in\left(0,1\right)
 \]
 
 \end_inset
 
 
-\begin_inset Formula 
-\[
-T=USV^{T}\in\mathbb{R}^{n\times n}-SVD
-\]
+\end_layout
 
+\begin_layout Proof
+Such that the SVD decompostion of the end-to-end matrix is: 
+\begin_inset Formula $T=USV^{T}$
 \end_inset
 
 
@@ -830,9 +995,8 @@ Plugging in the value of
 \begin_layout Proof
 \begin_inset Formula 
 \begin{align*}
-Trace(H_{w}) & =2\left(2n\left(4^{m-1}+1\right)+\sum_{k=2}^{m-1}\left(4^{k-1}+1\right)\left(4^{m-k}+1\right)\right)\\
- & =2\left(2n\left(4^{m-1}+1\right)+\left(m-2\right)\left(4^{m-1}+1\right)+\frac{2}{3}\left(4^{m-1}-4\right)\right)\\
- & =n\left(4^{m}+4\right)+2\left(\left(m-2\right)\left(4^{m-1}+1\right)+\frac{2}{3}\left(4^{m-1}-4\right)\right)
+Trace(H_{w}) & =2\left(2nx^{\frac{2}{m}(m-1)}+\sum_{k=2}^{m-1}\left(x^{\frac{2}{m}(k-1)}+1\right)\left(x^{\frac{2}{m}(m-k)}+1\right)\right)\\
+ & \stackrel{t=x^{\frac{2}{m}}}{=}2\left(2nt^{m-1}+\left(m-2\right)t^{m-1}+m-2+2\sum_{k=1}^{m-2}t^{k}\right)
 \end{align*}
 
 \end_inset
@@ -847,7 +1011,7 @@ Now, we look at another solution:
 \begin_layout Proof
 \begin_inset Formula 
 \[
-W_{m}=US^{\frac{1}{2}},W_{1}=S^{\frac{1}{2}}V^{T},W_{i}=I_{n},\hat{w}=\left(W_{m},...,W_{1}\right)
+\hat{W}_{m}=US^{\frac{1}{2}},\hat{W}_{1}=S^{\frac{1}{2}}V^{T},\hat{W}_{i}=I_{n},\hat{w}=\left(\hat{W}_{m},...,\hat{W}_{1}\right)
 \]
 
 \end_inset
@@ -863,9 +1027,20 @@ For this solution we know it holds:
 \begin_inset Formula 
 \begin{align*}
 Trace(H_{\hat{w}}) & =2\sum_{k=1}^{m}||W_{k-1:1}||_{F}^{2}\cdot||W_{m:k+1}||_{F}^{2}\\
- & =2\left(2n\left(2^{m}+1\right)+\sum_{k=2}^{m-1}\left(2^{m}+1\right)\left(2^{m}+1\right)\right)\\
- & =n\left(4\cdot2^{m}+4\right)+2\left(m-2\right)\left(2^{m}+1\right)^{2}
+ & =2\left(2n\left(x+1\right)+\sum_{k=2}^{m-1}\left(x+1\right)\left(x+1\right)\right)\\
+ & \stackrel{t=x^{\frac{2}{m}}}{=}2\left(\left(m-2\right)t^{m}+2\left(m-2+n\right)t^{\frac{m}{2}}\right)
 \end{align*}
+
+\end_inset
+
+ Now we define the following function:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+f(t)=\frac{Trace(H_{\hat{w}})-Trace(H_{w})}{2}=\left(m-2\right)t^{m}+2\left(m-2+n\right)t^{\frac{m}{2}}-\left(2nt^{m-1}+\left(m-2\right)t^{m-1}+m-2+2\sum_{k=1}^{m-2}t^{k}\right)
+\]
 
 \end_inset
 
@@ -873,66 +1048,38 @@ Trace(H_{\hat{w}}) & =2\sum_{k=1}^{m}||W_{k-1:1}||_{F}^{2}\cdot||W_{m:k+1}||_{F}
 \end_layout
 
 \begin_layout Proof
-If we require that 
+Notice that 
+\begin_inset Formula $f(0)=0$
+\end_inset
+
+.
+ Now we look at 
+\begin_inset Formula $f'(0)$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+f'(t) & =m\left(m-2\right)t^{m-1}+m\left(m-2+n\right)t^{\frac{m}{2}-1}-\left(2n\left(m-1\right)t^{m-2}+\left(m-2\right)\left(m-1\right)t^{m-2}+2\sum_{k=1}^{m-2}kt^{k-1}\right)\\
+f'(0) & =-2
+\end{align*}
+
+\end_inset
+
+ We got that the derivative at 0 is negative, thus exists 
+\begin_inset Formula $t>0$
+\end_inset
+
+ small enough such that 
+\begin_inset Formula $f(t)<0$
+\end_inset
+
+, which means 
 \begin_inset Formula $Trace(H_{w})>Trace(H_{\hat{w}})$
 \end_inset
 
- we get:
-\end_layout
-
-\begin_layout Proof
-\begin_inset Formula 
-\begin{align*}
-n\left(4^{m}+4\right)+2\left(\left(m-2\right)\left(4^{m-1}+1\right)+\frac{2}{3}\left(4^{m-1}-4\right)\right) & >n\left(4\cdot2^{m}+4\right)+2\left(m-2\right)\left(2^{m}+1\right)^{2}
-\end{align*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-\begin_inset Formula 
-\[
-n\left(4^{m}-4\cdot2^{m}\right)>2\left(m-2\right)\left(2^{m}+1\right)^{2}-2\left(\left(m-2\right)\left(4^{m-1}+1\right)+\frac{2}{3}\left(4^{m-1}-4\right)\right)
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-As the number of layers holdes 
-\begin_inset Formula $m\geq3$
-\end_inset
-
-, we can divide by 
-\begin_inset Formula $\left(4^{m}-4\cdot2^{m}\right)$
-\end_inset
-
- and get the following requirement:
-\end_layout
-
-\begin_layout Proof
-\begin_inset Formula 
-\[
-n>\frac{\left(m-2\right)\left(\left(2^{m}+1\right)^{2}-\left(4^{m-1}+1\right)\right)-\frac{2}{3}\left(4^{m-1}-4\right)}{2\left(4^{m-1}-2^{m}\right)}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Proof
-Thus, by picking 
-\begin_inset Formula $n$
-\end_inset
-
- large enough, we can get a solution with lower Hessian trace than any balanced
- solution, thus showing that flattest solution cannot be balanced and vice
- versa.
+ - meaning that the balanced solution is not the flattest, completing the
+ proof.
 \end_layout
 
 \end_body
