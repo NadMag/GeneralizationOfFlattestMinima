@@ -87,7 +87,7 @@ theorems-sec-bytype
 \cite_engine biblatex-natbib
 \cite_engine_type authoryear
 \biblio_style plainnat
-\biblatex_bibstyle verbose
+\biblatex_bibstyle numeric
 \biblatex_citestyle authoryear
 \use_bibtopic false
 \use_indices false
@@ -173,12 +173,12 @@ Empirical evidence suggests that for a variety of overparameterized models,
  with low generalization error.
  Furthermore, it has been shown that (stochastic) gradient descent exhibits
  implicit bias towards such minima.
- This phenomena makes minima flatness an appealing measurement in the study
+ These phenomena makes minima flatness an appealing measurement in the study
  of generalization.
- Nevertheless, it is still an open theoretical problem why and under which
- circumstances flatness is connected to generalization.
- In this work we study this connection by focusing on the simplest class
- of overparameterized models: linear neural networks.
+ Nevertheless, it is still an open theoretical problem why, and under which
+ circumstances flatness is related to generalization.
+ This work studies their connection, by focusing on the simplest class of
+ overparameterized models: linear neural networks.
  First, we analyze the properties of flat minima, extending known results
  for the case of an infinitude of solutions.
  We then prove, that under reasonable assumptions, all solutions must have
@@ -188,8 +188,9 @@ Empirical evidence suggests that for a variety of overparameterized models,
 \shape default
 .
  Our results show that in the setting of overparameterized linear regression,
- flatness does not differentiate between solutions - making it ineffective
- of explaining generalization in linear models.
+ flatness cannot differentiate between solutions, and specifically cannot
+ explain generalization.
+ 
 \end_layout
 
 \begin_layout Section
@@ -297,7 +298,7 @@ literal "false"
 
  conducted a large-scale empirical study and found that flatness-based measures
  correlate better with generalization than alternatives like weight norms,
- margin-, and optimization-based measures.
+ classification margins, and optimization-based measures.
  Nevertheless why and under circumstances this correlation holds remains
  an open problem.
  In particular 
@@ -436,16 +437,15 @@ name "subsec:Linear-Neural-Networks"
 \end_layout
 
 \begin_layout Standard
-To simplify our research of generalization and flatness, we focus on a specific
- neural network model called Linear neural networks.
- Linear neural networks (LNN) are fully connected networks with no neuron
- activation.
+This work aims to study flat minima by appealing simplest overparameterized
+ setting: linear neural networks.
+ LNN are fully connected networks with no neuron activation.
  The end-to-end function of a deep linear network can always be rewritten
  as a shallow network, thus such networks do not gain expressive power from
  increased depth, and will perform poorly on complex real world problems.
  While it lacks important aspects of modern neural network architectures,
- it is useful to appeal to the simple case of linear models to see if there
- are parallel insights that can help us better understand neural networks.
+ it is useful to study linear models in order to gain parallel insights,
+ that may help us better understand more complex models.
  Indeed under reasonable assumptions their loss landscape is non-convex
  
 \begin_inset CommandInset citation
@@ -482,7 +482,7 @@ literal "false"
 
 \end_inset
 
- and is implicitly biased towards minimal norm-like solutions 
+, and is implicitly biased towards minimal norm-like solutions 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "yun2021a"
@@ -502,15 +502,14 @@ The remainder of the paper is organized as follows.
  Section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sec:Non-Singular-Problem-Setting"
+reference "sec:single-sol-setting"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- describes the non-singular problem setting where a single end-to-end solution
- exist.
+ describes the setting where a single end-to-end solution exist.
  Section 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -549,13 +548,13 @@ noprefix "false"
 
  extends the analysis of flattest minima, presented in 
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "Mulayoff2020Unique"
 literal "false"
 
 \end_inset
 
-, to setting where an infinitude of solutions exist.
+, to the underdetermined setting, where an infinitude of solutions exist.
  Section 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -578,7 +577,14 @@ any
 \end_layout
 
 \begin_layout Section
-Problem Setting
+Singe Solution Problem Setting 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:single-sol-setting"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -600,11 +606,14 @@ Consider the case of linear regression: given a sample
 \end_inset
 
 , that minimizes the empirical (quadratic) loss: 
-\begin_inset Formula $L(W)=\left\Vert WX-Y\right\Vert _{F}^{2}$
+\begin_inset Formula 
+\begin{equation}
+L(W)=\left\Vert WX-Y\right\Vert _{F}^{2}\label{eq:e2e-loss}
+\end{equation}
+
 \end_inset
 
-.
- We study the overparameterized regime, in which 
+We study the overparameterized regime, in which 
 \begin_inset Formula $W$
 \end_inset
 
@@ -629,6 +638,86 @@ Denote
 \begin_inset Formula 
 \begin{equation}
 \phi(W_{1},W_{2},...,W_{m})=L(W_{1:m})\label{eq:overparamloss}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this setting we assume:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+label=
+\backslash
+bfseries{C1}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "assumption:single-sol"
+
+\end_inset
+
+ The data's ambient dimension 
+\begin_inset Formula $d_{x}$
+\end_inset
+
+ is smaller then the number of training samples 
+\begin_inset Formula $N$
+\end_inset
+
+, and 
+\begin_inset Formula $rank\left(X\right)\ge d_{x}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In this case the unique solution can be written as 
+\begin_inset Formula $f(x)=Tx$
+\end_inset
+
+ where: 
+\begin_inset Formula 
+\begin{equation}
+T=\hat{\Sigma}_{yx}\hat{\Sigma}_{x}^{-1}:=YX^{T}\left(XX^{T}\right)^{-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let us deonte the the SVD of 
+\begin_inset Formula $T$
+\end_inset
+
+ by:
+\begin_inset Formula 
+\begin{equation}
+T=USV^{T}
 \end{equation}
 
 \end_inset
@@ -829,67 +918,9 @@ If
 
 \end_layout
 
-\begin_layout Definition
-\begin_inset VSpace defskip
-\end_inset
-
-When we optimize the model, we seek to minimize some loss function.
- To do this, a common pratctice is to use some kind of Gradient Descent
- algorithm.
-\end_layout
-
 \begin_layout Standard
-For the theoritcal approach, we use the continuous equivalent to Gradient
- Descent - the Gradient Flow algorithm, wich works as follows:
-\end_layout
-
-\begin_layout Definition
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Gradient Flow
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "def:gf"
-
-\end_inset
-
- Let 
-\begin_inset Formula $\mathbb{W}$
-\end_inset
-
- be the linear space of weights of the model, and 
-\begin_inset Formula $f:\mathbb{W}\rightarrow\mathbb{R}$
-\end_inset
-
- be a smooth loss function.
- Gradient flow(or steepest descent curve) is a smoothh curve 
-\begin_inset Formula $w:\mathbb{R}\rightarrow\mathbb{W}$
-\end_inset
-
- such that:
-\end_layout
-
-\begin_layout Definition
-\begin_inset Formula 
-\[
-\dot{w}\left(t\right)=-\nabla f\left(w\left(t\right)\right)
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-A useful fact is that this notion of balancedness is conserved by GF throughout
- optimization, formally:
+A useful fact is that this notion of balancedness is conserved by gradient-flow
+ (GF) throughout optimization, formally:
 \end_layout
 
 \begin_layout Proposition
@@ -916,15 +947,15 @@ name "prop:balancedness"
 
 \end_inset
 
-Assume the weight matrices 
+Suppose we run gradient-flow over a LNN parameterized by
 \begin_inset Formula $\kaliseries W,m$
 \end_inset
 
- are initialized to be 
+, starting from a 
 \begin_inset Formula $\delta-\mathrm{balanced}$
 \end_inset
 
-: 
+ initialization:
 \begin_inset Formula 
 \[
 \left\Vert W_{j+1}^{T}(0)W_{j+1}(0)-W_{j}(0)W_{j}^{T}(0)\right\Vert _{F}\le\delta,\quad\forall j\in[m-1]
@@ -932,7 +963,7 @@ Assume the weight matrices
 
 \end_inset
 
- this property is conserved throughout optimization:
+ this property is conserved by gradient-flow throughout optimization:
 \begin_inset Formula 
 \[
 \left\Vert W_{j+1}^{T}(t)W_{j+1}(t)-W_{j}(t)W_{j}^{T}(t)\right\Vert _{F}\le\delta,\quad\kaliForall j\in[m-1],\ t\ge0
@@ -944,18 +975,10 @@ Assume the weight matrices
 \end_layout
 
 \begin_layout Standard
-We seek to refine the relationship between 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "prop:balancedness"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- and two common measures of flatness: maximal Hessian eigenvalue, and the
- Hessian trace.
+We seek to refine the relationship between this notion of balancedness and
+ flatness.
+ We would focus on two popular sharpness measures: the maximal eigenvalue,
+ and the trace of the Hessian.
 \end_layout
 
 \begin_layout Subsection
@@ -1012,99 +1035,30 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-In particular they studied the case where a single end-to-end solution exists:
-\end_layout
-
-\begin_layout Enumerate
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-label=
-\backslash
-bfseries{C1}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "assumption:nonsingular"
-
-\end_inset
-
- The data's ambient dimension 
-\begin_inset Formula $d_{x}$
-\end_inset
-
- is smaller then the number of training samples 
-\begin_inset Formula $N$
-\end_inset
-
-, and we have at least 
-\begin_inset Formula $d_{x}$
-\end_inset
-
- linearly independent samples.
-\end_layout
-
-\begin_layout Standard
-In this case the unique solution can be written as 
-\begin_inset Formula $f^{\ast}(x)=Tx$
-\end_inset
-
- where: 
-\begin_inset Formula 
-\begin{equation}
-T=\hat{\Sigma}_{yx}\hat{\Sigma}_{x}^{-1}:=YX^{T}\left(XX^{T}\right)^{-1}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We will deonte the the SVD of 
-\begin_inset Formula $T$
-\end_inset
-
- by:
-\begin_inset Formula 
-\begin{equation}
-T=USV^{T}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "Mulayoff2020Unique"
 literal "false"
 
 \end_inset
 
- showed that under the assumptions:
+ studied the single-solution setting 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:single-sol"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ They showed that under the assumptions:
 \end_layout
 
 \begin_layout Enumerate
 \begin_inset Argument 1
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1168,7 +1122,7 @@ The following sufficient condition for minima flatness holds:
 
 \begin_layout Theorem
 \begin_inset Argument 1
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Sufficient Condition, 
@@ -1194,7 +1148,7 @@ name "thm:sufficient"
 Assume 
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "assumption:nonsingular"
+reference "assumption:single-sol"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1246,8 +1200,8 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-Using this fact it can be shown that GF starting from a balanced initialization
- can only converge to flattest solutions.
+Using this fact it can be shown that gradient-flow, starting from a balanced
+ initialization, can only converge to flattest solutions.
  By 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1258,11 +1212,11 @@ noprefix "false"
 
 \end_inset
 
- we can see that any balanced solution 
+, we can see that any balanced solution 
 \begin_inset Formula $w\in\Omega\cap\mathcal{B}$
 \end_inset
 
- is in fact a flattest minima:
+, is in fact a flattest minima:
 \begin_inset Formula 
 \begin{equation}
 \Omega\cap\mathcal{B}\subseteq\Omega_{0}
@@ -1299,7 +1253,7 @@ name "prop:FlatUnbalanced"
 Assume 
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "assumption:nonsingular"
+reference "assumption:single-sol"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1412,14 +1366,7 @@ Unfortunately the authors could not find such a perturbation for the case
  or find a more lenient sufficient condition.
 \end_layout
 
-\begin_layout Standard
-\begin_inset VSpace defskip
-\end_inset
-
-
-\begin_inset VSpace defskip
-\end_inset
-
+\begin_layout Subsection
 Hessian Trace
 \end_layout
 
@@ -1432,29 +1379,15 @@ relied on the fact that the maximal eigenvalue of the Hessian of
 \begin_inset Formula $\phi$
 \end_inset
 
- is unaffected by a small perturbation of the overparameterization non-maximal
- singular values.
- The proof shows the 
-\begin_inset Quotes eld
-\end_inset
-
-worst case
-\begin_inset Quotes erd
-\end_inset
-
- nature of this measure 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:max-hessian-eigenvalue"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
- We now study a different measure, that depends on all of the overparameterizati
-on singular values: the Hessian trace.
+ is unaffected by certain small perturbations.
+ Specifically, the increase of the weight matrices non-maximal singular
+ values.
+ We now study a different measure, the trace of the Hessian.
+ Note that the trace depends on 
+\emph on
+all
+\emph default
+ of the overparameterization's singular values.
  Formally, define:
 \end_layout
 
@@ -1486,7 +1419,7 @@ where
 \end_layout
 
 \begin_layout Standard
-Next we revise the results of 
+We revise the results of 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Mulayoff2020Unique"
@@ -1498,7 +1431,7 @@ literal "false"
 \end_layout
 
 \begin_layout Subsubsection
-Sharpness of a general solution
+Sharpness of a General Solution
 \end_layout
 
 \begin_layout Lemma
@@ -1511,7 +1444,7 @@ name "lem:hes-trace"
 Assuming 
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "assumption:nonsingular"
+reference "assumption:single-sol"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1572,7 +1505,7 @@ literal "false"
 \end_layout
 
 \begin_layout Subsubsection
-Sharpness of a balanced solution
+Sharpness of a Balanced Solution
 \end_layout
 
 \begin_layout Standard
@@ -1690,26 +1623,17 @@ Trace(H_{w})=2\sum_{k=1}^{m}||S^{\frac{k-1}{m}}||_{F}^{2}\cdot||S^{\frac{m-k}{m}
 \end_layout
 
 \begin_layout Subsection
-Is balancedness equal to flattest solution?
+Is Balancedness Solution Flattest?
 \end_layout
 
 \begin_layout Standard
-After revisiting 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Mulayoff2020Unique"
-literal "false"
-
+We split our analysis into 2 cases: 2-layer networks, and the general 
+\begin_inset Formula $2<m$
 \end_inset
 
- with our new definition for the sharpness of a solution, we can start and
- investigate if balancedness equates to flatness of the solution.
-\end_layout
-
-\begin_layout Standard
-We split this to 2 cases: the 2-Layer case, and the general m-layer Case.
- As we will show, there is difference in the results, which stems from the
- scaling of some elements in the equation 
+ layer network.
+ As we will show, there is difference between the results.
+ This difference stems from the scaling of elements in the equation 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "eq:hes-trace"
@@ -1971,7 +1895,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Section
-Analysis of the Multiple End-To-End Soultions Case 
+Analysis of the Underdetermined Setting 
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:singular-case"
@@ -1989,12 +1913,26 @@ literal "false"
 
 \end_inset
 
- intuitively argued that in the singular case any end-to-end solution has
- the same flatness, thus they could assume that a single global minima exits
- 
+ studied the case where a single end-to-end solution of 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:e2e-loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ exists.
+ To justify the restriction to the single-solution setting, they intuitively
+ argued when many end-to-end solutions exist, 
+\emph on
+all
+\emph default
+ solutions must have the same flatness 
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "assumption:nonsingular"
+reference "assumption:single-sol"
 plural "false"
 caps "false"
 noprefix "false"
@@ -2002,27 +1940,33 @@ noprefix "false"
 \end_inset
 
 .
- We prove their claim in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:Generalization-of-Flattest"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, but first we extend their analysis to the case where 
+ In this section, begin by extending their analysis to the case where 
 \begin_inset Formula $n<d_{x}$
 \end_inset
 
  and multiple end-to-end solutions exist.
- The results carry over naturally to the singular case, and would later
- allow us to prove the aforementioned claim.
+ We show that their results carry over naturally to the underdetermined
+ setting.
+ Next we prove the aforementioned claim made by 
+\begin_inset CommandInset citation
+LatexCommand citeauthor
+key "Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+, under two different sets of assumptions.
 \end_layout
 
 \begin_layout Subsection
-Singular Problem Setting
+Underdetermined Problem Setting 
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:underdetermined-setting"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2242,7 +2186,7 @@ literal "false"
 \end_layout
 
 \begin_layout Subsection
-Extending the Analysis to the Multiple End-To-End Soultions Case
+Extending the Analysis to the Underdetermined Setting
 \end_layout
 
 \begin_layout Standard
@@ -2254,19 +2198,76 @@ literal "false"
 
 \end_inset
 
- results to the singular setting described in the previous section.
-\end_layout
+ results to the setting described where an infinitude of solutions exist
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:underdetermined-setting"
+plural "false"
+caps "false"
+noprefix "false"
 
-\begin_layout Standard
-First, note that lemma 2 (Hessian Structure) holds for any 
-\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\Omega(T)$
-\end_inset
-
-, 
-\begin_inset Formula $T\in\Psi$
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:motivation-linear-reg"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we discuss the structure of the Hessian of 
+\begin_inset Formula $\phi$
+\end_inset
+
+, and provide its closed term derived by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+.
+ For now it is enough to note that 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:-hessian-structure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ (Hessian Structure) holds for any 
+\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\Omega(T)$
+\end_inset
+
+ and 
+\begin_inset Formula $T\in\Psi$
+\end_inset
+
+, as stated and proved in the single-solution setting 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Following the outline of the single-solution setting, we now derive a necessary
+ condition for flattest minima.
 \end_layout
 
 \begin_layout Theorem
@@ -2282,7 +2283,7 @@ Minimal Solution Sharpness
  
 \begin_inset CommandInset label
 LatexCommand label
-name "thm:min-sharpness-singular"
+name "thm:min-sharpness-underdetermined"
 
 \end_inset
 
@@ -2321,8 +2322,73 @@ noprefix "false"
 
 \end_layout
 
+\begin_layout Remark*
+This is a natural extension of the single-solution setting, in which the
+ analogous minimal sharpness value is 
+\begin_inset Formula $2m\left(\sigma_{\max}\left(T\right)\right)^{2\left(1-\frac{1}{m}\right)}$
+\end_inset
+
+ , where 
+\begin_inset Formula $T$
+\end_inset
+
+ is the unique end-to-end solution.
+\end_layout
+
+\begin_layout Remark*
+To see this, assume 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:single-sol"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, then the Moore-Penrose pseudo-inverse is a right inverse, i.e., and 
+\begin_inset Formula $X^{+}=X^{T}\left(XX^{T}\right)^{-1}.$
+\end_inset
+
+ This yields:
+\begin_inset Formula 
+\[
+\Psi=\left\{ YX^{+}+K{\color{gray}\underset{=\mathbb{0}_{d_{x}}}{\underbrace{{\normalcolor \left(I_{d_{x}}-XX^{+}\right)}}}}\Bigm\vert K\in\mathbb{R}^{d_{y}\times d_{x}}\right\} =\left\{ YX^{T}\left(XX^{T}\right)^{-1}\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Remark*
+Now by the analogous assumption, 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:white"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we have that 
+\begin_inset Formula $\left(XX^{T}\right)^{-1}=I_{d_{x}}$
+\end_inset
+
+, therefore:
+\begin_inset Formula 
+\[
+2m\left(\sigma_{\max}\left(T\right)\right)^{2\left(1-\frac{1}{m}\right)}=2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
-The proof follows the scheme of the singular case 
+The proof follows the scheme of the single-solution case 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Mulayoff2020Unique"
@@ -2334,60 +2400,12 @@ literal "false"
 \end_layout
 
 \begin_layout Enumerate
-First we derive a uniform lower bound on the sharpness of an end-to-end
+First, we derive a uniform lower bound on the sharpness of an end-to-end
  solution.
 \end_layout
 
 \begin_layout Enumerate
-We show a solution which achieves this bound.
-\end_layout
-
-\begin_layout Remark*
-In the previous case of a single end-to-end soltuion, the minimal solution
- sharpness was 
-\begin_inset Formula $2m\left(\sigma_{\max}\left(T\right)\right)^{2\left(1-\frac{1}{m}\right)}$
-\end_inset
-
- where 
-\begin_inset Formula $T$
-\end_inset
-
- is the end-to-end solution.
-\end_layout
-
-\begin_layout Remark*
-We see a similarity to 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "thm:min-sharpness-singular"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, as in the multiple solution case each solution has the following form:
- 
-\begin_inset Formula 
-\[
-T=YX^{+}+\left(I-XX^{+}\right)
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Remark*
-And indeed, if 
-\begin_inset Formula $X$
-\end_inset
-
- is a full rank we are in the single solution case, and 
-\begin_inset Formula $T=YX^{+}=YX^{T}\left(XX^{T}\right)^{-1}$
-\end_inset
-
- which gives us exactly the same value as in the theorem.
+Then, we show a solution which achieves this bound.
 \end_layout
 
 \begin_layout Lemma
@@ -2429,7 +2447,7 @@ Then the following holds:
 \begin_deeper
 \begin_layout Enumerate
 \begin_inset Argument 1
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2499,7 +2517,7 @@ ref{subsec:proof-flat-unbalanced})]
 
  The first part of the lemma proved in 
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "Mulayoff2020Unique"
 literal "false"
 
@@ -2629,15 +2647,15 @@ noprefix "false"
 Using the necessary condition of 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:min-sharpness-singular"
+reference "thm:min-sharpness-underdetermined"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-, we are able to derive a sufficient condition analogous to the non-singular
- case (
+, we are able to derive a sufficient condition, analogous to the single-solution
+ setting (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "thm:sufficient"
@@ -2663,7 +2681,7 @@ Sufficient Condition
 
 \begin_inset CommandInset label
 LatexCommand label
-name "thm:sufficient-singular"
+name "thm:sufficient-underdetermined"
 
 \end_inset
 
@@ -2716,7 +2734,8 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-The proof of this theorem is analogous to the non-singular case in 
+The proof of this theorem carries over from the single-solution setting
+ 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Mulayoff2020Unique"
@@ -2724,10 +2743,11 @@ literal "false"
 
 \end_inset
 
-, by using 
+, only this time using the undetermined version of the necessary condition
+ 
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "thm:min-sharpness-singular"
+reference "thm:min-sharpness-underdetermined"
 plural "false"
 caps "false"
 noprefix "false"
@@ -2756,7 +2776,14 @@ name "sec:Generalization-of-Flattest"
 \end_layout
 
 \begin_layout Subsubsection
-Motivation: Simple Linear Regression
+Motivation: Simple Linear Regression 
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:motivation-linear-reg"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2795,7 +2822,7 @@ L(W)=\left\Vert WX-Y\right\Vert _{F}^{2}
 In this setting the Hessian matrix of the loss function is given by: 
 \begin_inset Formula 
 \[
-H_{L}(W)=2\cdot I_{d_{y}\times d_{x}}\left(XX^{T}\right)\odot I_{d_{x}\times d_{y}}
+H_{L}(W)=2\cdot\left(I_{d_{y}\times d_{x}}XX^{T}\right)\odot I_{d_{x}\times d_{y}}
 \]
 
 \end_inset
@@ -3046,7 +3073,7 @@ noprefix "false"
 
 \begin_layout Standard
 We begin by showing that if a point 
-\begin_inset Formula $w\in\Theta(T_{1})$
+\begin_inset Formula $w\in\Omega(T_{1})$
 \end_inset
 
  at the overparameterized space satisfies a certain regularity constraint
@@ -3073,11 +3100,11 @@ noprefix "false"
 \end_inset
 
  in the overparameterized space, that connects 
-\begin_inset Formula $\Theta(T_{1})$
+\begin_inset Formula $\Omega(T_{1})$
 \end_inset
 
  with 
-\begin_inset Formula $\Theta(T_{2})$
+\begin_inset Formula $\Omega(T_{2})$
 \end_inset
 
 , along which 
@@ -3114,16 +3141,16 @@ noprefix "false"
 
 \end_inset
 
- let 
+, let 
 \begin_inset Formula $T_{1},T_{2}\in\mathbb{R}^{d_{y}\times d_{x}}$
 \end_inset
 
- such that 
+ be end-to-end functions such that 
 \begin_inset Formula $\left(T_{2}-T_{1}\right)X=0$
 \end_inset
 
 .
- Assume 
+ Suppose that 
 \begin_inset Formula $T_{1}$
 \end_inset
 
@@ -3141,10 +3168,10 @@ noprefix "false"
 \noun off
 \color none
 
-\begin_inset Formula $\left(\kaliseries\bar{W},m\right)\in\varTheta(T_{1})$
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\Omega(T_{1})$
 \end_inset
 
- such that: 
+ that satisfies: 
 \begin_inset Formula 
 \begin{equation}
 rank\left(\bar{W}_{2:m}\right)=d_{y}\ or\ rank\left(\bar{W}_{1:m-1}\right)=d_{x}\label{eq:overparam-regularity}
@@ -3185,7 +3212,7 @@ status open
 
 label=
 \backslash
-alph{enumi}
+alph{enumi}.
 \end_layout
 
 \end_inset
@@ -3210,7 +3237,7 @@ The overparameterized loss is constant along
  namely: 
 \begin_inset Formula 
 \[
-\phi\left(\left(\kaliseries\bar{W},m\right)+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right)=\phi\left(\kaliseries\bar{W},m\right)\ ,\ \forall t\in\mathbb{R}
+\phi\left(\left(\kaliseries{\bar{W}},m\right)+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right)=\phi\left(\kaliseries{\bar{W}},m\right)\ ,\ \forall t\in\mathbb{R}
 \]
 
 \end_inset
@@ -3245,11 +3272,11 @@ Notice that by construction
 \end_inset
 
  shifts 
-\begin_inset Formula $\left(\kaliseries\bar{W},m\right)$
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)$
 \end_inset
 
  to 
-\begin_inset Formula $\varTheta(T_{1}),$
+\begin_inset Formula $\Omega(T_{1}),$
 \end_inset
 
 i.e.:
@@ -3283,11 +3310,11 @@ Next we show that the loss is constant along
 :
 \begin_inset Formula 
 \begin{align*}
-\phi\left(\left(\kaliseries\bar{W},m\right)+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right) & =\left\Vert \left(\bar{W}_{i}+t\Delta_{i}\right)_{1:m}X-Y\right\Vert _{F}^{2}\\
+\phi\left(\left(\kaliseries{\bar{W}},m\right)+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right) & =\left\Vert \left(\bar{W}_{i}+t\Delta_{i}\right)_{1:m}X-Y\right\Vert _{F}^{2}\\
  & =\left\Vert \bar{W}_{2:m}\left(\bar{W}_{1}+t\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right)X-Y\right\Vert _{F}^{2}\\
  & =\left\Vert \bar{W}_{1:m}X+t\bar{W}_{2:m}\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)X-Y\right\Vert _{F}^{2}\\
  & =\left\Vert \bar{W}_{1:m}X-Y\right\Vert _{F}^{2}\\
- & =\phi\left(\kaliseries\bar{W},m\right)
+ & =\phi\left(\kaliseries{\bar{W}},m\right)
 \end{align*}
 
 \end_inset
@@ -3331,6 +3358,97 @@ In this case
  is a left inverse, the proof is analogous.
 \end_layout
 
+\begin_layout Remark
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "prop:invariant-directions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows that if there exists an end-to-end function 
+\begin_inset Formula $T_{1}\in\mathbb{R}^{d_{y}\times d_{x}}$
+\end_inset
+
+ that admits an overparameterization 
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)$
+\end_inset
+
+ that satisfies 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:overparam-regularity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, then there is some affine subspace 
+\begin_inset Formula $\mathcal{A}\subseteq\left(\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\right)$
+\end_inset
+
+ of the overparameterized space, such that:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+The loss 
+\begin_inset Formula $\phi$
+\end_inset
+
+ is constant along 
+\begin_inset Formula $\mathcal{A}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Every end-to-end function 
+\begin_inset Formula $T_{2}\in\mathbb{R}^{d_{y}\times d_{x}}$
+\end_inset
+
+ that coincides with 
+\begin_inset Formula $T_{1}$
+\end_inset
+
+ on 
+\begin_inset Formula $X$
+\end_inset
+
+, i.e.
+ 
+\begin_inset Formula $\left(T_{2}-T_{1}\right)X=0$
+\end_inset
+
+, admits an overparameterization in 
+\begin_inset Formula $\mathcal{A}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+The dimension of 
+\begin_inset Formula $\mathcal{A}$
+\end_inset
+
+ is at-most 
+\begin_inset Formula $d_{1}\cdot d_{x}$
+\end_inset
+
+, specifically 
+\begin_inset Formula $\mathcal{A}\subseteq\left(\left(\kaliseries{\bar{W}},m\right)+\left(\prod_{i=2}^{m}\mathbb{0}_{d_{i}\times d_{i-1}}\right)\times\mathbb{R}^{d_{1}\times d_{x}}\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_deeper
 \begin_layout Corollary
 \begin_inset CommandInset label
 LatexCommand label
@@ -3385,10 +3503,14 @@ then there exist
 \begin_inset Formula $\varepsilon>0$
 \end_inset
 
- such that:
+ such that for any 
+\begin_inset Formula $t\in\mathbb{R}$
+\end_inset
+
+:
 \begin_inset Formula 
 \[
-\forall t\in\mathbb{R}.\ \phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}\equiv\phi\circ s_{t}|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}
+\phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}\equiv\phi\circ s_{t}|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}
 \]
 
 \end_inset
@@ -3528,7 +3650,7 @@ noprefix "false"
 \noun off
 \color none
 
-\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\varTheta_{0}(T_{0})$
+\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\Omega_{0}(T_{0})$
 \end_inset
 
  such that: 
@@ -3604,7 +3726,7 @@ perturbing
  By 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:sufficient-singular"
+reference "thm:sufficient-underdetermined"
 plural "false"
 caps "false"
 noprefix "false"
@@ -3678,7 +3800,7 @@ noprefix "false"
 \noun off
 \color none
 
-\begin_inset Formula $(U_{1},U_{2},...,U_{m})\in\varTheta(T_{0})$
+\begin_inset Formula $(U_{1},U_{2},...,U_{m})\in\Omega(T_{0})$
 \end_inset
 
  such that 
@@ -3694,7 +3816,7 @@ Let
 \end_inset
 
  be a solution, and 
-\begin_inset Formula $(W'_{1},W'_{2},...,W'_{m})\in\varTheta(T')$
+\begin_inset Formula $(W'_{1},W'_{2},...,W'_{m})\in\Omega(T')$
 \end_inset
 
  an overparameterization of it, by 
@@ -3719,7 +3841,7 @@ it holds that:
 \end_layout
 
 \begin_layout Enumerate
-\begin_inset Formula $(U_{1},U_{2},...,U_{m})+(\Delta_{1},\Delta_{2},...,\Delta_{m})\in\varTheta(T')$
+\begin_inset Formula $(U_{1},U_{2},...,U_{m})+(\Delta_{1},\Delta_{2},...,\Delta_{m})\in\Omega(T')$
 \end_inset
 
 
@@ -3772,7 +3894,7 @@ and specifically:
 Now by 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:sufficient-singular"
+reference "thm:sufficient-underdetermined"
 plural "false"
 caps "false"
 noprefix "false"
@@ -3795,13 +3917,14 @@ T'\in\Psi_{0}
 \end_layout
 
 \begin_layout Subsubsection
+Invariance Under Any Local Measure 
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:def-agnostic-indf"
 
 \end_inset
 
-Invariance Under Any Local Measure
+
 \end_layout
 
 \begin_layout Standard
@@ -3861,7 +3984,7 @@ noprefix "false"
 \begin_inset Formula $rank(Y)=d_{y}$
 \end_inset
 
- (as is usually the case in deep learning), any sharpness measure 
+, any sharpness measure 
 \begin_inset Formula $\omega:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
 \end_inset
 
@@ -3870,6 +3993,54 @@ noprefix "false"
 \end_inset
 
  does not correlate with generalization.
+\end_layout
+
+\begin_layout Definition
+We say that a function 
+\begin_inset Formula $\omega:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
+\end_inset
+
+ is a 
+\emph on
+local
+\emph default
+ sharpness measure if for any two points 
+\begin_inset Formula $u,v\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}$
+\end_inset
+
+, for which there exists 
+\begin_inset Formula $\varepsilon>0$
+\end_inset
+
+ such that:
+\begin_inset Formula 
+\[
+\phi|_{B\left(u,\varepsilon\right)}\equiv\phi\circ s|_{B\left(u,\varepsilon\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+where 
+\begin_inset Formula $s:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}$
+\end_inset
+
+ is the translation: 
+\begin_inset Formula $s(w)=w+(v-u)$
+\end_inset
+
+, it holds that:
+\begin_inset Formula 
+\[
+\omega(u)=\omega(v)
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Theorem
@@ -3890,19 +4061,8 @@ Assume that that
 \begin_inset Formula $\omega:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
 \end_inset
 
- be a sharpness measure such that:
-\begin_inset Formula 
-\[
-\forall w,u\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}.\left(\exists\varepsilon>0.\ \phi\left(B\left(w,\varepsilon\right)\right)=\phi\left(B\left(u,\varepsilon\right)\right)\right)\rightarrow\omega(w)=\omega(u)
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Theorem
-then any end-to-end solution is a flattest solution in the sense of 
+ be a local sharpness measure, then any end-to-end solution is a flattest
+ solution in the sense of 
 \begin_inset Formula $\rho$
 \end_inset
 
@@ -3928,7 +4088,7 @@ By our assumption for any solution
 \end_inset
 
 , thus if 
-\begin_inset Formula $\left(\kaliseries W,m\right)\in\varTheta_{0}\left(T_{0}\right)$
+\begin_inset Formula $\left(\kaliseries W,m\right)\in\Omega_{0}\left(T_{0}\right)$
 \end_inset
 
  is a flattest overparameterization, it holds that 
@@ -3954,7 +4114,7 @@ noprefix "false"
 \end_inset
 
  we know that there exists 
-\begin_inset Formula $\left(\kaliseries{W'},m\right)\in\varTheta\left(T'\right)$
+\begin_inset Formula $\left(\kaliseries{W'},m\right)\in\Omega\left(T'\right)$
 \end_inset
 
  and 
@@ -3962,9 +4122,12 @@ noprefix "false"
 \end_inset
 
  such that:
+\end_layout
+
+\begin_layout Proof
 \begin_inset Formula 
 \[
-\phi\left(B\left(\left(\kaliseries{\bar{W}},m\right),\varepsilon\right)\right)=\phi\left(B\left(\left(\kaliseries{W'},m\right),\varepsilon\right)\right)
+\phi|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}\equiv\phi\circ s_{1}|_{B\left((\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m}),\varepsilon\right)}
 \]
 
 \end_inset
@@ -3973,14 +4136,18 @@ noprefix "false"
 \end_layout
 
 \begin_layout Proof
-therefore by the locality of 
+where 
+\begin_inset Formula $s_{1}(\bar{W}_{1},\bar{W}_{2},...,\bar{W}_{m})=\left(\kaliseries{W'},m\right).$
+\end_inset
+
+ By the locality of 
 \begin_inset Formula $\omega$
 \end_inset
 
-:
+ this means that:
 \begin_inset Formula 
 \[
-\min_{T\in\Psi}\rho\left(T\right)=\rho\left(T_{0}\right)=\omega\left(\kaliseries{\bar{W}},m\right)=\omega\left(\kaliseries{W'},m\right)\ge\rho\left(T'\right)
+\rho\left(T'\right)\le\omega\left(\kaliseries{W'},m\right)=\omega\left(\kaliseries{\bar{W}},m\right)=\rho\left(T_{0}\right)=\min_{T\in\Psi}\rho\left(T\right)
 \]
 
 \end_inset
@@ -4443,7 +4610,7 @@ If
 
 .
  Denote the perturbed solution by 
-\begin_inset Formula $\left(\kaliseries\bar{W},m\right)$
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)$
 \end_inset
 
  we show by induction on 
@@ -4520,7 +4687,7 @@ step: Assume that the claim holds for all
 
 \begin_layout Standard
 Thus 
-\begin_inset Formula $\left(\kaliseries\bar{W},m\right)\in\left(\Omega\cap\mathcal{B}^{C}\right),$
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\left(\Omega\cap\mathcal{B}^{C}\right),$
 \end_inset
 
 and by 
@@ -4534,7 +4701,7 @@ noprefix "false"
 \end_inset
 
  
-\begin_inset Formula $\left(\kaliseries\bar{W},m\right)\in\Omega_{0}$
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\Omega_{0}$
 \end_inset
 
 .
@@ -4602,17 +4769,13 @@ where the first inequality is true because the
 \end_deeper
 \end_deeper
 \begin_layout Standard
-\begin_inset Separator plain
+\begin_inset Newpage pagebreak
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
+\begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:proof-of-hes-trace"
@@ -4633,9 +4796,17 @@ noprefix "false"
 \end_layout
 
 \begin_layout Proof
-Following Mulayoff et.al.
- (2020), we know that the hessian at a global minimum has the following
- form:
+By 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:-hessian-structure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we know that the hessian at a global minimum has the following form:
 \end_layout
 
 \begin_layout Proof
@@ -4666,7 +4837,7 @@ H_{w}=2\Phi\Phi^{T}
 \end_layout
 
 \begin_layout Proof
-Where 
+where 
 \begin_inset Formula $\odot$
 \end_inset
 
@@ -4674,7 +4845,7 @@ Where
 \end_layout
 
 \begin_layout Proof
-Thus we get the follwing:
+Thus we get the following:
 \end_layout
 
 \begin_layout Proof
@@ -4730,7 +4901,7 @@ Trace(\Phi_{i}\Phi_{i}^{T})=||\prod_{j=1}^{k-1}W_{j}||_{F}^{2}\cdot||\prod_{i=k+
 \end_layout
 
 \begin_layout Proof
-Where we used the following notation:
+where we used the following notation:
 \end_layout
 
 \begin_layout Proof
@@ -4879,7 +5050,7 @@ Trace(H_{w}) & =2\left(d_{y}||W_{2}||_{F}^{2}+d_{X}||W_{1}||_{F}^{2}\right)\nonu
 \end_layout
 
 \begin_layout Proof
-And for the balanced solution we have the following:
+and for the balanced solution we have the following:
 \end_layout
 
 \begin_layout Proof
@@ -4915,7 +5086,7 @@ x^{\frac{4}{3}}-x-\alpha x+\alpha x^{\frac{2}{3}} & <0
 \end_layout
 
 \begin_layout Proof
-Solving the inequality results in the following:
+solving the inequality results in the following:
 \end_layout
 
 \begin_layout Proof
@@ -4935,8 +5106,8 @@ Thus for
 \end_inset
 
  we get a counter example, proving that balanced solution is not the flattest,
- and that a flattest solution is not balanced, as all ballanced solution
- have the same flattness.
+ and that a flattest solution is not balanced, as all balanced solution
+ have the same flatness.
 \end_layout
 
 \begin_layout Subsection
@@ -5054,7 +5225,7 @@ Using Cauchy-Schwarz inequality we get:
 \end_layout
 
 \begin_layout Proof
-Thus:
+thus:
 \begin_inset Formula 
 \[
 ||W_{1}||_{F}^{2}+||W_{2}||_{F}^{2}\geq2||S^{\frac{1}{2}}||_{F}^{2}
@@ -5066,7 +5237,7 @@ Thus:
 \end_layout
 
 \begin_layout Proof
-With equality for 
+with equality for 
 \begin_inset Formula $W_{2}=US^{\frac{1}{2}},W_{1}=S^{\frac{1}{2}}V^{T}$
 \end_inset
 
@@ -5294,7 +5465,7 @@ S=diag\left(1,x,0,...,0\right)\in\mathbb{R}^{d\times d},x\in\left(0,1\right)
 \end_layout
 
 \begin_layout Proof
-Such that 
+such that 
 \begin_inset Formula $T=USV^{T}$
 \end_inset
 
@@ -5422,7 +5593,7 @@ f'(0) & =-2
 
 \end_inset
 
- We got that the derivative at 0 is negative, thus exists 
+ We have that the derivative at 0 is negative, thus exists 
 \begin_inset Formula $t>0$
 \end_inset
 
@@ -5448,11 +5619,17 @@ noprefix "false"
 
 \end_inset
 
-, all balnced solution share the same sharpness, thus any balanced solution
+, all balanced solution share the same sharpness, thus any balanced solution
  is not the flattest and any flattest solution is not balanced.
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:proof-of-unif-lb"
+
+\end_inset
+
 Proof of Lemma 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -5485,12 +5662,16 @@ literal "false"
 
  in the non-singular case.
  Note that this bound is independent of the specific overparameterization
- of T .Their analysis carries through to the singular case, where now apriori
+ of 
+\begin_inset Formula $T$
+\end_inset
+
+ .Their analysis carries over to the underdetermined case, where now apriori
  the bound is dependent on the end-to-end solution.
 \end_layout
 
 \begin_layout Proof
-In this case, let 
+Let 
 \begin_inset Formula $T\in\Psi$
 \end_inset
 
@@ -5509,7 +5690,7 @@ In this case, let
  & =\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXX^{T}\left(\left(X^{T}\right)^{+}Y^{T}+\left(I_{d_{x}}-\left(X^{T}\right)^{+}X^{T}\right)K^{T}\right)\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
  & =\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXY^{T}\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
  & \le\max_{\left\Vert B\right\Vert _{F}=1}2m\left(\left\Vert B\right\Vert _{2}\left\Vert XY^{T}\right\Vert _{2}\right)^{2\left(1-\frac{1}{m}\right)}\left\Vert B\right\Vert _{2}^{\frac{2}{m}}\left\Vert XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
- & \le2m\left\Vert XY^{T}\right\Vert ^{2\left(1-\frac{1}{m}\right)}\left\Vert XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
+ & \le2m\left\Vert XY^{T}\right\Vert _{2}^{2\left(1-\frac{1}{m}\right)}\left\Vert XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
  & =2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}
 \end{align*}
 
@@ -5519,8 +5700,11 @@ In this case, let
 \end_layout
 
 \begin_layout Proof
-Where the equality in the third and fourth line are due to to the properties
- of the Moore-Penrose pseudo-inverse and 
+Where the equality in the third is due to 
+\begin_inset Formula $\left(X^{T}\right)^{+}$
+\end_inset
+
+being a right inverse by 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "assumption:pseudo-white"
@@ -5530,7 +5714,7 @@ noprefix "false"
 
 \end_inset
 
-.
+, and fourth by the properties of the Moore-Penrose pseudo-inverse.
  The inequality in the fith line used norm sub-multiplicity, that of the
  sixth is due to the fact that 
 \begin_inset Formula $\left\Vert B\right\Vert _{2}\le\left\Vert B\right\Vert _{F}$
@@ -5963,7 +6147,7 @@ Define
 \end_inset
 
  by the point 
-\begin_inset Formula $\left(\kaliseries\bar{W},m\right)$
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)$
 \end_inset
 
  as in 
@@ -6006,7 +6190,7 @@ Let
  & = & \left\Vert W_{2:m}\left(W_{1}+t\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right)X-Y\right\Vert _{F}^{2}\\
  & = & \left\Vert W_{2:m}W_{1}X+tW_{2:m}\left(\bar{W}_{2:m}\right)^{+}{\color{gray}\underset{=0}{\underbrace{{\normalcolor \left(T_{2}-T_{1}\right)X}}}}-Y\right\Vert _{F}^{2}\\
  & = & \left\Vert W_{1:m}X-Y\right\Vert _{F}^{2}\\
- & = & \phi\left(\kaliseries\bar{W},m\right)
+ & = & \phi\left(\kaliseries{\bar{W}},m\right)
 \end{align*}
 
 \end_inset
@@ -6077,7 +6261,7 @@ Denote
 \end_inset
 
 is of full rank, then for any overparameterization 
-\begin_inset Formula $\left(\kaliseries W,m\right)\in\Theta(T_{0})$
+\begin_inset Formula $\left(\kaliseries W,m\right)\in\Omega(T_{0})$
 \end_inset
 
  it holds that 
@@ -6089,7 +6273,7 @@ is of full rank, then for any overparameterization
 
 \begin_layout Proof
 Otherwise, let 
-\begin_inset Formula $\left(W_{1}^{\ast},W_{2}^{\ast},...,W_{m}^{\ast}\right)\in\varTheta(T_{0})$
+\begin_inset Formula $\left(W_{1}^{\ast},W_{2}^{\ast},...,W_{m}^{\ast}\right)\in\Omega(T_{0})$
 \end_inset
 
  be its canonical overparameterization, defined in 
@@ -6108,7 +6292,7 @@ noprefix "false"
 
 \begin_layout Proof
 We define 
-\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\varTheta(T_{0})$
+\begin_inset Formula $(W_{1},W_{2},...,W_{m})\in\Omega(T_{0})$
 \end_inset
 
 , by perturbing the canonical overparameterization into non-singularity:
@@ -6197,7 +6381,7 @@ W_{1:m}=U\tilde{S}^{\frac{m-1}{m}}S^{\frac{1}{m}}V^{T}=USV^{T}=T_{0}
 By 
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "thm:sufficient-singular"
+reference "thm:sufficient-underdetermined"
 plural "false"
 caps "false"
 noprefix "false"
