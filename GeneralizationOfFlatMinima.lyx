@@ -299,7 +299,7 @@ literal "false"
  conducted a large-scale empirical study and found that flatness-based measures
  correlate better with generalization than alternatives like weight norms,
  classification margins, and optimization-based measures.
- Nevertheless why and under circumstances this correlation holds remains
+ Nevertheless why and under which circumstances this correlation holds remains
  an open problem.
  In particular 
 \begin_inset CommandInset citation
@@ -437,8 +437,8 @@ name "subsec:Linear-Neural-Networks"
 \end_layout
 
 \begin_layout Standard
-This work aims to study flat minima by appealing simplest overparameterized
- setting: linear neural networks.
+This work aims to study flat minima by appealing to the simplest overparameteriz
+ed setting: linear neural networks.
  LNN are fully connected networks with no neuron activation.
  The end-to-end function of a deep linear network can always be rewritten
  as a shallow network, thus such networks do not gain expressive power from
@@ -555,19 +555,8 @@ literal "false"
 \end_inset
 
 , to the underdetermined setting, where an infinitude of solutions exist.
- Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Generalization-of-Flattest"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- discusses the relationship between flatness and generalization.
  In this section we provide a proof that generalization is indifferent to
- flatness, in our settings.
+ flatness, for overparameterized linear regression.
  We prove this result under two different settings: whitened data for the
  maximal Hessian eigenvalue measure, and full rank label data for 
 \emph on
@@ -631,13 +620,13 @@ We study the overparameterized regime, in which
 
 \begin_layout Standard
 Denote 
-\begin_inset Formula $W_{1:m}:=\prod_{i=1}^{m}W_{i}$
+\begin_inset Formula $W_{m:1}:=\prod_{i=1}^{m}W_{i}$
 \end_inset
 
  ,the overparameterized objective is defined by: 
 \begin_inset Formula 
 \begin{equation}
-\phi(W_{1},W_{2},...,W_{m})=L(W_{1:m})\label{eq:overparamloss}
+\phi(W_{1},W_{2},...,W_{m})=L(W_{m:1})\label{eq:overparamloss}
 \end{equation}
 
 \end_inset
@@ -733,7 +722,7 @@ The set of global minima of
  is given by:
 \begin_inset Formula 
 \begin{equation}
-\Omega=\left\{ (W_{1},W_{2},...,W_{m})\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\ \Bigm\vert W_{1:m}\in\argmin_{T\in\mathbb{R}^{d_{y}\times d_{x}}}L(T)\right\} 
+\Omega=\left\{ (W_{1},W_{2},...,W_{m})\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\ \Bigm\vert W_{m:1}\in\argmin_{T\in\mathbb{R}^{d_{y}\times d_{x}}}L(T)\right\} 
 \end{equation}
 
 \end_inset
@@ -919,8 +908,91 @@ If
 \end_layout
 
 \begin_layout Standard
-A useful fact is that this notion of balancedness is conserved by gradient-flow
- (GF) throughout optimization, formally:
+As previously discussed, optimization methods such as SGD seem to be implicitly
+ bias towards solutions of some low complexity measure.
+ A recent approach in the study of such solutions, analyzes the behavior
+ of specific optimizer trajectories, emanating from specific initializations
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Arora2019Convrg,jacot2021NTK,razin2021implicit,razin2022implicit"
+literal "false"
+
+\end_inset
+
+.
+ These trajectories allow us to formally reason about solutions achieved
+ by SGD.
+\end_layout
+
+\begin_layout Standard
+While in practice discrete-time optimization methods are used, for the sake
+ of analysis it is simpler to focus on their continuous-time surrogates,
+ namely 
+\emph on
+gradient-flow
+\emph default
+.
+ Gradient flow (GF) corresponds to GD with infinitesimally small step size,
+ formally:
+\end_layout
+
+\begin_layout Definition
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Gradient Flow
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "def:gf"
+
+\end_inset
+
+ Let 
+\begin_inset Formula $\mathbb{W}$
+\end_inset
+
+ be the space of learned weights, and let 
+\begin_inset Formula $f:\mathbb{W}\rightarrow\mathbb{R}$
+\end_inset
+
+ be a smooth loss function.
+ Gradient flow (or steepest descent curve) is the smooth curve 
+\begin_inset Formula $w:\mathbb{R}_{\ge0}\rightarrow\mathbb{W}$
+\end_inset
+
+, defined by the following differential equation:
+\end_layout
+
+\begin_layout Definition
+\begin_inset Formula 
+\[
+\dot{w}\left(t\right):=\frac{d}{dt}w\left(t\right)=-\nabla f\left(w\left(t\right)\right)\quad for\ t\ge0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A useful fact is that balancedness, defined in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "def:balancedness"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, is conserved by gradient-flow throughout optimization:
 \end_layout
 
 \begin_layout Proposition
@@ -1015,7 +1087,17 @@ Let
 \end_layout
 
 \begin_layout Standard
-Note that this measure captures the sharpness of a point in the 
+This factor is known to characterize the stable solutions for GD and SGD
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "wu2018sgd,nar2018step,Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+.
+ Note that this measure captures the sharpness of a point in the 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1023,15 +1105,7 @@ worst-case
 \begin_inset Quotes erd
 \end_inset
 
- sense, and is the factor affecting stable convergence of GD and SGD 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Mulayoff2020Unique,nar2018step"
-literal "false"
-
-\end_inset
-
-.
+ sense, i.e., it depends only on the direction of maximal curvature.
 \end_layout
 
 \begin_layout Standard
@@ -1375,7 +1449,7 @@ The proof of
 \begin_inset Formula $\text{\prettyref{prop:FlatUnbalanced}}$
 \end_inset
 
-relied on the fact that the maximal eigenvalue of the Hessian of 
+ relied on the fact that the maximal eigenvalue of the Hessian of 
 \begin_inset Formula $\phi$
 \end_inset
 
@@ -1873,7 +1947,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-In conclusion, we see that even the new definition of sharpness (
+In conclusion, we see that even the new definition of sharpness 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "eq:sharp_def_trace"
@@ -1883,7 +1957,7 @@ noprefix "false"
 
 \end_inset
 
-) is not enough to achieve balancedness for the flattest solutions, apart
+ is not enough to achieve balancedness for the flattest solutions, apart
  from the simple case of 2-layers.
 \end_layout
 
@@ -2346,11 +2420,15 @@ noprefix "false"
 
 \end_inset
 
-, then the Moore-Penrose pseudo-inverse is a right inverse, i.e., and 
+, then the Moore-Penrose pseudo-inverse is a right inverse and 
 \begin_inset Formula $X^{+}=X^{T}\left(XX^{T}\right)^{-1}.$
 \end_inset
 
- This yields:
+
+\end_layout
+
+\begin_layout Remark*
+This yields:
 \begin_inset Formula 
 \[
 \Psi=\left\{ YX^{+}+K{\color{gray}\underset{=\mathbb{0}_{d_{x}}}{\underbrace{{\normalcolor \left(I_{d_{x}}-XX^{+}\right)}}}}\Bigm\vert K\in\mathbb{R}^{d_{y}\times d_{x}}\right\} =\left\{ YX^{T}\left(XX^{T}\right)^{-1}\right\} 
@@ -2362,7 +2440,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Remark*
-Now by the analogous assumption, 
+Now, by assumption 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "assumption:white"
@@ -2387,8 +2465,25 @@ noprefix "false"
 
 \end_layout
 
+\begin_layout Remark*
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
-The proof follows the scheme of the single-solution case 
+The proof of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:min-sharpness-underdetermined"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ follows the scheme of the single-solution case 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Mulayoff2020Unique"
