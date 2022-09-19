@@ -1132,7 +1132,7 @@ noprefix "false"
 
 \begin_layout Enumerate
 \begin_inset Argument 1
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2230,7 +2230,13 @@ name "assumption:pseudo-white"
 .
 \end_layout
 
-\begin_layout Remark*
+\begin_layout Remark
+\begin_inset CommandInset label
+LatexCommand label
+name "rem:on-whitened-assumption"
+
+\end_inset
+
 We note that this assumption may be unreasonable for study of generalization.
  Beside its inapplicability to modern practices, whitening is known to potential
 ly impede generalization —mainly due to re-scaling of feature variances
@@ -4023,7 +4029,7 @@ name "subsec:def-agnostic-indf"
 \end_layout
 
 \begin_layout Standard
-As discussed in 
+As discussed in section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Balancedness-of-Flattest"
@@ -4033,8 +4039,34 @@ noprefix "false"
 
 \end_inset
 
- there are many different definitions for the sharpness of a solutions.
- 
+ there are different definitions for the sharpness of a solutions studied
+ in literature.
+ For example, while maximal Hessian eigenvalue was used in the study of
+ stability of at minima 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "wu2018sgd,nar2018step,Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+, magnitude aware measures such as the scaled trace of the Hessian 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "ding2022flat"
+literal "false"
+
+\end_inset
+
+ and PAC-Bayesian measures 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "dziugaite2017nonvacuosPACBayes,Jiang2020Fantastic"
+literal "false"
+
+\end_inset
+
+ are often used in relation to generalization.
 \end_layout
 
 \begin_layout Standard
@@ -4048,8 +4080,13 @@ noprefix "false"
 
 \end_inset
 
- relied on tolerance of the maximal Hessian eigenvalue to small perturbations
- of singular values, this begs the question:
+ relied on the tolerance of the maximal Hessian eigenvalue to small perturbation
+s of weight matrices singular values.
+ 
+\end_layout
+
+\begin_layout Standard
+The proof begs the question:
 \end_layout
 
 \begin_layout Standard
@@ -4079,15 +4116,8 @@ noprefix "false"
 \begin_inset Formula $rank(Y)=d_{y}$
 \end_inset
 
-, any sharpness measure 
-\begin_inset Formula $\omega:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
-\end_inset
-
- that depends only on a local neighborhood of 
-\begin_inset Formula $\phi$
-\end_inset
-
- does not correlate with generalization.
+, any local sharpness measure cannot differentiate between different end-to-end
+ solutions.
 \end_layout
 
 \begin_layout Definition
@@ -4139,19 +4169,21 @@ where
 \end_layout
 
 \begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:indifference-any-def"
+
+\end_inset
+
 Assume that that 
 \begin_inset Formula $d_{y}\le N\le d_{x}$
 \end_inset
 
-, 
-\begin_inset Formula $rank(Y)=d_{y}$
+, and that 
+\begin_inset Formula $Y$
 \end_inset
 
- and 
-\begin_inset Formula $rank(X)=N$
-\end_inset
-
-.
+ is of full rank.
  Let 
 \begin_inset Formula $\omega:\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\rightarrow\mathbb{R}$
 \end_inset
@@ -4174,7 +4206,7 @@ By our assumption for any solution
 \end_inset
 
  it holds that 
-\begin_inset Formula $rank\left(T\right)\ge rank\left(TX\right)=rank\left(Y\right)=d_{y}$
+\begin_inset Formula $rank\left(T\right)\ge rank\left(TX\right){\color{gray}\overset{TX=Y}{\overbrace{{\normalcolor =}}}}rank\left(Y\right)=d_{y}$
 \end_inset
 
 .
@@ -4256,6 +4288,786 @@ thus we conclude that
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Discussion
+\end_layout
+
+\begin_layout Subsection
+Completing the Analysis
+\end_layout
+
+\begin_layout Standard
+In this section we discuss the simplifying assumptions made in our assumptions
+ and their justifications, and disclose open questions that were not addressed
+ in the paper.
+\end_layout
+
+\begin_layout Subsubsection
+The Whitened Data Assumption
+\end_layout
+
+\begin_layout Standard
+As discussed in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "rem:on-whitened-assumption"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, assumption 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:pseudo-white"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ that the data is 
+\begin_inset Quotes eld
+\end_inset
+
+pseudo-white
+\begin_inset Quotes erd
+\end_inset
+
+ was only used to simplify the analysis in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lemma:unif-lb"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ As in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+, we did not find a closed form solution for the maximization over 
+\begin_inset Formula $B$
+\end_inset
+
+ in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:lower-bound"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in the general setting, however we conjecture that 
+\begin_inset Formula $\min_{w\in\Omega(T)}\lambda_{\mathrm{\max}}\left(H_{w}\right)=\max_{\left\Vert B\right\Vert _{F}=1}\nu_{T}\left(B\right)$
+\end_inset
+
+ for this setting as-well.
+\end_layout
+
+\begin_layout Subsubsection
+The Assumptions of Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:indifference-any-def"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:assumptions-for-indf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:indifference-any-def"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we assume that that 
+\begin_inset Formula $d_{y}\le N\le d_{x}$
+\end_inset
+
+, and that 
+\begin_inset Formula $Y$
+\end_inset
+
+ is of full rank.
+ These assumptions force any solution 
+\begin_inset Formula $T\in\Psi\subseteq\mathbb{R}^{d_{y}\times d_{x}}$
+\end_inset
+
+ to be of full rank, which in turn force any overparameterization 
+\begin_inset Formula $\left(\kaliseries W,m\right)\in\Omega\left(T\right)$
+\end_inset
+
+ to satisfy regularity constraint 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:overparam-regularity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Particularly, this forces the flattest overparameterization of the flattest
+ solution to satisfy 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:overparam-regularity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, thus allowing us to bound the sharpness of all end-to-end solutions by
+ the minimal sharpness.
+\end_layout
+
+\begin_layout Standard
+Note that these assumptions comply with the common setting of linear regression,
+ yet may not hold in more complex settings (see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:complex-models"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+We shall now discuss our thoughts on proving 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:indifference-any-def"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, without the assumptions stated above.
+ In essence 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:indifference-any-def"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ relies on the fact that there exists a line 
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}$
+\end_inset
+
+, connecting two end-to-end functions 
+\begin_inset Formula $T_{1},T_{2}$
+\end_inset
+
+ in the overparameterized space, along which the loss is constant.
+\end_layout
+
+\begin_layout Standard
+Formally, suppose 
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\Omega\left(T_{1}\right)$
+\end_inset
+
+, then 
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)$
+\end_inset
+
+ must satisfy:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+label=
+\backslash
+alph{enumi}.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $T_{2}=\left(\bar{W}_{i}+\Delta_{i}\right)_{m:1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+For every 
+\begin_inset Formula $\left(\kaliseries W,m\right)\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}$
+\end_inset
+
+, it holds that: 
+\begin_inset Formula 
+\[
+\phi\left(\left(\kaliseries W,m\right)+\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right)=\phi\left(\kaliseries W,m\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "def:dead-direction-delta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is a specific choice of 
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)$
+\end_inset
+
+, applicable when 
+\begin_inset Formula $rank\left(\bar{W}_{m:2}\right)=d_{y}$
+\end_inset
+
+.
+ We can write a system of equations for 
+\begin_inset Formula $\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)$
+\end_inset
+
+ in the general case: 
+\begin_inset Formula 
+\begin{equation}
+\begin{aligned}\left(\bar{W}_{i}+\Delta_{i}\right)_{m:1} & =T_{2}\\
+\left(\left(\bar{W}_{i}+\Delta_{i}\right)_{m:1}-T_{1}\right)X & =\mathbb{0}_{d_{y}\times d_{x}}
+\end{aligned}
+\label{eq:general-dir-system}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is a system of 
+\begin_inset Formula $2\cdot d_{y}\cdot d_{x}$
+\end_inset
+
+ polynomial equations in 
+\begin_inset Formula $\sum_{i=1}^{m}d_{i}\cdot d_{i-1}$
+\end_inset
+
+unknowns, and by assumption 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "assumption:capacity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ it is undetermined for 
+\begin_inset Formula $m\ge2$
+\end_inset
+
+.
+ Unfortunately we could not find more linnet conditions, under which this
+ system has a solution.
+ 
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset Formula $\left(\kaliseries{\bar{W}},m\right)\in\Omega_{0}\left(T_{1}\right)$
+\end_inset
+
+ and the corresponding system has a solution, one has 
+\begin_inset Formula $\rho(T_{2})\le\rho(T_{1})$
+\end_inset
+
+, following the proof of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "prop:invariant-directions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Insights Towards Complex Models 
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:complex-models"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The results of sections 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:reg-regression-indf"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:def-agnostic-indf"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ show that for the setting of overparameterized linear regression, flatness
+ cannot serve to differentiate between different end-to-end solutions.
+ An immediate question arises:
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing onehalf
+\align center
+
+\emph on
+Does this phenomenon occur in other overparameterized linear models?
+\emph default
+ 
+\end_layout
+
+\begin_layout Standard
+If this is indeed the case, this phenomenon may shed light on the relationship
+ between flatness and generalization, and on the role of non-linearity in
+ deep learning models.
+ Another linear model that serves as a standard test-bed, in the theoretical
+ study of deep learning is 
+\emph on
+low-rank
+\emph default
+ 
+\emph on
+matrix sensing
+\emph default
+ (
+\emph on
+e.g
+\emph default
+.
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "gunasekar2017implicit,arora2019implicit,razin2020implicit,ding2022flat"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Subsubsection
+Matrix Sensing Setting 
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:matrix-sensing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Suppose that we want to recover a ground truth matrix 
+\begin_inset Formula $M\in\mathbb{R}^{d_{r}^{\ast}\times d_{c}^{\ast}}$
+\end_inset
+
+ with rank 
+\begin_inset Formula $r$
+\end_inset
+
+, from a set of observed measurements 
+\begin_inset Formula $b=\mathcal{A}\left(M\right)$
+\end_inset
+
+.
+ We consider the case where 
+\begin_inset Formula $\mathcal{A}$
+\end_inset
+
+ is a linear measurement map: 
+\begin_inset Formula $\mathcal{A}:\mathbb{R}^{d_{r}^{\ast}\times d_{c}^{\ast}}\rightarrow\mathbb{R}^{N}$
+\end_inset
+
+, where 
+\begin_inset Formula $N$
+\end_inset
+
+ denotes the number of observed measurements.
+ We can write the linear map 
+\begin_inset Formula $\mathcal{A}\left(X\right)$
+\end_inset
+
+ in coordinates as: 
+\begin_inset Formula 
+\[
+\mathcal{A}\left(X\right)=\left(\left\langle A_{1},X\right\rangle ,\left\langle A_{2},X\right\rangle ,...,\left\langle A_{N},X\right\rangle \right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $A_{i}\in\mathbb{R}^{d_{r}^{\ast}\times d_{c}^{\ast}}$
+\end_inset
+
+ correspond to 
+\begin_inset Formula $\mathcal{A}$
+\end_inset
+
+, and 
+\begin_inset Formula $\left\langle \cdot,\cdot\right\rangle $
+\end_inset
+
+ denotes the Frobenius inner-product.
+\end_layout
+
+\begin_layout Standard
+The deep learning approach to solve this problem is to search for a factorizatio
+n of 
+\begin_inset Formula $M$
+\end_inset
+
+ as a LNN:
+\begin_inset Formula 
+\[
+M=W_{m}W_{m-1}\dotsm W_{1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $W_{i}\in\mathbb{R}^{d_{i}\times d_{i-1}}$
+\end_inset
+
+ are weight matrices.
+\end_layout
+
+\begin_layout Standard
+We focus on the case where the hidden dimension do not constrain the rank:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+label=
+\backslash
+bfseries{C1}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "assumption:single-sol-1"
+
+\end_inset
+
+ For any 
+\begin_inset Formula $i\in[m-1]$
+\end_inset
+
+ it holds that 
+\begin_inset Formula $d_{i}\ge\max\left\{ d_{r}^{\ast},d_{c}^{\ast}\right\} $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The overparameterized quadratic loss is defined for this problem by:
+\begin_inset Formula 
+\[
+\phi\left(\kaliseries W,m\right)=\left\Vert \mathcal{A}\left(W_{m:1}\right)-M\right\Vert _{F}^{2}=\sum_{i=1}^{N}\left\langle A_{i},W_{m:1}-M\right\rangle ^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To make the problem well-posed a standard assumption is that M is of low
+ rank (with applications to: collaborative filtering, social networks recovery,
+ traffic sensing, etc 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "li2019survey"
+literal "false"
+
+\end_inset
+
+).
+ In this setting generalization corresponds to how similar 
+\begin_inset Formula $W_{m:1}$
+\end_inset
+
+ is to 
+\begin_inset Formula $M$
+\end_inset
+
+ with regard to unobserved measurements.
+\end_layout
+
+\begin_layout Standard
+We note that overparameterized linear regression could be thought of a special
+ case of matrix sensing.
+ Formally:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+label=
+\backslash
+bfseries{A3}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "assumption:observed-x"
+
+\end_inset
+
+Assume that 
+\begin_inset Formula $M$
+\end_inset
+
+ can be decomposed into 
+\begin_inset Formula $M=WX$
+\end_inset
+
+ for some observed matrix 
+\begin_inset Formula $X=\left(x_{1},x_{2},...,x_{d_{c}^{\ast}}\right)\in\mathbb{R}^{d_{x}\times d_{c}^{\ast}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+We can define the label matrix by 
+\begin_inset Formula $Y=M$
+\end_inset
+
+, and the set of linear measurements by:
+\begin_inset Formula 
+\[
+A_{i.j}=\left(\mathbb{0}_{d_{c}^{\ast}},...,\mathbb{0}_{d_{c}^{\ast}},{\color{gray}\underset{i}{\underbrace{{\normalcolor x_{j}}}}},\mathbb{0}_{d_{c}^{\ast}},...,\mathbb{0}_{d_{c}^{\ast}}\right)^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+for 
+\begin_inset Formula $\left(i,j\right)\in\left[d_{x}\right]\times\left[d_{c}^{\ast}\right]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Applicability of Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:indifference-any-def"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to Matrix Sensing
+\end_layout
+
+\begin_layout Standard
+The matrix sensing formulation of linear regression described in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:matrix-sensing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows the key restrictions under which 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:indifference-any-def"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ was proved.
+ Firstly, this setting restrict 
+\begin_inset Formula $\mathcal{A}$
+\end_inset
+
+ to be composed of only rank-1 measurements.
+ In this setting each instance 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ dictates the same 1-dimensional row-space, for the family of measurements
+ 
+\begin_inset Formula $\left\{ A_{i,j}\right\} _{i\in[d_{x}]}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Perhaps more importantly, the assumption that 
+\begin_inset Formula $Y$
+\end_inset
+
+ is of full rank, required by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:indifference-any-def"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, is infeasible in the general matrix sensing.
+ Nevertheless, as discussed in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:assumptions-for-indf"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, this assumption was made in order to address a technical difficulty in
+ the analysis.
+ Thus finding a solution of 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:general-dir-system"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, which does not impose that 
+\begin_inset Formula $\bar{W}_{m:2}$
+\end_inset
+
+ is of a full-rank, may pave the way to theoretically comparing the flatness
+ of solutions, in the low-rank measurement matrix sensing setting.
 \end_layout
 
 \begin_layout Standard
@@ -5044,7 +5856,7 @@ name "subsec:proof-of-non-square-case"
 
 Proof of Lemma 
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "lem:non-square-case"
 plural "false"
 caps "false"
@@ -5214,7 +6026,7 @@ name "subsec:proof-of-2-layer-case"
 
 Proof of Theorem 
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "thm:2-layer-case"
 plural "false"
 caps "false"
@@ -5531,7 +6343,7 @@ name "subsec:proof-of-m-layer-case"
 
 Proof for Lemma 
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "lem:m-layer-case"
 plural "false"
 caps "false"
@@ -5779,15 +6591,15 @@ Let
 
 \begin_layout Proof
 \begin_inset Formula 
-\begin{align*}
-\max_{\left\Vert B\right\Vert _{F}=1}\nu_{T}\left(B\right) & =2m\left\Vert \left(B\hat{\Sigma}_{x}^{\frac{1}{2}}T^{T}\right)^{m-1}B\hat{\Sigma}_{x}^{\frac{1}{2}}\right\Vert _{2}^{\frac{2}{m}}\\
- & \stackrel{\ref{assumption:pseudo-white}}{=}\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXX^{T}\left(YX^{+}+K\left(I_{d_{x}}-XX^{+}\right)\right)^{T}\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
- & =\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXX^{T}\left(\left(X^{T}\right)^{+}Y^{T}+\left(I_{d_{x}}-\left(X^{T}\right)^{+}X^{T}\right)K^{T}\right)\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
- & =\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXY^{T}\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
- & \le\max_{\left\Vert B\right\Vert _{F}=1}2m\left(\left\Vert B\right\Vert _{2}\left\Vert XY^{T}\right\Vert _{2}\right)^{2\left(1-\frac{1}{m}\right)}\left\Vert B\right\Vert _{2}^{\frac{2}{m}}\left\Vert XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
- & \le2m\left\Vert XY^{T}\right\Vert _{2}^{2\left(1-\frac{1}{m}\right)}\left\Vert XX^{T}\right\Vert _{2}^{\frac{2}{m}}\\
- & =2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}
-\end{align*}
+\begin{align}
+\max_{\left\Vert B\right\Vert _{F}=1}\nu_{T}\left(B\right) & =2m\left\Vert \left(B\hat{\Sigma}_{x}^{\frac{1}{2}\tilde{n}}T^{T}\right)^{m-1}B\hat{\Sigma}_{x}^{\frac{1}{2}}\right\Vert _{2}^{\frac{2}{m}}\label{eq:lower-bound}\\
+ & \stackrel{\ref{assumption:pseudo-white}}{=}\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXX^{T}\left(YX^{+}+K\left(I_{d_{x}}-XX^{+}\right)\right)^{T}\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\nonumber \\
+ & =\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXX^{T}\left(\left(X^{T}\right)^{+}Y^{T}+\left(I_{d_{x}}-\left(X^{T}\right)^{+}X^{T}\right)K^{T}\right)\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\nonumber \\
+ & =\max_{\left\Vert B\right\Vert _{F}=1}2m\left\Vert \left(BXY^{T}\right)^{m-1}BXX^{T}\right\Vert _{2}^{\frac{2}{m}}\nonumber \\
+ & \le\max_{\left\Vert B\right\Vert _{F}=1}2m\left(\left\Vert B\right\Vert _{2}\left\Vert XY^{T}\right\Vert _{2}\right)^{2\left(1-\frac{1}{m}\right)}\left\Vert B\right\Vert _{2}^{\frac{2}{m}}\left\Vert XX^{T}\right\Vert _{2}^{\frac{2}{m}}\nonumber \\
+ & \le2m\left\Vert XY^{T}\right\Vert _{2}^{2\left(1-\frac{1}{m}\right)}\left\Vert XX^{T}\right\Vert _{2}^{\frac{2}{m}}\nonumber \\
+ & =2m\left(\sigma_{\max}\left(YX^{T}\right)\right)^{2\left(1-\frac{1}{m}\right)}\nonumber 
+\end{align}
 
 \end_inset
 
@@ -6096,7 +6908,7 @@ name "subsec:proof-of-lem-acheived"
 
 Proof of Lemma 
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "lem:lower-bound-achieved"
 plural "false"
 caps "false"
