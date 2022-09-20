@@ -4287,38 +4287,34 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-Empirical studies (
+Empirical studies 
 \begin_inset CommandInset citation
-LatexCommand citet
+LatexCommand citep
 key "Jiang2020Fantastic"
 literal "false"
 
 \end_inset
 
-) have shown a correlation between the flatness of the loss landscape at
+ have shown a correlation between the flatness of the loss landscape at
  a solution, and how well the solution generalizes.
  Our work seeks to find if and in what way flatness could explain generalization
- in the case of LNNs.
+ in the setting of overparameterized linear regression.
 \end_layout
 
 \begin_layout Standard
-We first studied the relation between balancedness and flatness of a single
- solution in LNNs.
- We have shown that for two common measures of flatness, maximal singular
- value and trace of the hessian of the overparameterized loss, a balanced
- solution is not a flattest one.
+First, we have shown that for two common measures of flatness - maximal
+ singular value and trace of the hessian of the overparameterized loss -
+ a balanced solution is not a flattest one.
 \end_layout
 
 \begin_layout Standard
-Secondly, we looked into the underdetermined setting where multiple end-to-end
- solutions exists.
- We showed that in LNNs, under reasonable assumptions, all solutions share
+Secondly, we showed that under reasonable assumptions, all solutions share
  the same flatness.
- Furthermore, we proved that any local definition of sharpness will yield
+ Furthermore, we proved that any local defintion of sharpness will yield
  the same results.
  With this in mind, we conclude that the setting of overparameterized linear
- regression is unsuitable for researching the effects of flatness on generalizat
-ion.
+ regression is unsuitable for explaining the connection between flatness
+ and generalization.
 \end_layout
 
 \begin_layout Section
