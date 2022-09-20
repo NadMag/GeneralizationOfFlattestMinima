@@ -494,11 +494,11 @@ literal "false"
 \end_layout
 
 \begin_layout Subsection
-Main Results and Outline of the Paper
+Main Results and Outline of the Project
 \end_layout
 
 \begin_layout Standard
-The remainder of the paper is organized as follows.
+The remainder of the project report is organized as follows.
  Section 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -566,7 +566,7 @@ any
 \end_layout
 
 \begin_layout Section
-Singe Solution Problem Setting 
+Single Solution Problem Setting 
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:single-sol-setting"
@@ -699,7 +699,7 @@ T=\hat{\Sigma}_{yx}\hat{\Sigma}_{x}^{-1}:=YX^{T}\left(XX^{T}\right)^{-1}
 \end_layout
 
 \begin_layout Standard
-Let us deonte the the SVD of 
+Let us denote the the SVD of 
 \begin_inset Formula $T$
 \end_inset
 
@@ -784,13 +784,6 @@ noprefix "false"
 \end_inset
 
  for brevity.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage newpage
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -979,6 +972,19 @@ name "def:gf"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Furthermore results (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "elkabetz2021continuous"
+literal "false"
+
+\end_inset
+
+) bound the distance between the trajectories of GF and small step size
+ GD, supporting the applicability of such analyses to real world optimization.
 \end_layout
 
 \begin_layout Standard
@@ -1604,7 +1610,7 @@ name "lem:bal-hes-trace"
 
 \end_inset
 
-For a balnced solution, it holds that: 
+For a balanced solution, it holds that: 
 \begin_inset Formula $||\prod_{i=k}^{n}W_{i}||_{F}^{2}=||S^{\frac{n-k+1}{m}}||_{F}^{2}$
 \end_inset
 
@@ -1961,13 +1967,6 @@ noprefix "false"
  from the simple case of 2-layers.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Newpage newpage
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 Analysis of the Underdetermined Setting 
 \begin_inset CommandInset label
@@ -2066,7 +2065,7 @@ For a single end-to-end solution
  we denote the set of overparameterizations as a LNN by:
 \begin_inset Formula 
 \begin{equation}
-\Omega(T)=\left\{ (W_{1},W_{2},...,W_{m})\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\ \Bigm\vert\ W_{1:m}=T\right\} 
+\Omega(T)=\left\{ (W_{1},W_{2},...,W_{m})\in\prod_{i=1}^{m}\mathbb{R}^{d_{i}\times d_{i-1}}\ \Bigm\vert\ W_{m:1}=T\right\} 
 \end{equation}
 
 \end_inset
@@ -2858,13 +2857,6 @@ noprefix "false"
 .
 \end_layout
 
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection
 Generalization of Flattest Solutions 
 \begin_inset CommandInset label
@@ -3275,7 +3267,7 @@ noprefix "false"
  that satisfies: 
 \begin_inset Formula 
 \begin{equation}
-rank\left(\bar{W}_{2:m}\right)=d_{y}\ or\ rank\left(\bar{W}_{1:m-1}\right)=d_{x}\label{eq:overparam-regularity}
+rank\left(\bar{W}_{m:2}\right)=d_{y}\ or\ rank\left(\bar{W}_{m-1:1}\right)=d_{x}\label{eq:overparam-regularity}
 \end{equation}
 
 \end_inset
@@ -3324,7 +3316,7 @@ alph{enumi}.
 \end_inset
 
 
-\begin_inset Formula $T_{2}=\left(\bar{W}_{i}+\Delta_{i}\right)_{1:m}$
+\begin_inset Formula $T_{2}=\left(\bar{W}_{i}+\Delta_{i}\right)_{m:1}$
 \end_inset
 
 
@@ -3359,7 +3351,7 @@ Assume
  by:
 \begin_inset Formula 
 \begin{equation}
-\Delta_{1}=\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\ ,\quad\Delta_{i}=\mathbb{0}_{d_{i}\times d_{i-1}},i\in\left\{ 2,3,...,m\right\} \label{def:dead-direction-delta}
+\Delta_{1}=\left(\bar{W}_{m:2}\right)^{+}\left(T_{2}-T_{1}\right)\ ,\quad\Delta_{i}=\mathbb{0}_{d_{i}\times d_{i-1}},i\in\left\{ 2,3,...,m\right\} \label{def:dead-direction-delta}
 \end{equation}
 
 \end_inset
@@ -3383,7 +3375,7 @@ Notice that by construction
 i.e.:
 \begin_inset Formula 
 \[
-\left(\bar{W}_{i}+\Delta_{i}\right)_{1:m}=\bar{W}_{2:m}\left(\bar{W}_{1}+\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right)=T_{2}
+\left(\bar{W}_{i}+\Delta_{i}\right)_{m:1}=\bar{W}_{m:2}\left(\bar{W}_{1}+\left(\bar{W}_{m:2}\right)^{+}\left(T_{2}-T_{1}\right)\right)=T_{2}
 \]
 
 \end_inset
@@ -3393,11 +3385,11 @@ i.e.:
 
 \begin_layout Proof
 Where the last equality holds because by assumption 
-\begin_inset Formula $\bar{W}_{2:m}$
+\begin_inset Formula $\bar{W}_{m:2}$
 \end_inset
 
  has linearly-independent rows, so 
-\begin_inset Formula $\left(\bar{W}_{2:m}\right)^{+}$
+\begin_inset Formula $\left(\bar{W}_{m:2}\right)^{+}$
 \end_inset
 
  is a right inverse.
@@ -3411,10 +3403,10 @@ Next we show that the loss is constant along
 :
 \begin_inset Formula 
 \begin{align*}
-\phi\left(\left(\kaliseries{\bar{W}},m\right)+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right) & =\left\Vert \left(\bar{W}_{i}+t\Delta_{i}\right)_{1:m}X-Y\right\Vert _{F}^{2}\\
- & =\left\Vert \bar{W}_{2:m}\left(\bar{W}_{1}+t\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right)X-Y\right\Vert _{F}^{2}\\
- & =\left\Vert \bar{W}_{1:m}X+t\bar{W}_{2:m}\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)X-Y\right\Vert _{F}^{2}\\
- & =\left\Vert \bar{W}_{1:m}X-Y\right\Vert _{F}^{2}\\
+\phi\left(\left(\kaliseries{\bar{W}},m\right)+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right) & =\left\Vert \left(\bar{W}_{i}+t\Delta_{i}\right)_{m:1}X-Y\right\Vert _{F}^{2}\\
+ & =\left\Vert \bar{W}_{m:2}\left(\bar{W}_{1}+t\left(\bar{W}_{m:2}\right)^{+}\left(T_{2}-T_{1}\right)\right)X-Y\right\Vert _{F}^{2}\\
+ & =\left\Vert \bar{W}_{m:1}X+t\bar{W}_{m:2}\left(\bar{W}_{m:2}\right)^{+}\left(T_{2}-T_{1}\right)X-Y\right\Vert _{F}^{2}\\
+ & =\left\Vert \bar{W}_{m:1}X-Y\right\Vert _{F}^{2}\\
  & =\phi\left(\kaliseries{\bar{W}},m\right)
 \end{align*}
 
@@ -3439,7 +3431,7 @@ For the case where
  we can similarly define:
 \begin_inset Formula 
 \[
-\Delta_{m}=\left(\bar{W}_{1:m-1}\right)^{+}\left(T_{2}-T_{1}\right)\ ,\quad\Delta_{i}=\mathbb{0}_{d_{i}\times d_{i-1}},i\in\left[m-1\right]
+\Delta_{m}=\left(\bar{W}_{m-1:1}\right)^{+}\left(T_{2}-T_{1}\right)\ ,\quad\Delta_{i}=\mathbb{0}_{d_{i}\times d_{i-1}},i\in\left[m-1\right]
 \]
 
 \end_inset
@@ -3449,11 +3441,11 @@ For the case where
 
 \begin_layout Proof
 In this case 
-\begin_inset Formula $W_{1:m-1}$
+\begin_inset Formula $W_{m-1:1}$
 \end_inset
 
  has linearly-independent columns, so 
-\begin_inset Formula $\left(W_{1:m-1}\right)^{+}$
+\begin_inset Formula $\left(W_{m-1:1}\right)^{+}$
 \end_inset
 
  is a left inverse, the proof is analogous.
@@ -3576,7 +3568,7 @@ noprefix "false"
 
 \begin_deeper
 \begin_layout Enumerate
-\begin_inset Formula $T_{2}=\left(\bar{W}_{i}+\Delta_{i}\right)_{1:m}$
+\begin_inset Formula $T_{2}=\left(\bar{W}_{i}+\Delta_{i}\right)_{m:1}$
 \end_inset
 
 
@@ -3757,7 +3749,7 @@ noprefix "false"
  such that: 
 \begin_inset Formula 
 \[
-rank\left(\bar{W}_{2:m}\right)=d_{y}\ or\ rank\left(\bar{W}_{1:m-1}\right)=d_{x}
+rank\left(\bar{W}_{m:2}\right)=d_{y}\ or\ rank\left(\bar{W}_{m-1:1}\right)=d_{x}
 \]
 
 \end_inset
@@ -3905,7 +3897,7 @@ noprefix "false"
 \end_inset
 
  such that 
-\begin_inset Formula $rank\left(W_{2:m}\right)=d_{y}$
+\begin_inset Formula $rank\left(W_{m:2}\right)=d_{y}$
 \end_inset
 
 .
@@ -3933,7 +3925,7 @@ noprefix "false"
  for 
 \begin_inset Formula 
 \[
-\Delta_{1}=\left(W_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\ ,\quad\Delta_{i}=\mathbb{0}_{d_{i}\times d_{i-1}},i\in\left\{ 2,3,...,m\right\} 
+\Delta_{1}=\left(W_{m:2}\right)^{+}\left(T_{2}-T_{1}\right)\ ,\quad\Delta_{i}=\mathbb{0}_{d_{i}\times d_{i-1}},i\in\left\{ 2,3,...,m\right\} 
 \]
 
 \end_inset
@@ -4219,7 +4211,7 @@ By our assumption for any solution
 \end_inset
 
  is a flattest overparameterization, it holds that 
-\begin_inset Formula $rank\left(W_{2:m}\right)\ge rank\left(T_{0}\right)=d_{y}$
+\begin_inset Formula $rank\left(W_{m:2}\right)\ge rank\left(T_{0}\right)=d_{y}$
 \end_inset
 
 .
@@ -4291,6 +4283,45 @@ thus we conclude that
 \end_layout
 
 \begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+Empirical studies (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Jiang2020Fantastic"
+literal "false"
+
+\end_inset
+
+) have shown a correlation between the flatness of the loss landscape at
+ a solution, and how well the solution generalizes.
+ Our work seeks to find if and in what way flatness could explain generalization
+ in the case of LNNs.
+\end_layout
+
+\begin_layout Standard
+We first studied the relation between balancedness and flatness of a single
+ solution in LNNs.
+ We have shown that for two common measures of flatness, maximal singular
+ value and trace of the hessian of the overparameterized loss, a balanced
+ solution is not a flattest one.
+\end_layout
+
+\begin_layout Standard
+Secondly, we looked into the underdetermined setting where multiple end-to-end
+ solutions exists.
+ We showed that in LNNs, under reasonable assumptions, all solutions share
+ the same flatness.
+ Furthermore, we proved that any local definition of sharpness will yield
+ the same results.
+ With this in mind, we conclude that the setting of overparameterized linear
+ regression is unsuitable for researching the effects of flatness on generalizat
+ion.
+\end_layout
+
+\begin_layout Section
 Discussion
 \end_layout
 
@@ -4301,7 +4332,7 @@ Completing the Analysis
 \begin_layout Standard
 In this section we discuss the simplifying assumptions made in our assumptions
  and their justifications, and disclose open questions that were not addressed
- in the paper.
+ in the project report.
 \end_layout
 
 \begin_layout Subsubsection
@@ -5124,8 +5155,15 @@ First, notice that the set
 \end_inset
 
  is non-empty.
- Mulayoff et al.
- (2020) proposed the canonical flattest solution:
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Mulayoff2020Unique"
+literal "false"
+
+\end_inset
+
+ proposed the canonical flattest solution:
 \begin_inset Formula 
 \begin{equation}
 W_{m}^{\ast}=US_{m}^{\frac{1}{m}},\quad W_{j}^{\ast}=S_{j}^{\frac{1}{m}},\quad W_{1}^{\ast}=S_{1}^{\frac{1}{m}}V^{T}\label{eq:Cannonical-sol}
@@ -5149,7 +5187,7 @@ Where
 \begin_inset Formula $k$
 \end_inset
 
-th diagonal entry is 
+-th diagonal entry is 
 \begin_inset Formula $\sigma_{k}\left(T\right)$
 \end_inset
 
@@ -5161,7 +5199,7 @@ th diagonal entry is
 \begin_inset Formula $k$
 \end_inset
 
-th largest singular value of 
+-th largest singular value of 
 \begin_inset Formula $T$
 \end_inset
 
@@ -5255,7 +5293,7 @@ and the multiplicity of the
 \begin_inset Formula $i$
 \end_inset
 
-th eigenvalue by 
+-th eigenvalue by 
 \begin_inset Formula $\mu_{i}^{k}$
 \end_inset
 
@@ -5386,10 +5424,10 @@ noprefix "false"
  we have:
 \begin_inset Formula 
 \begin{align*}
-\bar{W}_{1:m} & =\prod_{j=k+2}^{m}W_{j}U_{k+1}\bar{S}_{k+1}{\color{gray}\underset{=I_{d_{k}}}{\underbrace{{\normalcolor \left(V_{k}\cdot diag\left(O_{k,1},...,O_{k,r_{k}}\right)\right)^{T}U_{k}}}}}\bar{S}_{k}V_{k}^{T}\prod_{j=1}^{k-1}W_{j}\\
+\bar{W}_{m:1} & =\prod_{j=k+2}^{m}W_{j}U_{k+1}\bar{S}_{k+1}{\color{gray}\underset{=I_{d_{k}}}{\underbrace{{\normalcolor \left(V_{k}\cdot diag\left(O_{k,1},...,O_{k,r_{k}}\right)\right)^{T}U_{k}}}}}\bar{S}_{k}V_{k}^{T}\prod_{j=1}^{k-1}W_{j}\\
  & =\prod_{j=k+2}^{m}W_{j}{\color{gray}\underset{\overset{\eqref{eq:SvdChain}}{=}W_{k+1}W_{k}}{\underbrace{{\normalcolor U_{k+1}\left(S_{k}^{2}\right)V_{k}^{T}}}}}W_{k+1}\prod_{j=1}^{k-1}W_{j}\\
- & =W_{1:m}=T\\
- & \Rightarrow\bar{W}_{1:m}\in\Omega
+ & =W_{m:1}=T\\
+ & \Rightarrow\bar{W}_{m:1}\in\Omega
 \end{align*}
 
 \end_inset
@@ -5504,7 +5542,7 @@ If
 \end_inset
 
 
-\begin_inset Formula $\forall k\in[m],l\in[rank\left(W_{k}\right)].\ \sigma_{l}^{(k)}>\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}\rightarrow u_{l}^{(k)}\in Ker\left(W_{k+1:m}\right)$
+\begin_inset Formula $\forall k\in[m],l\in[rank\left(W_{k}\right)].\ \sigma_{l}^{(k)}>\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}\rightarrow u_{l}^{(k)}\in Ker\left(W_{m:k+1}\right)$
 \end_inset
 
 : We can decrease all such singular values to 
@@ -5512,7 +5550,7 @@ If
 \end_inset
 
  (and even 0), without changing the end-to-end solution: 
-\begin_inset Formula $W_{1:m}$
+\begin_inset Formula $W_{m:1}$
 \end_inset
 
 .
@@ -5525,7 +5563,7 @@ If
 \end_inset
 
  that 
-\begin_inset Formula $\bar{W}_{1:m}x=\bar{W}_{k+1:m}W_{1:k}x$
+\begin_inset Formula $\bar{W}_{m:1}x=\bar{W}_{m:k+1}W_{k:1}x$
 \end_inset
 
  for 
@@ -5556,9 +5594,9 @@ Base
 \begin_layout Standard
 \begin_inset Formula 
 \begin{alignat*}{1}
-\bar{W}_{1:m}x & =\bar{W}_{2:m}\left(\sigma_{l}^{(1)}\left\langle x,v_{l}^{(1)}\right\rangle u_{l}^{(1)}+\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)\\
- & \stackrel{}{=}\bar{W}_{2:m}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)\\
- & =\bar{W}_{2:m}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)=\bar{W}_{2:m}W_{1}x
+\bar{W}_{m:2}x & =\bar{W}_{m:2}\left(\sigma_{l}^{(1)}\left\langle x,v_{l}^{(1)}\right\rangle u_{l}^{(1)}+\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)\\
+ & \stackrel{}{=}\bar{W}_{m:2}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)\\
+ & =\bar{W}_{m:2}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(1)}\left\langle x,v_{i}^{(1)}\right\rangle u_{i}^{(1)}\right)=\bar{W}_{m:2}W_{1}x
 \end{alignat*}
 
 \end_inset
@@ -5583,8 +5621,8 @@ step: Assume that the claim holds for all
 .
 \begin_inset Formula 
 \begin{alignat*}{1}
-\bar{W}_{1:m}x & =\bar{W}_{k+1:m}\left(\sigma_{i}^{(k)}\left\langle \bar{W}_{1:k-1}x,v_{l}^{(k)}\right\rangle u_{l}^{(k)}+\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(k)}\left\langle \bar{W}_{1:k-1}x,v_{i}^{(k)}\right\rangle u_{i}^{(k)}\right)\\
- & \stackrel{i.h.}{=}\bar{W}_{k+1:m}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(k)}\left\langle W_{1:k-1}x,v_{i}^{(k)}\right\rangle u_{i}^{(k)}\right)=\bar{W}_{k+2:m}W_{1:k+1}x
+\bar{W}_{m:1}x & =\bar{W}_{m:k+1}\left(\sigma_{i}^{(k)}\left\langle \bar{W}_{k-1:1}x,v_{l}^{(k)}\right\rangle u_{l}^{(k)}+\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(k)}\left\langle \bar{W}_{k-1:1}x,v_{i}^{(k)}\right\rangle u_{i}^{(k)}\right)\\
+ & \stackrel{i.h.}{=}\bar{W}_{m:k+1}\left(\sum_{l\neq i\in[d_{x}]}\sigma_{i}^{(k)}\left\langle W_{k-1:1}x,v_{i}^{(k)}\right\rangle u_{i}^{(k)}\right)=\bar{W}_{m:k+2}W_{k+1:1}x
 \end{alignat*}
 
 \end_inset
@@ -5617,7 +5655,7 @@ noprefix "false"
 \end_deeper
 \begin_layout Standard
 Assume by contradiction that 
-\begin_inset Formula $\exists k\in[m],l\in[r_{k}].\ \sigma_{l}^{(k)}>\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}\wedge u_{l}^{(k)}\notin Ker\left(W_{k+1:m}\right)$
+\begin_inset Formula $\exists k\in[m],l\in[r_{k}].\ \sigma_{l}^{(k)}>\left(\sigma_{k}\left(T\right)\right)^{\frac{1}{m}}\wedge u_{l}^{(k)}\notin Ker\left(W_{m:k+1}\right)$
 \end_inset
 
 .
@@ -5625,7 +5663,7 @@ Assume by contradiction that
 
 \begin_layout Standard
 If 
-\begin_inset Formula $u_{l}^{(k)}\notin W_{1:k-1}X$
+\begin_inset Formula $u_{l}^{(k)}\notin W_{k-1:1}X$
 \end_inset
 
  we can set 
@@ -5638,14 +5676,14 @@ If
 
 \begin_layout Standard
 Otherwise, we know that 
-\begin_inset Formula $\exists x\in Im\left(X\right).W_{1:k-1}x=u_{l}^{(k)}$
+\begin_inset Formula $\exists x\in Im\left(X\right).W_{k-1:1}x=u_{l}^{(k)}$
 \end_inset
 
 .
  Notice that: 
 \begin_inset Formula 
 \[
-\sigma_{\min}\left(W_{k+1:m}\right)\ge\prod_{j=k+1}^{m}\sigma_{\min}^{(j)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{m-k+1}{m}},\quad\sigma_{\min}\left(W_{1:k-1}\right)\ge\prod_{j=1}^{k-1}\sigma_{\min}^{(j)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{k-1}{m}}
+\sigma_{\min}\left(W_{m:k+1}\right)\ge\prod_{j=k+1}^{m}\sigma_{\min}^{(j)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{m-k+1}{m}},\quad\sigma_{\min}\left(W_{k-1:1}\right)\ge\prod_{j=1}^{k-1}\sigma_{\min}^{(j)}\ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{k-1}{m}}
 \]
 
 \end_inset
@@ -5653,8 +5691,8 @@ Otherwise, we know that
 
 \begin_inset Formula 
 \begin{align*}
-\Rightarrow\sigma_{\max}\left(T\right)\left\Vert x\right\Vert _{2} & \ge\left\Vert W_{1:m}x\right\Vert \\
- & \ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{k-1}{m}}\sigma_{l}^{(k)}\left\Vert W_{k+1:m}u_{l}^{(k)}\right\Vert _{2}\left\Vert x\right\Vert _{2}\\
+\Rightarrow\sigma_{\max}\left(T\right)\left\Vert x\right\Vert _{2} & \ge\left\Vert W_{m:1}x\right\Vert \\
+ & \ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{k-1}{m}}\sigma_{l}^{(k)}\left\Vert W_{m:k+1}u_{l}^{(k)}\right\Vert _{2}\left\Vert x\right\Vert _{2}\\
  & \ge\left(\sigma_{\max}\left(T\right)\right)^{\frac{m-1}{m}}\sigma_{l}^{(k)}\left\Vert x\right\Vert _{2}\\
  & >\sigma_{\max}\left(T\right)\left\Vert x\right\Vert _{2}
 \end{align*}
@@ -5748,7 +5786,7 @@ where
 \begin_inset Formula $\odot$
 \end_inset
 
- is the kronecker product.
+ is the Kronecker product.
 \end_layout
 
 \begin_layout Proof
@@ -6086,7 +6124,7 @@ Now we want to minimize the trace.
 \begin_inset Formula $T=USV^{T}$
 \end_inset
 
- be the SVD decompostion of T.
+ be the SVD decomposition of T.
  Then it holds that:
 \end_layout
 
@@ -6249,7 +6287,7 @@ In particular,
 \begin_inset Formula $X=Id$
 \end_inset
 
- is a local minima by defenition of 
+ is a local minima by definition of 
 \begin_inset Formula $W_{1},W_{2}$
 \end_inset
 
@@ -6355,8 +6393,8 @@ noprefix "false"
 \end_layout
 
 \begin_layout Proof
-We show a counter example here, by providing a solution wich has lower sharpness
- than any balanced solutiom.
+We show a counter example here, by providing a solution which has lower
+ sharpness than any balanced solution.
 \end_layout
 
 \begin_layout Proof
@@ -6376,7 +6414,7 @@ such that
 \begin_inset Formula $T=USV^{T}$
 \end_inset
 
- is the SVD decompostion of the end-to-end solution.
+ is the SVD decomposition of the end-to-end solution.
 \end_layout
 
 \begin_layout Proof
@@ -6622,7 +6660,7 @@ noprefix "false"
 \end_inset
 
 , and fourth by the properties of the Moore-Penrose pseudo-inverse.
- The inequality in the fith line used norm sub-multiplicity, that of the
+ The inequality in the fifth line used norm sub-multiplicity, that of the
  sixth is due to the fact that 
 \begin_inset Formula $\left\Vert B\right\Vert _{2}\le\left\Vert B\right\Vert _{F}$
 \end_inset
@@ -7068,7 +7106,7 @@ noprefix "false"
 \end_inset
 
 , by construction it holds that 
-\begin_inset Formula $T_{2}=\left(\bar{W}_{i}+\Delta_{i}\right)_{1:m}$
+\begin_inset Formula $T_{2}=\left(\bar{W}_{i}+\Delta_{i}\right)_{m:1}$
 \end_inset
 
 .
@@ -7093,10 +7131,10 @@ Let
 \begin_layout Proof
 \begin_inset Formula 
 \begin{align*}
-\phi\left((W_{1},W_{2},...,W_{m})+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right) & = & \left\Vert \left(W_{i}+t\Delta_{i}\right)_{1:m}X-Y\right\Vert _{F}^{2}\\
- & = & \left\Vert W_{2:m}\left(W_{1}+t\left(\bar{W}_{2:m}\right)^{+}\left(T_{2}-T_{1}\right)\right)X-Y\right\Vert _{F}^{2}\\
- & = & \left\Vert W_{2:m}W_{1}X+tW_{2:m}\left(\bar{W}_{2:m}\right)^{+}{\color{gray}\underset{=0}{\underbrace{{\normalcolor \left(T_{2}-T_{1}\right)X}}}}-Y\right\Vert _{F}^{2}\\
- & = & \left\Vert W_{1:m}X-Y\right\Vert _{F}^{2}\\
+\phi\left((W_{1},W_{2},...,W_{m})+t\left(\Delta_{1},\Delta_{2},...,\Delta_{m}\right)\right) & = & \left\Vert \left(W_{i}+t\Delta_{i}\right)_{m:1}X-Y\right\Vert _{F}^{2}\\
+ & = & \left\Vert W_{m:2}\left(W_{1}+t\left(\bar{W}_{m:2}\right)^{+}\left(T_{2}-T_{1}\right)\right)X-Y\right\Vert _{F}^{2}\\
+ & = & \left\Vert W_{m:2}W_{1}X+tW_{m:2}\left(\bar{W}_{m:2}\right)^{+}{\color{gray}\underset{=0}{\underbrace{{\normalcolor \left(T_{2}-T_{1}\right)X}}}}-Y\right\Vert _{F}^{2}\\
+ & = & \left\Vert W_{m:1}X-Y\right\Vert _{F}^{2}\\
  & = & \phi\left(\kaliseries{\bar{W}},m\right)
 \end{align*}
 
@@ -7250,7 +7288,7 @@ where
 \begin_inset Formula $k$
 \end_inset
 
-th diagonal entry is 
+-th diagonal entry is 
 \begin_inset Formula $\left(\sigma_{k}\left(T_{0}\right)\right)^{\frac{1}{m}}$
 \end_inset
 
@@ -7260,7 +7298,7 @@ th diagonal entry is
 
 \begin_layout Proof
 Note that by construction 
-\begin_inset Formula $rank\left(W_{2:m}\right)=d_{y}$
+\begin_inset Formula $rank\left(W_{m:2}\right)=d_{y}$
 \end_inset
 
  and that 
@@ -7276,7 +7314,7 @@ W_{1}^{\ast}=S_{1}^{\frac{1}{m}}V^{T}=\begin{pmatrix}diag\left(\sigma_{1}\left(T
  therefore:
 \begin_inset Formula 
 \[
-W_{1:m}=U\tilde{S}^{\frac{m-1}{m}}S^{\frac{1}{m}}V^{T}=USV^{T}=T_{0}
+W_{m:1}=U\tilde{S}^{\frac{m-1}{m}}S^{\frac{1}{m}}V^{T}=USV^{T}=T_{0}
 \]
 
 \end_inset
